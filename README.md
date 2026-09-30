@@ -9,5 +9,4 @@ A note that the project is a work in progress for the ITPD course.
 todo
 
 [test valid link](https://google.com)
-[test illegal link](sptth:/comgoogle)
-[test broken link](https://example.com/does-not-exist)
+[test broken link](https://github.com/itpd-absolute-cinema/llm-module-gateway/this-page-does-not-exist-123456)
