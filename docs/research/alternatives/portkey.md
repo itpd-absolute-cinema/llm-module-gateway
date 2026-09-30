@@ -37,4 +37,3 @@ Portkey gives applications one API to many LLM providers and adds reliability an
 
 ### Evidence
 
-[Research board](YOUR_BOARD_LINK)

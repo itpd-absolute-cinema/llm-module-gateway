@@ -38,4 +38,3 @@ Kong AI Gateway applies the existing Kong API gateway to LLM traffic through a s
 
 ### Evidence
 
-[Research board](YOUR_BOARD_LINK)

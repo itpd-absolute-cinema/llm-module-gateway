@@ -37,5 +37,3 @@ LiteLLM provides a single OpenAI-compatible interface to 100+ LLM providers, ava
 - Python runtime may limit performance at high request rates.
 
 ### Evidence
-
-[Research board](YOUR_BOARD_LINK)
