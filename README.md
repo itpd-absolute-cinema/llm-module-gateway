@@ -1,3 +1,7 @@
+# LLM Module Gateway
+
+[GitHub](https://github.com/itpd-absolute-cinema/llm-module-gateway)
+
 The root README.md is the public front door of the repository. In Week 1 it must contain:
 
 The project name from the course catalog, and the team number.
