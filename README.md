@@ -7,6 +7,3 @@ A link to the maintained documentation in docs/.
 A note that the project is a work in progress for the ITPD course.
 
 todo
-
-[test valid link](https://google.com)
-[test broken link](https://github.com/itpd-absolute-cinema/llm-module-gateway/this-page-does-not-exist-123456)
