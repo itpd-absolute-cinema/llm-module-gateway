@@ -7,3 +7,7 @@ A link to the maintained documentation in docs/.
 A note that the project is a work in progress for the ITPD course.
 
 todo
+
+[test valid link](https://google.com)
+[test illegal link](sptth:/comgoogle)
+[test broken link](https://example.com/does-not-exist)
