@@ -1,7 +1,7 @@
 # Kickoff meeting transcript
 
-**Date:** YYYY-MM-DD
-**Participants:** artem, azamat, Customer
+**Date:** 2026-10-01
+**Participants:** Artem, Azamat, Customer
 
 Cleaned for readability: filler words, false starts and technical interruptions were removed, and the meaning was kept.
 Timestamps are relative to the start of the recording.

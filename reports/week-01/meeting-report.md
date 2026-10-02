@@ -2,9 +2,9 @@
 
 ## Metadata
 
-**Date:** YYYY-MM-DD
+**Date:** 2026-10-02
 **Duration:** 49 minutes
-**Attended:** artem, azamat, Customer
+**Attended:** Artem, Azamat, Customer
 **Presented:** our reading of the original description (data filtering), our questions on scope, and a first MVP sketch (proxy, token from `.env`, one provider, one masking plugin). We did not present `VP-01` and `VP-02`.
 **Recording:** permitted, Customer started it himself, link in the Moodle submission only
 **Transcript publication:** not asked as a separate question, to be confirmed with Customer in writing before the transcript is committed, see [the transcript](meeting-transcript.md)
