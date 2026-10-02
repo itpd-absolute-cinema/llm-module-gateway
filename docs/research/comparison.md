@@ -1,56 +1,130 @@
-# Comparison of the alternatives
+# Comparison of LLM Gateway alternatives: plugin development
 
 ## How to read this document
 
-The first column states the question asked of every product and the condition under which the answer matters, because a weakness is only a weakness for some use. "Not observed" means the ALT entry does not cover it; it does not mean the product lacks it.
+The primary question of this comparison is:
 
-Sources:
-[ALT-01 LiteLLM](alternatives/litellm.md) · [ALT-02 Portkey](alternatives/portkey.md) · [ALT-03 Kong AI Gateway](alternatives/kong-ai-gateway.md) · [ALT-04 Cloudflare AI Gateway](alternatives/cloudflare-ai-gateway.md)
+> **How easily can a team extend an LLM Gateway with its own plugins without modifying or forking the gateway itself?**
+
+This matters when gateway behavior must be adapted to company-specific requirements, such as custom checks, transformations, authentication, guardrails, routing or provider integrations.
+
+The comparison therefore treats **plugin extensibility as the primary dimension**. Data control, deployment, provider integrations, isolation and observability are included as supporting dimensions because they affect the practical value of a plugin architecture.
+
+"Not observed" means the ALT entry does not cover the capability; it does not mean the product lacks it.
+
+Sources: ALT-01 LiteLLM · ALT-02 Portkey · ALT-03 Kong AI Gateway · ALT-04 Cloudflare AI Gateway
 
 ## Table
 
-| Property: question, and when it matters | ALT-01 LiteLLM | ALT-02 Portkey | ALT-03 Kong AI Gateway | ALT-04 Cloudflare AI Gateway |
-|---|---|---|---|---|
-| **Data control.** Can prompts and logs stay entirely inside the team's own infrastructure? Matters when prompts contain source code or customer data. | **Yes.** Self-hosted; keys and spend logs in the team's own PostgreSQL; prompt logging is a setting (ALT-01). | **Partial.** The open-source gateway can run in the team's environment, but the hosted platform passes requests and logs through Portkey; private or hybrid deployment is an enterprise offering (ALT-02). | **Yes, when self-managed.** Hybrid mode keeps prompts in the organization's infrastructure; with Konnect only control-plane metadata is managed by Kong (ALT-03). | **No.** All traffic passes through Cloudflare; retention and logging are configurable, but there is no self-hosted option (ALT-04). |
-| **Policy enforcement.** Can different callers get different limits, budgets and content rules? Matters when several teams or apps share one gateway. | **Yes.** Per-key and per-team budgets, TPM/RPM limits, model allow-lists, guardrail integrations. SSO at scale, audit logs and part of the guardrail and per-team controls are enterprise-licensed (ALT-01). | **Yes, mostly hosted.** Declarative configs per request or key for routing, retries, caching and guardrails; budgets and rate limits. Advanced governance mostly sits in the hosted or enterprise platform (ALT-02). | **Yes.** Key/JWT/OIDC auth, ACLs, rate limiting, prompt guard, token-based rate limiting. The "Advanced" AI plugins need an enterprise license (ALT-03). | **Partial.** Gateway-level rate limiting, caching, retries, fallbacks, optional authentication, guardrails/DLP. No per-user virtual keys with budgets (ALT-04). |
-| **Extensibility.** Can the team add its own check or transformation without forking? Matters when policy is specific to the company. | **Yes.** MIT core; Python callbacks, custom guardrails, custom auth, custom providers (ALT-01). | **Partial.** Provider and guardrail plugins in the open-source gateway; custom guardrails through webhooks; narrower than a general plugin system (ALT-02). | **Yes.** Large plugin ecosystem; custom plugins in Lua, Go, JavaScript or Python, running in the request path (ALT-03). | **No, inside the gateway.** No plugin mechanism; custom logic goes into Workers placed in front of or behind it, or into metadata and headers (ALT-04). |
-| **Deployment and operation.** What must the team run and scale? Matters when the team has little operations capacity. | Docker and Helm; needs PostgreSQL and typically Redis for several instances; Python throughput must be checked under load (ALT-01). | Small TypeScript gateway (Node.js, Docker, edge runtimes); self-hosting gives the proxy only, dashboards depend on the platform (ALT-02). | Nginx/OpenResty base, proven at scale, GitOps-friendly (decK, CRDs); database or DB-less mode and control/data plane make it heavier than an LLM-only proxy (ALT-03). | Nothing to deploy; runs on Cloudflare's network; availability, limits and roadmap belong to the vendor (ALT-04). |
-| **Provider integrations.** How many providers behind one API? Matters when models are switched or mixed often. | 100+ providers behind an OpenAI-style API; provider-specific features may be only partly mapped (ALT-01). | 200+ LLMs and several modalities (ALT-02). | Major providers (OpenAI, Azure OpenAI, Anthropic, Bedrock, Gemini, Mistral, Cohere, self-hosted); shorter list than ALT-01 and ALT-02 (ALT-03). | Major hosted providers; no arbitrary self-hosted backends beyond what the endpoints allow (ALT-04). |
-| **Configuration isolation.** Can one team's keys, limits and settings be separated from another's? Matters in multi-team or multi-tenant use. | **Logical only.** Teams, keys and budgets separate users, but all share one proxy process and one model list (ALT-01). | **Partial.** Workspaces, API keys, virtual keys and versioned configs in the platform; on a self-hosted gateway alone, isolation is limited (ALT-02). | **Yes, at fine grain.** Services, routes, consumers and per-route plugin scoping; workspaces and RBAC are enterprise or Konnect (ALT-03). | **Yes, per gateway.** Separate gateways per application or environment, each with its own settings, logs and optional authentication; scoped by Cloudflare account roles (ALT-04). |
-| **Observability.** Can the team see usage, cost and errors per caller? Matters when cost or incidents must be attributed. | Spend and request logs; callbacks to Langfuse, OpenTelemetry, Datadog; Prometheus (some enterprise); admin UI per key and team (ALT-01). | Logs, cost, latency, error analytics, traces and feedback in the hosted platform; the open-source gateway alone has basic logging (ALT-02). | Prometheus, OpenTelemetry, Datadog, Splunk and log-shipping plugins; AI plugins emit token usage; no built-in LLM-specific dashboards (ALT-03). | Built-in dashboard (requests, tokens, cost, errors, cache hits), searchable logs, Logpush export, custom metadata (ALT-04). |
-| **Onboarding.** How fast to a first working request? Matters when the evaluation or pilot has a short time box. | `pip install` or one Docker command, then point an OpenAI client at it; many options make production hardening less obvious (ALT-01). | Change the base URL and add a header or config ID; the OSS-versus-hosted split needs extra reading (ALT-02). | Easy for teams that already know Kong; steeper otherwise (services, routes, consumers, plugins, OSS/enterprise split) (ALT-03). | Minutes: create a gateway and change the base URL; core features on the free plan, with log volume limits (ALT-04). |
+| Property: question, and when it matters                                                                                         | ALT-01 LiteLLM                                                                                                                                                                                             | ALT-02 Portkey                                                                                                                                                              | ALT-03 Kong AI Gateway                                                                                                                              | ALT-04 Cloudflare AI Gateway                                                                                                                                                   |
+| :------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Plugin extensibility.** Can the team add its own behavior without forking the gateway?                                        | **Yes.** MIT core; Python callbacks, custom guardrails, custom auth and custom providers.                                                                                                                  | **Partial.** Provider and guardrail plugins in the open-source gateway; custom guardrails through webhooks. The mechanism is narrower than a general plugin system.         | **Yes.** Large plugin ecosystem; custom plugins can be written in Lua, Go, JavaScript or Python and run in the request path.                        | **No, inside the gateway.** No plugin mechanism is described. Custom logic is implemented through Workers placed before or after the gateway, or through metadata and headers. |
+| **Plugin implementation languages.** Can developers use a familiar general-purpose language?                                    | **Python.** Custom callbacks, guardrails, auth and providers are described in Python.                                                                                                                      | **Not fully specified.** The gateway itself is TypeScript; provider and guardrail plugins are supported, but the source does not establish a general plugin-language model. | **Yes.** Lua, Go, JavaScript and Python are explicitly supported for custom plugins.                                                                | **Workers.** Custom logic is moved outside the gateway rather than implemented as gateway plugins.                                                                             |
+| **Plugin scope.** Can extensions implement different kinds of gateway behavior?                                                 | **Broad, based on the observed mechanisms:** callbacks, guardrails, authentication and providers.                                                                                                          | **More limited:** provider and guardrail plugins, plus webhooks for custom guardrails.                                                                                      | **Broad:** custom plugins run in the request path and can participate in gateway processing.                                                        | **Externalized:** custom behavior is implemented in Workers rather than as gateway plugins.                                                                                    |
+| **Plugin execution in the request path.** Can custom logic directly participate in request processing?                          | **Yes, for the observed callback mechanisms.**                                                                                                                                                             | **Not observed.**                                                                                                                                                           | **Yes.** Custom plugins run in the request path.                                                                                                    | **Not as gateway plugins.** Workers can be placed before or after the gateway.                                                                                                 |
+| **Plugin development ergonomics.** Is there evidence that creating a plugin is deliberately optimized for low developer effort? | **Partially observed.** The existence of Python callbacks and custom components suggests an extension mechanism, but the source does not measure development effort or provide a plugin-creation workflow. | **Partially observed.** Plugins and webhooks exist, but the source does not evaluate how easy they are to create.                                                           | **Partially observed.** Multiple plugin languages and an established plugin ecosystem exist, but the source does not measure implementation effort. | **Not observed as a plugin model.** The extension mechanism is Workers rather than gateway plugins.                                                                            |
+| **Plugin ecosystem.** Can teams reuse existing extensions?                                                                      | **Not observed.**                                                                                                                                                                                          | **Not observed beyond provider/guardrail plugins.**                                                                                                                         | **Yes.** The source explicitly describes a large plugin ecosystem.                                                                                  | **Not applicable as a gateway-plugin mechanism.**                                                                                                                              |
+| **Extensibility without modifying the gateway.** Can company-specific behavior be added independently?                          | **Yes.** Custom callbacks, guardrails, auth and providers are available.                                                                                                                                   | **Yes, within the observed plugin/webhook mechanisms.**                                                                                                                     | **Yes.** Custom plugins are a first-class mechanism.                                                                                                | **Yes, but outside the gateway.** Workers provide the extension point.                                                                                                         |
+| **Data control.** Can prompts and logs stay entirely inside the team's own infrastructure?                                      | **Yes.** Self-hosted; keys and spend logs can remain in the team's PostgreSQL.                                                                                                                             | **Partial.** The open-source gateway can be self-hosted, while the hosted platform passes requests and logs through Portkey.                                                | **Yes, when self-managed.** Hybrid mode keeps prompts in the organization's infrastructure.                                                         | **No.** All traffic passes through Cloudflare.                                                                                                                                 |
+| **Policy enforcement.** Can plugins or gateway mechanisms implement caller-specific limits and rules?                           | **Yes.** Per-key and per-team budgets, TPM/RPM limits, model allow-lists and guardrail integrations.                                                                                                       | **Yes, mostly hosted.** Routing, retries, caching, guardrails, budgets and rate limits are configurable.                                                                    | **Yes.** Authentication, ACLs, rate limiting, prompt guard and token-based rate limiting.                                                           | **Partial.** Rate limiting, caching, retries, fallbacks, authentication and guardrails/DLP are available, but per-user virtual keys with budgets are not observed.             |
+| **Deployment and operation.** What infrastructure must the team operate?                                                        | Docker and Helm; PostgreSQL and typically Redis for several instances.                                                                                                                                     | Small TypeScript gateway; self-hosting provides the proxy while dashboards depend on the platform.                                                                          | Nginx/OpenResty-based gateway; database or DB-less mode and control/data planes make it heavier.                                                    | Nothing to deploy; runs on Cloudflare's network.                                                                                                                               |
+| **Provider integrations.** Can plugins or the gateway add custom providers?                                                     | **Yes.** Custom providers are explicitly supported; 100+ providers are available behind an OpenAI-style API.                                                                                               | **Yes, within the provider plugin model;** 200+ LLMs are described.                                                                                                         | **Yes.** Major hosted and self-hosted providers are supported; the list is shorter than LiteLLM and Portkey.                                        | Major hosted providers; arbitrary self-hosted backends are not observed.                                                                                                       |
+| **Configuration isolation.** Can plugin configuration and gateway settings be separated between teams?                          | **Logical only.** Teams, keys and budgets separate users, but share one proxy process and model list.                                                                                                      | **Partial.** Workspaces, API keys, virtual keys and versioned configs exist in the platform; self-hosted isolation is limited.                                              | **Yes, at fine grain.** Services, routes, consumers and per-route plugin scoping are available; workspaces/RBAC are enterprise or Konnect.          | **Yes, per gateway.** Separate gateways can have separate settings, logs and authentication.                                                                                   |
+| **Observability.** Can the team see the effect and cost of gateway activity?                                                    | Spend and request logs; integrations with Langfuse, OpenTelemetry and Datadog; admin UI per key and team.                                                                                                  | Logs, cost, latency, errors, traces and feedback in the hosted platform.                                                                                                    | Prometheus, OpenTelemetry, Datadog, Splunk and log-shipping plugins; AI plugins emit token usage.                                                   | Built-in dashboard with requests, tokens, cost, errors and cache hits.                                                                                                         |
+| **Onboarding.** How quickly can a developer get a working gateway?                                                              | `pip install` or one Docker command, then point an OpenAI client at it.                                                                                                                                    | Change the base URL and add a header or config ID.                                                                                                                          | Easy for teams familiar with Kong; steeper otherwise because of services, routes, consumers and plugins.                                            | Minutes to create a gateway and change the base URL.                                                                                                                           |
 
 ## Reading the table as a whole
 
-Everything below is **conclusion**, drawn from the table above. Row names point back to the evidence.
+### The primary question: how extensible is the gateway?
 
-### Down the columns: how strong is the strongest product?
+The four alternatives expose fundamentally different extension models.
 
-- **ALT-01 LiteLLM** is the strongest LLM-specific option on the rows that concern control: data control, policy enforcement, extensibility and provider breadth are all strong. Its weak rows are configuration isolation (logical only) and operation (PostgreSQL, Redis, Python throughput). It is the bar for anything positioned as an LLM gateway.
-- **ALT-03 Kong** is the strongest on policy depth and isolation, but only with enterprise features, and it is the heaviest to operate and has the shortest provider list of the self-hostable options. It is the bar for teams that already run an API gateway.
-- **ALT-04 Cloudflare** is the strongest on deployment and onboarding and the weakest on data control and extensibility.
-- **ALT-02 Portkey** depends on which half is used: the open-source gateway is light but limited; the platform is complete but hosted.
+**LiteLLM** provides an LLM-specific extension mechanism around Python callbacks, custom guardrails, authentication and providers. This makes it possible to add company-specific behavior without forking the core gateway.
 
-### Across the rows: where is every product weak or absent?
+**Portkey** provides provider and guardrail plugins and supports custom guardrails through webhooks. The observed extension model is narrower than a general-purpose plugin system.
 
-- **Configuration isolation:** no product gives strong isolation in a self-hosted, non-paid setup. ALT-01 is logical only, ALT-02 is limited without the platform, ALT-03 needs enterprise workspaces and RBAC, ALT-04 is hosted only.
-- **Governance and analytics are tied to a commercial tier or hosted service** in every product where they were observed: ALT-01 (SSO, audit logs), ALT-02 (advanced governance, analytics), ALT-03 (Advanced AI plugins, workspaces, RBAC).
-- **Operation versus control:** the rows that favor the team (data control, extensibility) and the rows that favor convenience (deployment, onboarding) are won by different products.
+**Kong** has the most explicit general plugin model in the comparison. Custom plugins can be written in Lua, Go, JavaScript or Python and execute in the request path. It also has a large existing plugin ecosystem.
 
-### The diagonal
+**Cloudflare AI Gateway** does not expose a gateway plugin mechanism in the observed material. Custom behavior is instead implemented using Workers placed before or after the gateway.
 
-No product is strong on every row, so there is no single incumbent to beat. The closest to a diagonal on control is ALT-01, and on ease ALT-04, and each loses on the other axis. The bar is therefore two-sided: match ALT-01 on control and ALT-04 on time to first request.
+### The important distinction: extensibility versus easy plugin development
 
-### Candidates
+The existing evidence establishes that several products are extensible. It does **not** establish that they make plugin development easy.
 
-Written down before judging any of them. Each can be disputed by pointing at a cell above or at a product not in the table.
+For this research, these are different questions:
 
-1. **No alternative offers hard tenant isolation in a self-hosted deployment without a paid tier.** Rows: Configuration isolation, Deployment. Evidence: ALT-01, ALT-02, ALT-03, ALT-04. Would be disproved by a free, self-hosted setup of any of the four that separates tenants beyond keys and budgets.
-2. **Among these four, full self-hosted governance and observability requires operating state stores, while the lightweight option gives them up.** ALT-01 and ALT-03 need PostgreSQL/Redis or a control plane; ALT-02's small self-hosted gateway lacks dashboards and broad governance without the platform. Would be disproved by a self-hosted product that has per-caller usage views and policy with no database to run.
-3. **In the self-hosted free tier, per-caller budgets exist only in LiteLLM, and audit logs and SSO are not available in any of the four.** Rows: Policy enforcement. Evidence: ALT-01 (audit and SSO enterprise), ALT-02 and ALT-03 (governance and RBAC enterprise or hosted). Caveat: ALT-04 was not observed for audit or SSO; verify before relying on this.
-4. **The products that win on data control (ALT-01, ALT-03) lose on time to first request, and the one that wins on time to first request (ALT-04) loses on data control.** Rows: Data control, Deployment, Onboarding. Would be disproved by evidence that a self-hosted option onboards as fast as ALT-04 once production hardening is included.
+1. **Can I extend the gateway?**
+2. **Can I create a plugin without modifying the gateway?**
+3. **How much code is required to create the plugin?**
+4. **How quickly can a developer create and test one?**
+5. **What API does the plugin receive?**
+6. **Which parts of the request lifecycle can it access?**
+7. **How is plugin configuration supplied?**
+8. **How are plugins packaged, versioned and deployed?**
+9. **Can plugins be reused across projects?**
+10. **Can plugins safely run in a multi-tenant gateway?**
 
-## Limits of this table
+The current alternative research primarily answers questions 1 and 2. Questions 3–10 require additional research.
 
-- Cells rest on the ALT entries, and those entries have placeholders for version and date researched. Claims about which features are enterprise-only or hosted-only change quickly and should be rechecked against the version recorded there.
-- "Partial" means the ALT entry shows the capability exists with a stated limit; the limit is given in the cell.
+### The practical trade-off
+
+The alternatives expose three different approaches:
+
+**LLM-native extension**
+
+LiteLLM puts custom behavior relatively close to the LLM gateway itself through Python callbacks and custom components.
+
+**General API-gateway plugin model**
+
+Kong provides a broader plugin architecture where custom plugins are first-class request-path components and can be implemented in several languages.
+
+**External extension**
+
+Cloudflare moves custom behavior outside the gateway into Workers.
+
+Portkey sits between these models, with specific plugin mechanisms for providers and guardrails plus webhooks.
+
+This distinction is more important for this research than a simple "supports plugins / does not support plugins" classification.
+
+## Research gaps
+
+The current comparison is not sufficient to establish which product provides the easiest plugin development experience.
+
+The next research stage should therefore evaluate the following experimentally:
+
+* **Time to first plugin:** how long does it take to implement a minimal plugin?
+* **Lines of code:** how much code does the minimal plugin require?
+* **API simplicity:** how many concepts must a developer learn?
+* **Lifecycle model:** which request/response stages are exposed?
+* **Input/output model:** how easily can a plugin inspect and modify requests and responses?
+* **Configuration:** how are plugin-specific settings declared and accessed?
+* **Dependencies:** how are external libraries handled?
+* **Testing:** can plugins be tested independently of the whole gateway?
+* **Local development:** is hot reload or an equivalent development workflow available?
+* **Packaging:** how is a plugin distributed and versioned?
+* **Deployment:** how is a plugin installed into a running gateway?
+* **Isolation:** can one plugin or tenant affect another?
+* **Failure handling:** what happens when a plugin fails or times out?
+* **Documentation:** how complete are the plugin APIs and examples?
+
+These criteria directly measure **plugin developer experience**, rather than merely the existence of an extension mechanism.
+
+## Candidate research hypotheses
+
+1. **Existing LLM gateways provide extensibility, but extensibility does not necessarily imply an easy plugin-development experience.**
+
+2. **LLM-specific gateways and general API gateways expose different plugin abstractions.** LiteLLM is oriented around LLM-specific callbacks and components, while Kong provides a general request-path plugin model.
+
+3. **A gateway can be extensible without having a first-class plugin system.** Cloudflare demonstrates an external extension model through Workers rather than gateway plugins.
+
+4. **The key research opportunity is therefore not simply "does the gateway support plugins?", but "how much effort is required to create, test, configure and deploy a plugin?"**
+
+5. **A useful LLM Gateway plugin architecture should combine the low operational overhead of a lightweight gateway with a first-class extension model that makes custom behavior easy to implement and deploy.**
+
+## Limits of this comparison
+
+The comparison is based on the existing ALT entries. Those entries establish the presence and general form of extension mechanisms, but they do not provide controlled measurements of plugin developer experience.
+
+In particular, the document does not yet provide enough evidence to rank the alternatives by ease of plugin development.
+
+Claims about enterprise features, hosted-only capabilities and supported extension mechanisms can also change with product versions and should be rechecked against the version and date of each underlying ALT entry.
