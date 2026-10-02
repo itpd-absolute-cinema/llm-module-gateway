@@ -35,5 +35,3 @@ Cloudflare AI Gateway is a proxy hosted on Cloudflare's network that sits betwee
 - Limited extensibility and governance (no per-user keys or budgets, no custom plugins).
 - Vendor lock-in and dependence on vendor limits and roadmap.
 - Fewer options for deep policy enforcement than the self-hosted alternatives.
-
-### Evidence

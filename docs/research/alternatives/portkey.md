@@ -34,6 +34,3 @@ Portkey gives applications one API to many LLM providers and adds reliability an
 - Full feature set (analytics, governance, prompt management) depends on the hosted platform or enterprise tier, which affects data control.
 - Self-hosted gateway alone has limited isolation and observability.
 - Smaller community and fewer extension points than a general-purpose API gateway.
-
-### Evidence
-

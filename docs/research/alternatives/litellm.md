@@ -35,5 +35,3 @@ LiteLLM provides a single OpenAI-compatible interface to 100+ LLM providers, ava
 - Some governance features (SSO, audit, certain guardrails) require the enterprise license.
 - Tenant isolation is logical, not strict; a shared process and config for all teams.
 - Python runtime may limit performance at high request rates.
-
-### Evidence

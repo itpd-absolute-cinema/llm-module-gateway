@@ -36,5 +36,3 @@ Kong AI Gateway applies the existing Kong API gateway to LLM traffic through a s
 - Fewer providers and less LLM-native tooling (cost tracking, budgets per key, prompt management) out of the box.
 - Steeper learning curve for teams without Kong experience.
 
-### Evidence
-
