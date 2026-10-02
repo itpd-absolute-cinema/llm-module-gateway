@@ -42,11 +42,12 @@ No standalone issues were found. Discussion work below is reported by the team.
 
 ## Repository evidence
 
-[Branch-protection screenshot](images/branch-protection.png), [merged PR #4](https://github.com/itpd-absolute-cinema/llm-module-gateway/pull/4) with [approval by @m1staken](https://github.com/itpd-absolute-cinema/llm-module-gateway/pull/4#pullrequestreview-5394866728), and [green Lychee run on main](https://github.com/itpd-absolute-cinema/llm-module-gateway/actions/runs/37042222641).
+[Branch-protection screenshot](images/branch-protection.png),
+[merged PR #4](https://github.com/itpd-absolute-cinema/llm-module-gateway/pull/4)
+with [approval by @m1staken](https://github.com/itpd-absolute-cinema/llm-module-gateway/pull/4#pullrequestreview-5394866728),
+and [successful Lychee run on main](https://github.com/itpd-absolute-cinema/llm-module-gateway/actions/runs/37042222641).
 
-The screenshot shows the rule, but not its settings. The run checks commit `e93d08c21b8e841c199ceea0f601e36d5925483c`; update the link after merging this report.
-
-No URLs are excluded from Lychee, so there are no exclusions to justify or check in a browser. The workflow accepts HTTP 200, 206, and 429.
+No URLs are excluded from the link check.
 
 ## Deviations
 
