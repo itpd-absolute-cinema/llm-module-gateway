@@ -25,7 +25,6 @@ The customer confirmed easy plugin creation as the main goal. Plugins should pro
 | Compare the alternatives | [comparison.md](../../docs/research/comparison.md) |
 | Gap analysis | [gap-analysis.md](../../docs/research/gap-analysis.md) — two pursued and five rejected gaps |
 | Value proposition | [value-proposition.md](../../docs/research/value-proposition.md) — VP-01, VP-02, and assumptions A-01–A-09 |
-| Research board | Actual link needed; the research index still uses `example.com`. |
 | Meeting script | [meeting-script.md](meeting-script.md) |
 | Customer kickoff | [meeting-report.md](meeting-report.md), [meeting-transcript.md](meeting-transcript.md). Recording: private Moodle submission. Transcript publication permission is not yet confirmed. |
 | AI usage | [ai-usage.md](ai-usage.md) |
