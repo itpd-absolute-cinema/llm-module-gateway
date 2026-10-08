@@ -1,0 +1,48 @@
+name: User Story
+description: A user story
+labels: ["user-story"]
+body:
+  - type: input
+    id: statement
+    attributes:
+      label: Statement
+    validations:
+      required: true
+
+  - type: input
+    id: value-proposition
+    attributes:
+      label: Value proposition
+      description: "One VP-nn. Example: https://github.com/<org>/<repo>/blob/main/docs/decisions.md#vp-01"
+    validations:
+      required: true
+
+  - type: input
+    id: priority-reason
+    attributes:
+      label: Priority reason
+    validations:
+      required: true
+
+  - type: textarea
+    id: traces-to
+    attributes:
+      label: Traces to
+      description: "One note per line. URL-pattern: https://github.com/<org>/<repo>/blob/main/..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: rests-on
+    attributes:
+      label: Rests on
+      description: "One note per line. URL-pattern: https://github.com/<org>/<repo>/blob/main/..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance criteria
+    validations:
+      required: false
