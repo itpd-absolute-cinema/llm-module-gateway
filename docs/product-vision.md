@@ -106,6 +106,8 @@ Users send text through the CLI or API. Developers add plugin files and test cas
 
 The CLI, gateway, and plugin runtime belong to the product. Security teams give policy requirements to developers, and budget holders pay for the system. They do not use a separate product interface.
 
+Diagram source: [context.py](architecture/context.py).
+
 ## Where the detail lives
 
 - [User stories](https://github.com/itpd-absolute-cinema/llm-module-gateway/issues?q=label%3Auser-story)
