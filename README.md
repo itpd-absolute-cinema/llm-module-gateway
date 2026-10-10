@@ -19,6 +19,17 @@ The gateway is intended to be deployed on a VPS and used by company employees su
 * [Week 01 Report](reports/week-01/README.md)
 * [Project Documentation](docs/)
 
+## Markdown checks
+
+Run the Markdown check from the repository root with Node.js installed:
+
+```sh
+npx --yes markdownlint-cli2@0.23.2 '**/*.md'
+```
+
+This uses the same tool version and configuration as the Markdown workflow.
+Both the Markdown and link checks run on pull requests and pushes to `main`.
+
 ## Status
 
 This project is a work in progress developed as part of the ITPD course.
