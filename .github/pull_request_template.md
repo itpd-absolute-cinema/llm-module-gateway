@@ -1,4 +1,4 @@
-## What changed and why
+# What changed and why
 
 <!-- Describe what you changed and why you made these changes. -->
 
@@ -8,7 +8,7 @@
 
 - [ ] Tests pass
 - [ ] Application builds successfully
-- [ ] Other checks: 
+- [ ] Other checks:
 
 ## Reviewer checklist
 
@@ -21,7 +21,7 @@
 <!-- Link the relevant requirements or acceptance criteria. -->
 
 - [ ] Requirements / acceptance criteria are satisfied
-- [ ] Linked requirements: 
+- [ ] Linked requirements:
 
 ### Additional notes
 

@@ -1,4 +1,4 @@
-## ALT-04: Cloudflare AI Gateway
+# ALT-04: Cloudflare AI Gateway
 
 **Kind:** Managed (SaaS) AI gateway
 
@@ -9,10 +9,10 @@
 **Problem it solves:**
 Cloudflare AI Gateway is a proxy hosted on Cloudflare's network that sits between an application and LLM providers. It adds analytics, logging, caching, rate limiting, retries and model fallback with minimal setup, usually by changing the provider base URL. It is aimed at teams that want visibility and basic control over LLM usage without running any gateway infrastructure.
 
-### Observations by property
+## Observations by property
 
 | Property | Observation |
-|---|---|
+| --- | --- |
 | Data control | All traffic passes through Cloudflare, which is a third-party intermediary in addition to the model provider. Log retention is configurable and logging can be disabled per gateway, but the data path cannot be moved into the team's own infrastructure. |
 | Policy enforcement | Per-gateway rate limiting, caching rules, retries and fallbacks, optional gateway authentication, and guardrails/DLP features. Policy model is gateway-level; there are no per-user virtual keys with budgets comparable to LiteLLM or Portkey. |
 | Extensibility | Closed platform with no custom plugin mechanism in the gateway itself. Custom logic can be added by placing Cloudflare Workers in front of or behind it, or by using custom metadata and headers. |
@@ -22,14 +22,14 @@ Cloudflare AI Gateway is a proxy hosted on Cloudflare's network that sits betwee
 | Observability | Built-in dashboard with requests, tokens, cost, errors and cache hit rate, plus searchable logs; data can be exported through Logpush and custom metadata for filtering. |
 | Onboarding | Fastest of the four: a gateway can be created in minutes and used by changing the base URL. Core features are available on the free plan; log volume limits apply. |
 
-### Strengths
+## Strengths
 
 - No infrastructure to run; very quick to adopt.
 - Useful caching, rate limiting and analytics out of the box, with low added latency from edge routing.
 - Natural fit if the stack already uses Cloudflare (Workers, Workers AI).
 - Low or no cost for core features.
 
-### Weaknesses
+## Weaknesses
 
 - Data must flow through Cloudflare; no self-hosted option.
 - Limited extensibility and governance (no per-user keys or budgets, no custom plugins).

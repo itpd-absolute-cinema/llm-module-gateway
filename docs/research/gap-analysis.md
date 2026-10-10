@@ -151,13 +151,13 @@ This gap should therefore be validated with a concrete development task rather t
 
 ---
 
-# Rejected gaps
+## Rejected gaps
 
 The following potential gaps were considered but are **not currently pursued**. They remain recorded because they could be revisited if further evidence changes the decision.
 
-## REJECTED-01: Hard multi-tenant isolation in self-hosted deployments
+### REJECTED-01: Hard multi-tenant isolation in self-hosted deployments
 
-### Why it looks like a gap
+#### Why it looks like a gap
 
 The comparison shows limitations in configuration isolation:
 
@@ -168,7 +168,7 @@ The comparison shows limitations in configuration isolation:
 
 The original comparison therefore identifies configuration isolation as a common weakness.
 
-### Why we reject it
+#### Why we reject it
 
 This is a real limitation, but it is **not sufficiently connected to the primary research question of easy plugin creation**.
 
@@ -180,15 +180,15 @@ A team of 3–4 could build a limited version, but doing so would compete direct
 
 ---
 
-## REJECTED-02: Fully self-hosted governance and observability without state stores
+### REJECTED-02: Fully self-hosted governance and observability without state stores
 
-### Why it looks like a gap
+#### Why it looks like a gap
 
 The comparison identifies a trade-off between self-hosting, governance, and operational complexity.
 
 ALT-01 and ALT-03 require additional infrastructure or control-plane components for some capabilities, while the lightweight self-hosted form of ALT-02 provides fewer dashboards and governance capabilities.
 
-### Why we reject it
+#### Why we reject it
 
 This is primarily an **operations and observability** problem rather than a plugin-development problem.
 
@@ -200,15 +200,15 @@ It is also not clear from the current evidence that users would choose a new LLM
 
 ---
 
-## REJECTED-03: A larger plugin ecosystem or plugin marketplace
+### REJECTED-03: A larger plugin ecosystem or plugin marketplace
 
-### Why it looks like a gap
+#### Why it looks like a gap
 
 Kong has an established plugin ecosystem, while the other alternatives do not show the same ecosystem in the available evidence.
 
 A new gateway could potentially provide a simpler way to share and reuse plugins.
 
-### Why we reject it
+#### Why we reject it
 
 A marketplace is not necessary to validate the core need.
 
@@ -218,15 +218,15 @@ The more fundamental problem is whether an individual developer can **create and
 
 ---
 
-## REJECTED-04: Support for multiple plugin programming languages
+### REJECTED-04: Support for multiple plugin programming languages
 
-### Why it looks like a gap
+#### Why it looks like a gap
 
 Kong supports custom plugins in Lua, Go, JavaScript, and Python, while the observed LiteLLM extension mechanisms are primarily Python-based.
 
 This could suggest a need for developers to use their preferred programming language.
 
-### Why we reject it
+#### Why we reject it
 
 Multiple languages increase implementation complexity substantially: runtime management, dependency isolation, packaging, APIs, debugging, and deployment all become harder.
 
@@ -238,13 +238,13 @@ A simpler single-language plugin API is sufficient to test the core hypothesis.
 
 ---
 
-## REJECTED-05: Full enterprise-grade plugin security and sandboxing
+### REJECTED-05: Full enterprise-grade plugin security and sandboxing
 
-### Why it looks like a gap
+#### Why it looks like a gap
 
 Plugins execute gateway logic and can potentially inspect or modify LLM requests. A production plugin system would therefore eventually need strong isolation, permissions, resource limits, and failure handling.
 
-### Why we reject it
+#### Why we reject it
 
 This is an important production concern, but it is too broad for the current course scope.
 
@@ -256,7 +256,7 @@ For the course prototype, the plugin runtime can be constrained to trusted plugi
 
 ---
 
-# Summary of pursued gaps
+## Summary of pursued gaps
 
 | ID         | Gap                                                                   | Evidence strength | Course feasibility |
 | :--------- | :-------------------------------------------------------------------- | :---------------- | :----------------- |
@@ -273,7 +273,7 @@ Together they define a focused product direction without claiming that the exist
 
 ---
 
-# Open validation questions
+## Open validation questions
 
 Before treating these gaps as fully validated, the following questions should be tested:
 

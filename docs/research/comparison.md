@@ -70,15 +70,15 @@ The current alternative research primarily answers questions 1 and 2. Questions 
 
 The alternatives expose three different approaches:
 
-**LLM-native extension**
+#### LLM-native extension
 
 LiteLLM puts custom behavior relatively close to the LLM gateway itself through Python callbacks and custom components.
 
-**General API-gateway plugin model**
+#### General API-gateway plugin model
 
 Kong provides a broader plugin architecture where custom plugins are first-class request-path components and can be implemented in several languages.
 
-**External extension**
+#### External extension
 
 Cloudflare moves custom behavior outside the gateway into Workers.
 

@@ -1,4 +1,4 @@
-## Minimum Usable Product Candidate
+# Minimum Usable Product Candidate
 
 Core task: a client sends a request to the Java gateway, the request passes through a chain of Python plugins (request filter → routing → response filter), and the client receives a processed response from the target LLM.
 

@@ -19,7 +19,7 @@ The customer confirmed easy plugin creation as the main goal. Plugins should pro
 ## Coverage
 
 | Deliverable | Artifact |
-|---|---|
+| --- | --- |
 | Candidate list | [candidate-list.md](candidate-list.md) — 12 candidates |
 | Alternatives search | [alternatives.md](../../docs/research/alternatives.md); detailed entries: [ALT-01](../../docs/research/alternatives/litellm.md), [ALT-02](../../docs/research/alternatives/portkey.md), [ALT-03](../../docs/research/alternatives/kong-ai-gateway.md), [ALT-04](../../docs/research/alternatives/cloudflare-ai-gateway.md) |
 | Compare the alternatives | [comparison.md](../../docs/research/comparison.md) |
@@ -34,7 +34,7 @@ The customer confirmed easy plugin creation as the main goal. Plugins should pro
 No standalone issues were found. Discussion work below is reported by the team.
 
 | Member | Work |
-|---|---|
+| --- | --- |
 | @b4lmor | Set up the repository and wrote research and meeting documents: [research commit](https://github.com/itpd-absolute-cinema/llm-module-gateway/commit/5b0e0c3449e7dd2dbecac31f66dd37679ad8f5f1). [PR #1](https://github.com/itpd-absolute-cinema/llm-module-gateway/pull/1), [#2](https://github.com/itpd-absolute-cinema/llm-module-gateway/pull/2), [#3](https://github.com/itpd-absolute-cinema/llm-module-gateway/pull/3), [#4](https://github.com/itpd-absolute-cinema/llm-module-gateway/pull/4); [approved PR #5](https://github.com/itpd-absolute-cinema/llm-module-gateway/pull/5#pullrequestreview-5393205193). |
 | @egozhuk | Added Dependabot, [fixed a candidate link](https://github.com/itpd-absolute-cinema/llm-module-gateway/commit/c41943557cbc195a3d7cd81519c312e520486934), and prepared this report. [PR #5](https://github.com/itpd-absolute-cinema/llm-module-gateway/pull/5); [reviewed PR #4](https://github.com/itpd-absolute-cinema/llm-module-gateway/pull/4#pullrequestreview-5394085613) (review later dismissed). Report PR not yet opened. |
 | @m1staken | Reviewed the alternatives analysis and approved it for merging. No authored commit found. [Approved PR #4](https://github.com/itpd-absolute-cinema/llm-module-gateway/pull/4#pullrequestreview-5394866728); no authored PR found. |

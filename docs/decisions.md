@@ -1,6 +1,7 @@
 # Architecture Decisions
 
 ## Status
+
 **Approved**: Core architecture concept.
 
 ## 1. Architecture
@@ -12,12 +13,14 @@ CLI → Gateway (Java) → Python Interpreter → Plugins
 ```
 
 ### Gateway
+
 - **Language:** Java
 - Stateless request handling.
 - Stable, long-running application with minimal restarts.
 - Designed for horizontal scaling.
 
 ### Python Interpreter
+
 - **Language:** Python
 - Executes plugins, each implemented as a single `.py` file.
 - Plugins reside in a dedicated directory or package.
@@ -25,6 +28,7 @@ CLI → Gateway (Java) → Python Interpreter → Plugins
 - Hot-loading plugins without restarting is desirable.
 
 ### CLI
+
 - **Language:** TBD
 - Provides a terminal interface for interacting with the Gateway API.
 - No GUI required.
@@ -51,4 +55,3 @@ CLI → Gateway (Java) → Python Interpreter → Plugins
 2. Specify the plugin interface.
 3. Implement a minimal end-to-end prototype.
 4. Evaluate hot-loading and horizontal scaling.
-

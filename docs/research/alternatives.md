@@ -22,4 +22,5 @@ Companies need a way to let employees use LLMs while applying organization-speci
 ## ALT-04: [Cloudflare AI Gateway](alternatives/cloudflare-ai-gateway.md)
 
 todo
+
 ## [Board with working notes](https://example.com)
