@@ -1,15 +1,17 @@
-# ALT-02: Portkey
+# ALT-02
 
-**Kind:** AI gateway with a hosted control plane (open-source gateway core + commercial platform)
+Portkey
 
-**Link:** [https://github.com/Portkey-AI/gateway](https://github.com/Portkey-AI/gateway)
+- **Status:** Active
+- **Kind:** AI gateway with a hosted control plane (open-source gateway core + commercial platform)
+- **Link:** [https://github.com/Portkey-AI/gateway](https://github.com/Portkey-AI/gateway)
+- **Version looked at:** Not recorded in Week 1.
+- **Depth of evaluation:** Documentation, repository, architecture, configuration and usage examples.
+- **Problem it solves:** Portkey gives applications one API to many LLM providers and adds reliability and governance features on top: fallbacks, retries, load balancing, caching, guardrails, budgets and request logging.
+  Its lightweight TypeScript gateway can be self-hosted, while the hosted platform adds prompt management, observability dashboards and access control.
+  It targets teams that want production controls for LLM traffic without building them.
 
-**Depth of evaluation:** Documentation, repository, architecture, configuration and usage examples.
-
-**Problem it solves:**
-Portkey gives applications one API to many LLM providers and adds reliability and governance features on top: fallbacks, retries, load balancing, caching, guardrails, budgets and request logging. Its lightweight TypeScript gateway can be self-hosted, while the hosted platform adds prompt management, observability dashboards and access control. It targets teams that want production controls for LLM traffic without building them.
-
-## Observations by property
+**Observations by property**
 
 | Property | Observation |
 | --- | --- |
@@ -22,14 +24,14 @@ Portkey gives applications one API to many LLM providers and adds reliability an
 | Observability | Request logs, cost, latency and error analytics, traces and feedback in the hosted platform; the OSS gateway alone offers basic logging. |
 | Onboarding | Quick: change the base URL and add a header or config ID. Good docs and SDKs; understanding which features are OSS and which are hosted takes extra reading. |
 
-## Strengths
+**Strengths**
 
 - Lightweight gateway that is easy to embed or self-host.
 - Strong reliability tooling (fallbacks, retries, load balancing, caching) driven by simple declarative configs.
 - Integrated guardrails, prompt management and observability in one product.
 - Very wide provider and model coverage.
 
-## Weaknesses
+**Weaknesses**
 
 - Full feature set (analytics, governance, prompt management) depends on the hosted platform or enterprise tier, which affects data control.
 - Self-hosted gateway alone has limited isolation and observability.

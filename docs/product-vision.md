@@ -6,7 +6,7 @@ Modular LLM Gateway, Team 1 - Absolute cinema.
 
 A company developer can create, test, and enable custom rules for LLM requests and responses without changing the gateway core or calling a live LLM during plugin tests.
 
-Supports [VP-01](research/value-proposition.md#vp-01-a-custom-gateway-behavior-in-one-small-file) and [VP-02](research/value-proposition.md#vp-02-from-blank-project-to-a-tested-running-plugin-in-one-local-workflow).
+Supports [VP-01](research/value-proposition.md#vp-01) and [VP-02](research/value-proposition.md#vp-02).
 
 The first version lets a developer add two simple plugins, start the system, send text, and check the result using a test server with fixed responses. This makes plugin tests repeatable without paying for LLM calls.
 
@@ -72,7 +72,7 @@ Choose the company's security, filtering, and logging rules.
 
 - **Status:** Active
 - **Handled by:** Company developers and DevOps engineers, using policies supplied by their security teams.
-- **Why:** each company writes its own rules as plugins. The gateway provides the interface described in [GAP-01](research/gap-analysis.md#gap-01-a-simple-first-class-way-to-build-custom-llm-gateway-plugins).
+- **Why:** each company writes its own rules as plugins. The gateway provides the interface described in [GAP-01](research/gap-analysis.md#gap-01).
 
 ### BND-03
 
