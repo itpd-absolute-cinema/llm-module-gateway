@@ -1,15 +1,17 @@
-# ALT-01: LiteLLM
+# ALT-01
 
-**Kind:** Open-source LLM gateway
+LiteLLM
 
-**Link:** [https://github.com/BerriAI/litellm](https://github.com/BerriAI/litellm)
+- **Status:** Active
+- **Kind:** Open-source LLM gateway
+- **Link:** [https://github.com/BerriAI/litellm](https://github.com/BerriAI/litellm)
+- **Version looked at:** Not recorded in Week 1.
+- **Depth of evaluation:** Documentation, repository, architecture, configuration and usage examples.
+- **Problem it solves:** LiteLLM provides a single OpenAI-compatible interface to 100+ LLM providers, available both as a Python SDK and as a self-hosted proxy server.
+  The proxy adds a central control layer on top: virtual API keys, budgets, rate limits, routing with fallbacks and load balancing, and spend tracking.
+  It is designed so that applications talk to one endpoint while the platform team controls which models are used, by whom, and at what cost.
 
-**Depth of evaluation:** Documentation, repository, architecture, configuration and usage examples.
-
-**Problem it solves:**
-LiteLLM provides a single OpenAI-compatible interface to 100+ LLM providers, available both as a Python SDK and as a self-hosted proxy server. The proxy adds a central control layer on top: virtual API keys, budgets, rate limits, routing with fallbacks and load balancing, and spend tracking. It is designed so that applications talk to one endpoint while the platform team controls which models are used, by whom, and at what cost.
-
-## Observations by property
+**Observations by property**
 
 | Property | Observation |
 | --- | --- |
@@ -22,14 +24,14 @@ LiteLLM provides a single OpenAI-compatible interface to 100+ LLM providers, ava
 | Observability | Built-in spend and request logs plus callbacks to Langfuse, OpenTelemetry, Datadog and others; Prometheus metrics (some behind enterprise). Admin UI shows usage per key/team. |
 | Onboarding | Fast: `pip install` or one Docker command, then point an OpenAI client at the proxy. Docs are extensive; the amount of features and options makes production hardening less obvious. |
 
-## Strengths
+**Strengths**
 
 - Full control over where data flows, because the gateway is self-hosted and open-source.
 - Widest provider coverage with one unified API.
 - Mature budgeting, rate-limiting and virtual-key model out of the box.
 - Hookable in Python, so custom policy logic is easy to add.
 
-## Weaknesses
+**Weaknesses**
 
 - Operating it means running and scaling PostgreSQL/Redis and the proxy itself.
 - Some governance features (SSO, audit, certain guardrails) require the enterprise license.
