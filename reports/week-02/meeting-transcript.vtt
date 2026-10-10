@@ -1,0 +1,1590 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:00.660
+Denis Nikolskiy: Recording.
+
+2
+00:00:02.690 --> 00:00:05.050
+Denis Nikolskiy: Okay, we can begin.
+
+3
+00:00:09.550 --> 00:00:10.880
+Denis Nikolskiy: Who wants to go first?
+
+4
+00:00:12.350 --> 00:00:14.220
+Azamat Bayramov: I think I can start.
+
+5
+00:00:14.810 --> 00:00:15.620
+Denis Nikolskiy: Okay.
+
+6
+00:00:15.620 --> 00:00:18.650
+Azamat Bayramov: If no one… Mind? Yeah.
+
+7
+00:00:19.040 --> 00:00:30.239
+Azamat Bayramov: About our site, we have some, like, small prototype for validation of our The process of, masking and…
+
+8
+00:00:30.340 --> 00:00:37.280
+Azamat Bayramov: Overall work of, our… Proxy should work. So here is it. Here it is.
+
+9
+00:00:37.870 --> 00:00:39.920
+Azamat Bayramov: So, second…
+
+10
+00:00:40.640 --> 00:00:55.120
+Azamat Bayramov: my Windows… it's like a local prototype, it's not, like, a real proxy or a real working with LLM, but for now, it's, like, just a local prototype of how the logic of the system will work.
+
+11
+00:00:55.330 --> 00:00:56.960
+Azamat Bayramov: Could you see it? Yeah.
+
+12
+00:00:59.040 --> 00:01:00.690
+Denis Nikolskiy: Yeah, yeah, I can…
+
+13
+00:01:01.130 --> 00:01:01.850
+Azamat Bayramov: Okay, so…
+
+14
+00:01:01.850 --> 00:01:02.550
+Denis Nikolskiy: That's true.
+
+15
+00:01:03.160 --> 00:01:16.090
+Azamat Bayramov: Here it is. Here we have, like, what we will send, like, to the… our proxy, so… and here we can see what will be, Riders C.
+
+16
+00:01:16.400 --> 00:01:23.860
+Azamat Bayramov: So, for example, here we have some examples. For example, first one, we… sent.
+
+17
+00:01:24.050 --> 00:01:25.679
+Azamat Bayramov: to our proxy sum.
+
+18
+00:01:26.050 --> 00:01:34.890
+Azamat Bayramov: Message with personal data, like, in this case, is a phone number, and after that, we see that, Hour.
+
+19
+00:01:36.410 --> 00:01:44.429
+Azamat Bayramov: real provider will get the content that is, like, masked with this placeholder.
+
+20
+00:01:44.630 --> 00:01:50.980
+Azamat Bayramov: And if, for example, I will, add this number second time.
+
+21
+00:01:53.950 --> 00:01:58.120
+Azamat Bayramov: It will like mask again with the same placeholder.
+
+22
+00:01:58.530 --> 00:02:10.319
+Azamat Bayramov: is how it will work. So, and after that, after provider response, when providers say, like, the request use context on not one, here we'll… we have this, placeholder.
+
+23
+00:02:10.570 --> 00:02:13.669
+Azamat Bayramov: And after that, for example, if we'll have different
+
+24
+00:02:13.830 --> 00:02:19.909
+Azamat Bayramov: Numbers, like this, will have, like, phone 1 and phone 2 placeholders.
+
+25
+00:02:21.090 --> 00:02:27.719
+Azamat Bayramov: So, here is, the, like, basic logic how overall the system will work.
+
+26
+00:02:28.040 --> 00:02:33.550
+Azamat Bayramov: like, we want to validate that. It's, quite… Right, what you want?
+
+27
+00:02:34.010 --> 00:02:35.230
+Azamat Bayramov: Like a customer.
+
+28
+00:02:35.330 --> 00:02:41.039
+Azamat Bayramov: And, for example, if we have, like, no phone number, we have No masking.
+
+29
+00:02:42.940 --> 00:02:45.170
+Azamat Bayramov: Is it like, what do you expect?
+
+30
+00:02:46.330 --> 00:02:58.290
+Denis Nikolskiy: I was looking for… More of, approach to a solution?
+
+31
+00:02:58.820 --> 00:03:02.910
+Denis Nikolskiy: I know I can… Wow.
+
+32
+00:03:03.810 --> 00:03:09.020
+Denis Nikolskiy: Write a regular expression that looks for phone numbers in a string.
+
+33
+00:03:09.200 --> 00:03:10.810
+Denis Nikolskiy: And
+
+34
+00:03:11.920 --> 00:03:16.570
+Denis Nikolskiy: Replaces it with something else. Like, I can…
+
+35
+00:03:17.180 --> 00:03:23.840
+Denis Nikolskiy: I can ask, I can write that my email myself in in Python pretty pretty fast.
+
+36
+00:03:24.200 --> 00:03:25.100
+Denis Nikolskiy: So…
+
+37
+00:03:25.910 --> 00:03:29.849
+Denis Nikolskiy: What's not clear from what you're showing me is…
+
+38
+00:03:32.140 --> 00:03:38.500
+Denis Nikolskiy: What's your… what's your solution? Like, let's say I want to…
+
+39
+00:03:39.080 --> 00:03:46.430
+Denis Nikolskiy: Not find passwords in there. Like, do you have some kind of, like, plug-in system, or how do I…
+
+40
+00:03:47.050 --> 00:03:52.290
+Denis Nikolskiy: how do I extend that? So, what's… your solution…
+
+41
+00:03:53.830 --> 00:04:00.980
+Denis Nikolskiy: Here, I was looking more for maybe, like, an architectural approach, at least at the beginning.
+
+42
+00:04:00.980 --> 00:04:01.740
+Azamat Bayramov: Okay.
+
+43
+00:04:01.740 --> 00:04:06.540
+Denis Nikolskiy: So, like, not the actual…
+
+44
+00:04:07.140 --> 00:04:14.049
+Denis Nikolskiy: Like, replacement of, of a phone number, because, like, that's, that's clear, but,
+
+45
+00:04:14.720 --> 00:04:17.029
+Denis Nikolskiy: Maybe more architectural solution.
+
+46
+00:04:17.990 --> 00:04:21.069
+Denis Nikolskiy: For the whole thing, so how do you…
+
+47
+00:04:21.959 --> 00:04:30.689
+Denis Nikolskiy: How do you make sure that plugins work? How many plugins can be added? What should be done to make sure that
+
+48
+00:04:31.050 --> 00:04:37.409
+Denis Nikolskiy: If I ask LLM to write a plugin, it fits into your system.
+
+49
+00:04:38.000 --> 00:04:38.730
+Denis Nikolskiy: Okay.
+
+50
+00:04:39.350 --> 00:04:44.449
+Denis Nikolskiy: Because right now I can use Claude and I can say.
+
+51
+00:04:45.870 --> 00:04:57.470
+Denis Nikolskiy: Write a converter, like, that looks for numbers and replaces them with, like, a phone or something, and it will, it will do it. So that's not a, like, problem.
+
+52
+00:04:57.470 --> 00:05:09.649
+Azamat Bayramov: Yeah, okay, so you expected more about how the architecture and how the code would look like in overall, but not the concrete case of how it will work, for example.
+
+53
+00:05:10.130 --> 00:05:15.589
+Denis Nikolskiy: Yeah, yeah, of course, because, concrete case… Is,
+
+54
+00:05:15.740 --> 00:05:19.299
+Denis Nikolskiy: It's just a placeholder, like, phone number's a placeholder,
+
+55
+00:05:19.680 --> 00:05:24.739
+Denis Nikolskiy: Password displays ho- holder, there can be more.
+
+56
+00:05:26.250 --> 00:05:29.900
+Denis Nikolskiy: More advanced usages of that, like, you can…
+
+57
+00:05:30.210 --> 00:05:34.190
+Denis Nikolskiy: Look for, like, code that, like.
+
+58
+00:05:34.320 --> 00:05:39.260
+Denis Nikolskiy: You hash it and if it matches some hash then
+
+59
+00:05:39.910 --> 00:05:42.750
+Denis Nikolskiy: You just allow it, for example.
+
+60
+00:05:43.300 --> 00:05:44.760
+Denis Nikolskiy: So the…
+
+61
+00:05:44.900 --> 00:05:53.379
+Denis Nikolskiy: The examples can be anything you can think of. That's not the problem. Like, specific replacement is not the problem.
+
+62
+00:05:53.740 --> 00:05:58.250
+Denis Nikolskiy: The problem is to… Come up with a system
+
+63
+00:05:59.040 --> 00:06:06.809
+Denis Nikolskiy: That would tolerate that. I can write something real quick and it's
+
+64
+00:06:07.490 --> 00:06:13.439
+Denis Nikolskiy: plugs into… into it, right? That's… that's the challenge.
+
+65
+00:06:17.280 --> 00:06:18.990
+Azamat Bayramov: Okay, understood.
+
+66
+00:06:20.600 --> 00:06:21.520
+Azamat Bayramov: Okay.
+
+67
+00:06:21.790 --> 00:06:27.440
+Azamat Bayramov: So, maybe we'll have, like, a second prototype one, and maybe share it with you.
+
+68
+00:06:27.700 --> 00:06:28.730
+Azamat Bayramov: Next time.
+
+69
+00:06:29.330 --> 00:06:31.580
+Denis Nikolskiy: Sure, no problem.
+
+70
+00:06:32.000 --> 00:06:36.620
+Denis Nikolskiy: But maybe… For… for this…
+
+71
+00:06:37.160 --> 00:06:43.210
+Denis Nikolskiy: For this project, it's more… Interesting.
+
+72
+00:06:43.560 --> 00:06:48.639
+Denis Nikolskiy: To first come up with a concept, let's come up with a concept and validate it.
+
+73
+00:06:49.560 --> 00:06:54.080
+Denis Nikolskiy: And then you can, based on that concept, you can.
+
+74
+00:06:55.290 --> 00:07:01.689
+Denis Nikolskiy: I write a prototype that does it. Like, it doesn't, Doesn't need to have…
+
+75
+00:07:02.980 --> 00:07:07.579
+Denis Nikolskiy: Any concrete functionality, like phone replacement or password replacement?
+
+76
+00:07:08.090 --> 00:07:14.220
+Denis Nikolskiy: It needs to… have functionality that… Oh.
+
+77
+00:07:14.410 --> 00:07:24.319
+Denis Nikolskiy: I can, I can add, like, it's a plug-in system, and then maybe, like, I don't know, so you, you wrote this in Python, right? It's, or what's…
+
+78
+00:07:24.740 --> 00:07:28.089
+Denis Nikolskiy: what is this? Like, what do I…
+
+79
+00:07:28.090 --> 00:07:31.499
+Azamat Bayramov: Concrete, specifically this one, this prototype is, like.
+
+80
+00:07:31.950 --> 00:07:50.860
+Azamat Bayramov: It's, like, just HTML, CSS, JS. It's, like, not about how the architecture will work, but about how the logic of system will work. And just, I read the assignment, like, parts, and it was, like, something like… or Figma one, Design one, and something like that, so I thought it, like.
+
+81
+00:07:50.940 --> 00:07:56.289
+Azamat Bayramov: It would be better, like, to this, but, yeah, now I understand that. It's more about.
+
+82
+00:07:56.290 --> 00:07:56.690
+Denis Nikolskiy: per.
+
+83
+00:07:56.690 --> 00:08:07.140
+Azamat Bayramov: For you, for, for specifically this project is more about how the architecture will work and how the system will be. For example, we can add new features and new plugins. Yeah.
+
+84
+00:08:07.340 --> 00:08:11.730
+Denis Nikolskiy: So, think again about… who your…
+
+85
+00:08:12.590 --> 00:08:20.210
+Denis Nikolskiy: Who's your target user? Your target user Our… Devops.
+
+86
+00:08:20.470 --> 00:08:26.170
+Denis Nikolskiy: people… For a large company, medium to large.
+
+87
+00:08:26.310 --> 00:08:27.210
+Denis Nikolskiy: company.
+
+88
+00:08:27.790 --> 00:08:28.860
+Denis Nikolskiy: And…
+
+89
+00:08:30.620 --> 00:08:41.440
+Denis Nikolskiy: They're okay with CLI, for example. Maybe they wouldn't feel better with CLI than the frontend. Frontend is great. It's awesome if you do it.
+
+90
+00:08:41.620 --> 00:08:45.759
+Denis Nikolskiy: That's good, but it's not the main selling point.
+
+91
+00:08:46.260 --> 00:08:50.310
+Denis Nikolskiy: The main selling point is as a DevOps.
+
+92
+00:08:50.790 --> 00:08:56.240
+Denis Nikolskiy: I should be able to… Started… started up very easily.
+
+93
+00:08:56.710 --> 00:08:57.540
+Denis Nikolskiy: Okay.
+
+94
+00:08:58.300 --> 00:09:04.570
+Denis Nikolskiy: Get some information, like how many requests coming through, and if it's working.
+
+95
+00:09:06.160 --> 00:09:18.460
+Denis Nikolskiy: Get add plugins like add plugin restart. Think of DevOps. Don't think of people who don't know what they're doing, but think of DevOps.
+
+96
+00:09:18.460 --> 00:09:18.940
+Azamat Bayramov: Okay.
+
+97
+00:09:18.940 --> 00:09:28.500
+Denis Nikolskiy: So yeah, yeah. Well, thank you for showing the prototype. Guys, do you have… Arjun.
+
+98
+00:09:28.640 --> 00:09:30.319
+Denis Nikolskiy: Do you have anything to show?
+
+99
+00:09:35.280 --> 00:09:40.650
+Artem Lisitcin: To show, no. I don't have a UI interface or something like that.
+
+100
+00:09:42.100 --> 00:09:42.740
+Denis Nikolskiy: Oops.
+
+101
+00:09:43.110 --> 00:09:46.490
+Denis Nikolskiy: Okay, but maybe concept, have you thought of,
+
+102
+00:09:47.170 --> 00:09:49.609
+Denis Nikolskiy: Concept how you're gonna approach this…
+
+103
+00:09:51.420 --> 00:09:56.590
+Artem Lisitcin: Yes. So, our concept is, there will be,
+
+104
+00:09:57.330 --> 00:10:03.109
+Artem Lisitcin: A Gateway component that would accept, requests from users.
+
+105
+00:10:03.260 --> 00:10:06.469
+Artem Lisitcin: And then, this Gateway will send,
+
+106
+00:10:07.000 --> 00:10:13.649
+Artem Lisitcin: this request to, plugin interpreter. That would be another component.
+
+107
+00:10:13.830 --> 00:10:18.769
+Artem Lisitcin: That, will support, license in Python.
+
+108
+00:10:19.060 --> 00:10:23.990
+Artem Lisitcin: So in future, we can add more interpreters.
+
+109
+00:10:24.210 --> 00:10:33.580
+Artem Lisitcin: Even for JavaScript, etc, to support many languages, if it's needed. However, now we will focus on Python interpreter.
+
+110
+00:10:34.010 --> 00:10:36.270
+Artem Lisitcin: And the main conception is,
+
+111
+00:10:36.460 --> 00:10:44.829
+Artem Lisitcin: Okay. Request, is going to, Gateway. For example, it can be written on any language, or we'll use Java anyway.
+
+112
+00:10:44.950 --> 00:10:50.290
+Artem Lisitcin: And then it will send this request to Python interpreter.
+
+113
+00:10:51.920 --> 00:10:54.579
+Artem Lisitcin: And we'll focus on that
+
+114
+00:10:54.740 --> 00:10:57.199
+Artem Lisitcin: Feature that you said, that,
+
+115
+00:10:58.590 --> 00:11:03.740
+Artem Lisitcin: That will be really easy to add new models, plugins to this interpreter.
+
+116
+00:11:05.150 --> 00:11:07.830
+Artem Lisitcin: I'm not sure how exactly they…
+
+117
+00:11:07.830 --> 00:11:08.300
+Denis Nikolskiy: How.
+
+118
+00:11:08.300 --> 00:11:08.790
+Artem Lisitcin: other.
+
+119
+00:11:08.790 --> 00:11:15.619
+Denis Nikolskiy: How data… how… how data will move from one plugin to another, so you will just…
+
+120
+00:11:16.040 --> 00:11:34.040
+Denis Nikolskiy: take a request and feed it to one plugin, take the output, and then put it into another plugin, or what's… so you have, like, some kind of a messaging system that you just, like, put them in order, or what's… have you thought about that?
+
+121
+00:11:35.180 --> 00:11:39.269
+Artem Lisitcin: Yes, that would be something like a chain of plugins.
+
+122
+00:11:39.380 --> 00:11:44.339
+Artem Lisitcin: The request will go through each plugin.
+
+123
+00:11:45.990 --> 00:11:48.149
+Artem Lisitcin: But we will,
+
+124
+00:11:48.380 --> 00:11:56.659
+Artem Lisitcin: Combine all plugins in one, component, not, like, one component per plugin, because it's,
+
+125
+00:11:57.030 --> 00:12:00.480
+Artem Lisitcin: Not an optimized approach, I think.
+
+126
+00:12:01.380 --> 00:12:06.419
+Artem Lisitcin: And, the interpreter would have something like,
+
+127
+00:12:08.070 --> 00:12:16.649
+Artem Lisitcin: a package with plugins and it will manage by itself which plugin needs to be activated.
+
+128
+00:12:20.900 --> 00:12:32.820
+Denis Nikolskiy: Okay, okay. Again, to remind you that, like, there's several teams here, and then you guys, you're free to take any approach that you want, like, anything that seems…
+
+129
+00:12:34.010 --> 00:12:40.620
+Denis Nikolskiy: That you can achieve some goal, like, this is one approach, that's fine, but any other approach is fine.
+
+130
+00:12:41.000 --> 00:12:45.779
+Denis Nikolskiy: Yeah, okay. And Sergey and Ali.
+
+131
+00:12:46.490 --> 00:12:48.469
+Denis Nikolskiy: Do you guys have anything?
+
+132
+00:12:49.560 --> 00:12:52.419
+Denis Nikolskiy: Any concept that you're planning to implement, or…
+
+133
+00:12:52.420 --> 00:12:52.890
+Artem Lisitcin: to…
+
+134
+00:12:52.890 --> 00:12:56.380
+Denis Nikolskiy: Do you have any questions for me? Artem, go ahead.
+
+135
+00:12:57.060 --> 00:12:58.679
+Artem Lisitcin: Yeah. So,
+
+136
+00:12:58.680 --> 00:12:59.100
+Denis Nikolskiy: I jumped.
+
+137
+00:12:59.100 --> 00:13:06.230
+Artem Lisitcin: My team's approach is, we'll also help to distribute the system, because we can,
+
+138
+00:13:07.010 --> 00:13:12.860
+Artem Lisitcin: Have several instances of interpreters and gateways.
+
+139
+00:13:13.300 --> 00:13:15.750
+Artem Lisitcin: And if the…
+
+140
+00:13:16.170 --> 00:13:21.029
+Artem Lisitcin: Load will be big, we can just…
+
+141
+00:13:21.900 --> 00:13:27.180
+Artem Lisitcin: Make another instances of Gateway or interpreters because they are stateless.
+
+142
+00:13:27.310 --> 00:13:32.380
+Artem Lisitcin: To distribute the, oh.
+
+143
+00:13:36.630 --> 00:13:37.400
+Denis Nikolskiy: Oh.
+
+144
+00:13:37.690 --> 00:13:44.929
+Denis Nikolskiy: Okay, it's an interesting approach. I think I wouldn't pick it myself. I could feel this.
+
+145
+00:13:46.190 --> 00:13:59.349
+Denis Nikolskiy: it feels pretty heavy in terms of, like, you have to have, multiple instances of Python interpreter, right? That's what you're planning to have. And then you take code, and then you…
+
+146
+00:13:59.350 --> 00:14:06.879
+Denis Nikolskiy: Feed it into the interpreter, and then see the result, and then what happens if that plugin starts
+
+147
+00:14:07.280 --> 00:14:11.670
+Denis Nikolskiy: Going into your, okay.
+
+148
+00:14:16.510 --> 00:14:23.059
+Denis Nikolskiy: files, it just, like, starts opening files and, like, starts doing stuff. So do you allow it? Do you…
+
+149
+00:14:23.190 --> 00:14:35.359
+Denis Nikolskiy: like, you… you keep, from Java, a close eye on what's going on, like, you, like, parse them before you feed them. There's, I feel like, there are lots of…
+
+150
+00:14:35.490 --> 00:14:39.570
+Denis Nikolskiy: Questions. But that sounds like you guys know what you're doing, so…
+
+151
+00:14:40.000 --> 00:14:41.870
+Denis Nikolskiy: Might be a pretty good approach.
+
+152
+00:14:46.250 --> 00:14:47.929
+Denis Nikolskiy: Artem, do you have anything else?
+
+153
+00:14:48.150 --> 00:14:48.800
+Denis Nikolskiy: Right.
+
+154
+00:14:48.800 --> 00:14:49.659
+Artem Lisitcin: No, thank you.
+
+155
+00:14:49.660 --> 00:14:50.950
+Sergey Atkonov: Ask you about.
+
+156
+00:14:51.260 --> 00:14:51.970
+Sergey Atkonov: Hmm.
+
+157
+00:14:51.970 --> 00:14:52.650
+Denis Nikolskiy: Yeah, go ahead.
+
+158
+00:14:52.650 --> 00:14:58.870
+Sergey Atkonov: Can I ask questions after this meeting? During the… Work hours.
+
+159
+00:14:59.500 --> 00:15:12.739
+Denis Nikolskiy: You can ask questions right now. So here, again, three teams. I'm kind of working on the same project. You can take multiple approaches, and it's good that you guys see each other.
+
+160
+00:15:12.870 --> 00:15:20.710
+Denis Nikolskiy: ways to do stuff, approach this, this project. And yeah, you can go ahead and ask questions. Of course, you can ask now.
+
+161
+00:15:21.430 --> 00:15:27.869
+Sergey Atkonov: Okay, thank you. I am trying to… How to say that?
+
+162
+00:15:28.880 --> 00:15:33.140
+Sergey Atkonov: Implement my part, assigned For.
+
+163
+00:15:33.470 --> 00:15:34.739
+Sergey Atkonov: From my teammates.
+
+164
+00:15:34.990 --> 00:15:40.670
+Sergey Atkonov: And right now, I'm just trying to figure out that…
+
+165
+00:15:42.200 --> 00:15:50.250
+Sergey Atkonov: All I'm doing is understood correctly, and I'd better just… Ask you about it later.
+
+166
+00:15:50.380 --> 00:15:56.470
+Sergey Atkonov: Chance… I should eliminate my own questions, just…
+
+167
+00:15:57.250 --> 00:15:59.510
+Sergey Atkonov: While I am possible by myself.
+
+168
+00:16:00.910 --> 00:16:12.059
+Denis Nikolskiy: I'll go ahead and ask now. I mean, I'm curious, and maybe other people are curious too. So what's your guys' approach? Can you describe what you're trying to achieve, how you're doing it, and which language you're doing it?
+
+169
+00:16:12.350 --> 00:16:16.100
+Denis Nikolskiy: And what's your part? What do you want to do?
+
+170
+00:16:18.520 --> 00:16:22.440
+Sergey Atkonov: my part mostly is.
+
+171
+00:16:23.470 --> 00:16:28.930
+Sergey Atkonov: To fix… The error markdown from week one.
+
+172
+00:16:31.110 --> 00:16:33.469
+Sergey Atkonov: Implement CI workflow.
+
+173
+00:16:34.360 --> 00:16:35.640
+Sergey Atkonov: And…
+
+174
+00:16:39.660 --> 00:16:41.160
+Sergey Atkonov: Oh, God, nice.
+
+175
+00:16:42.670 --> 00:16:44.880
+Sergey Atkonov: Never mind.
+
+176
+00:16:45.380 --> 00:16:48.699
+Sergey Atkonov: Okay, okay. I guess I'm too sleepy right now. Sorry for that.
+
+177
+00:16:48.700 --> 00:16:49.280
+Denis Nikolskiy: That's fine.
+
+178
+00:16:49.280 --> 00:16:49.940
+Sergey Atkonov: Right.
+
+179
+00:16:49.940 --> 00:16:56.949
+Denis Nikolskiy: That's fine. Okay, so do you… can you guys describe the concept that you…
+
+180
+00:16:57.270 --> 00:17:02.360
+Denis Nikolskiy: Or did you understand what the task is, and or you haven't gotten to that?
+
+181
+00:17:03.660 --> 00:17:08.910
+Ali Hamdan: I have some questions. If you don't mind, we are the same team. I'm on the same team with Sergey.
+
+182
+00:17:08.910 --> 00:17:11.040
+Denis Nikolskiy: Okay, okay, go ahead.
+
+183
+00:17:11.040 --> 00:17:18.709
+Ali Hamdan: I will just have a small presentation to just ask you some questions and validate something because we missed.
+
+184
+00:17:18.710 --> 00:17:19.140
+Denis Nikolskiy: Derek.
+
+185
+00:17:19.140 --> 00:17:20.589
+Ali Hamdan: With the previous meeting.
+
+186
+00:17:20.599 --> 00:17:20.979
+Denis Nikolskiy: Tuesday.
+
+187
+00:17:21.130 --> 00:17:24.570
+Ali Hamdan: Our ideas is not finalized, if you would avoid.
+
+188
+00:17:24.790 --> 00:17:25.270
+Ali Hamdan: One second.
+
+189
+00:17:25.270 --> 00:17:25.930
+Denis Nikolskiy: Sure.
+
+190
+00:17:34.050 --> 00:17:35.510
+Ali Hamdan: Can you see the…
+
+191
+00:17:35.510 --> 00:17:36.360
+Denis Nikolskiy: Yes.
+
+192
+00:17:36.540 --> 00:17:38.639
+Ali Hamdan: Yeah. Okay. Is it, is it readable?
+
+193
+00:17:39.480 --> 00:17:41.029
+Denis Nikolskiy: Yeah, yeah, it is, yeah.
+
+194
+00:17:41.370 --> 00:17:42.970
+Ali Hamdan: Okay, so…
+
+195
+00:17:43.170 --> 00:17:50.039
+Ali Hamdan: We're still trying to finalize it, we… it's not the final thing, there is some… something to solve. Okay.
+
+196
+00:17:50.390 --> 00:18:02.119
+Ali Hamdan: We have some something like research about multiple stuff, but most of them already have some plugins or like logs, and so on. So
+
+197
+00:18:03.310 --> 00:18:12.030
+Ali Hamdan: Do we still need to check, like, the existing tools can do this well, or we have to implement something ourselves anyway?
+
+198
+00:18:15.930 --> 00:18:18.229
+Denis Nikolskiy: If you can find a tool.
+
+199
+00:18:18.460 --> 00:18:21.620
+Denis Nikolskiy: That already does it, then fine, just use it.
+
+200
+00:18:21.850 --> 00:18:25.930
+Denis Nikolskiy: I just didn't find the tool That does…
+
+201
+00:18:27.150 --> 00:18:34.350
+Denis Nikolskiy: exactly what I what I wanted to do. So when you use like, yeah, this light Llm.
+
+202
+00:18:34.710 --> 00:18:38.990
+Denis Nikolskiy: and Azure Api management and all that stuff.
+
+203
+00:18:39.180 --> 00:18:46.760
+Denis Nikolskiy: It comes with, baggage of… Tools already built in.
+
+204
+00:18:47.460 --> 00:18:52.900
+Denis Nikolskiy: And, you have to either… Change the tool.
+
+205
+00:18:53.170 --> 00:19:03.549
+Denis Nikolskiy: updated or have a mixture of all of them to cover all your use cases if you're a company. So what companies do right now, they have multiple of those tools.
+
+206
+00:19:03.860 --> 00:19:08.409
+Denis Nikolskiy: They use LightLM for one thing, and Azure API…
+
+207
+00:19:08.650 --> 00:19:19.120
+Denis Nikolskiy: for another thing, and, I don't know, Porky, I haven't heard, but, some, some other… Tools, like, that manage…
+
+208
+00:19:19.790 --> 00:19:24.260
+Denis Nikolskiy: the LLM. And the problem is… The following.
+
+209
+00:19:25.270 --> 00:19:42.460
+Denis Nikolskiy: You have, people on… on your… in your company that want to use, like, for example, cloud providers, different cloud providers, and you want to audit, what they send to.
+
+210
+00:19:42.600 --> 00:19:44.969
+Denis Nikolskiy: the cloud providers, LLM providers.
+
+211
+00:19:45.280 --> 00:19:54.219
+Denis Nikolskiy: You want to stop leaking any passwords, any, personal data, maybe some specific code.
+
+212
+00:19:54.580 --> 00:19:57.890
+Denis Nikolskiy: Fingerprinted code, and many other things.
+
+213
+00:19:58.370 --> 00:20:05.550
+Denis Nikolskiy: And it depends on your company's policy. So, each company has to
+
+214
+00:20:06.270 --> 00:20:11.379
+Denis Nikolskiy: Pretty much readjust all those tools to get them working.
+
+215
+00:20:12.410 --> 00:20:18.379
+Denis Nikolskiy: And so, the idea is that you provide a system A plug-in system.
+
+216
+00:20:18.660 --> 00:20:24.739
+Denis Nikolskiy: that you can deploy, and DevOps can, for example, use another
+
+217
+00:20:25.490 --> 00:20:32.090
+Denis Nikolskiy: LLM to write snippets or parts that they
+
+218
+00:20:32.570 --> 00:20:38.879
+Denis Nikolskiy: That they need. One example can be, existing,
+
+219
+00:20:40.480 --> 00:20:48.860
+Denis Nikolskiy: existing, like, legacy logging system. None of those tools will be able to…
+
+220
+00:20:49.530 --> 00:20:52.689
+Denis Nikolskiy: To work with it, so you have to write some kind of.
+
+221
+00:20:53.320 --> 00:20:56.740
+Denis Nikolskiy: Transfer, so you have to write some kind of…
+
+222
+00:20:58.250 --> 00:21:04.109
+Denis Nikolskiy: system that, like, reads from light LLM, for example.
+
+223
+00:21:04.500 --> 00:21:10.499
+Denis Nikolskiy: request, and then puts them in your logging system. The same for the response.
+
+224
+00:21:10.750 --> 00:21:15.330
+Denis Nikolskiy: Again, the provider sends a response and then
+
+225
+00:21:15.550 --> 00:21:18.570
+Denis Nikolskiy: Right? It's, you have to log it.
+
+226
+00:21:18.720 --> 00:21:22.550
+Denis Nikolskiy: Some other company might have, like, for example.
+
+227
+00:21:22.950 --> 00:21:30.689
+Denis Nikolskiy: 3 licenses, and they have, like, 5 people there, and then they just, round robin requests from
+
+228
+00:21:31.420 --> 00:21:34.480
+Denis Nikolskiy: Like, 1, 2, 3,
+
+229
+00:21:35.010 --> 00:21:38.440
+Denis Nikolskiy: That that can be another option.
+
+230
+00:21:38.550 --> 00:21:42.320
+Denis Nikolskiy: You can… Have another.
+
+231
+00:21:42.840 --> 00:21:46.660
+Denis Nikolskiy: Model that, checks,
+
+232
+00:21:46.830 --> 00:21:51.410
+Denis Nikolskiy: If the task is hard for like some some kind of
+
+233
+00:21:52.150 --> 00:21:55.160
+Denis Nikolskiy: Some kind of, I don't know.
+
+234
+00:21:55.670 --> 00:22:03.830
+Denis Nikolskiy: logic problem, or whatever LLMs struggle with. Or if you just need to, take
+
+235
+00:22:06.150 --> 00:22:13.120
+Denis Nikolskiy: It's a… it's a logging… it's a logging, text, and you just need to…
+
+236
+00:22:13.290 --> 00:22:22.840
+Denis Nikolskiy: the dumbest model, and you just need to find something in that, in that log. You need to parse it or summarize it. You… you might route the request
+
+237
+00:22:24.270 --> 00:22:26.740
+Denis Nikolskiy: To a cheaper model.
+
+238
+00:22:26.860 --> 00:22:32.530
+Denis Nikolskiy: So, based on price and the type of request. So, all those things… Oh.
+
+239
+00:22:32.920 --> 00:22:39.109
+Denis Nikolskiy: Like, you can, you can even invent yet another, like, not light LLM, but heavy LLM.
+
+240
+00:22:39.930 --> 00:22:41.800
+Denis Nikolskiy: And it still will not…
+
+241
+00:22:42.540 --> 00:22:49.930
+Denis Nikolskiy: Provide what companies need. So, the idea for this project is to come up with the system
+
+242
+00:22:50.190 --> 00:22:58.460
+Denis Nikolskiy: That allows… DevOps to kind of write their own snippets and put them… put it together.
+
+243
+00:22:58.640 --> 00:23:05.530
+Denis Nikolskiy: So, what I would like from you is some kind of idea how to organize that system.
+
+244
+00:23:05.750 --> 00:23:08.100
+Denis Nikolskiy: Can be organized in multiple ways.
+
+245
+00:23:08.560 --> 00:23:18.459
+Denis Nikolskiy: And then, implement… a working prototype that I could use and evaluate.
+
+246
+00:23:19.240 --> 00:23:20.010
+Denis Nikolskiy: Make sense?
+
+247
+00:23:20.010 --> 00:23:26.359
+Ali Hamdan: So yeah, let me just summarize to understand, to see if I'm understanding correctly. You need a
+
+248
+00:23:26.560 --> 00:23:33.000
+Ali Hamdan: Like, a unified system that will monitor what's being sent forth and back with.
+
+249
+00:23:33.000 --> 00:23:35.680
+Denis Nikolskiy: Monitor and route it, and route it, yes.
+
+250
+00:23:35.680 --> 00:23:51.319
+Ali Hamdan: I understand, okay. And you want it to be, like, not plugins, like, something like Lego parts. Okay, the company needs this part, okay, let's put it there. We don't need this part, let's take it out, and so on. It's, like, tailored to the company. But we should have all the options, the available options.
+
+251
+00:23:52.780 --> 00:23:54.400
+Denis Nikolskiy: Yes, that's correct, that's correct.
+
+252
+00:23:54.400 --> 00:23:56.830
+Ali Hamdan: Okay, okay, I'm just double checking.
+
+253
+00:23:56.930 --> 00:24:04.379
+Ali Hamdan: So our post flow from what we had, from what we understood so far.
+
+254
+00:24:05.400 --> 00:24:07.660
+Ali Hamdan: Just a simple, high-level part.
+
+255
+00:24:09.890 --> 00:24:19.890
+Ali Hamdan: It's like the employee would send the request, the Gateway will must accompany identifier before forwarding it and that we will have some ID to the request.
+
+256
+00:24:20.140 --> 00:24:27.059
+Ali Hamdan: policy, and so on. The old requests will keep their original policy, and after the change, so, like.
+
+257
+00:24:27.670 --> 00:24:29.229
+Ali Hamdan: Does it make sense?
+
+258
+00:24:29.810 --> 00:24:32.980
+Ali Hamdan: what we talked about.
+
+259
+00:24:37.150 --> 00:24:43.600
+Denis Nikolskiy: Yeah, so far it looks… I mean, it looks fine, what you said. Record shows the request ID.
+
+260
+00:24:43.820 --> 00:24:45.130
+Denis Nikolskiy: Yeah, yeah.
+
+261
+00:24:45.130 --> 00:24:48.830
+Ali Hamdan: Okay, do you think we need to add anything for it?
+
+262
+00:24:49.620 --> 00:24:54.299
+Ali Hamdan: Or is can you sense something is missing from it, like, as general?
+
+263
+00:24:55.700 --> 00:24:57.500
+Ali Hamdan: General way of working.
+
+264
+00:25:00.600 --> 00:25:06.910
+Denis Nikolskiy: Oh… So, what's missing is, kind of an approach, concept.
+
+265
+00:25:07.100 --> 00:25:11.750
+Denis Nikolskiy: How you can, deal with,
+
+266
+00:25:12.730 --> 00:25:16.150
+Denis Nikolskiy: With the request, like, what's the…
+
+267
+00:25:22.880 --> 00:25:26.540
+Denis Nikolskiy: Not an API, but wow.
+
+268
+00:25:28.280 --> 00:25:33.750
+Denis Nikolskiy: interface, so… Between your system and plugins.
+
+269
+00:25:34.080 --> 00:25:39.360
+Denis Nikolskiy: Like, you need to design some kind of interface, you need to decide what
+
+270
+00:25:39.550 --> 00:25:47.259
+Denis Nikolskiy: what you will be using, like, it will be, for example, pure Python, and then sending.
+
+271
+00:25:48.580 --> 00:25:53.540
+Denis Nikolskiy: Messages between those plugins, and I'm just…
+
+272
+00:25:53.910 --> 00:26:00.610
+Denis Nikolskiy: route, depending how you want to do it. Or, for example, you heard what the other team
+
+273
+00:26:00.790 --> 00:26:04.620
+Denis Nikolskiy: I decided to do. They have a Java application.
+
+274
+00:26:04.780 --> 00:26:09.919
+Denis Nikolskiy: that, starts some Python interpreter and they just take.
+
+275
+00:26:10.240 --> 00:26:14.029
+Denis Nikolskiy: Plugin, and then they send it to the…
+
+276
+00:26:14.370 --> 00:26:20.409
+Denis Nikolskiy: To the interpreter, and it does whatever it does, and I guess they take the response, and then they…
+
+277
+00:26:20.560 --> 00:26:27.919
+Denis Nikolskiy: Handed off into another plugin, so they will have to come up with some kind of ordering, and then they will have to, like.
+
+278
+00:26:28.150 --> 00:26:34.159
+Denis Nikolskiy: Hand off the message. You can take a completely different approach. I don't know, it's up to you.
+
+279
+00:26:34.410 --> 00:26:39.810
+Denis Nikolskiy: So, I would like to see… Wow.
+
+280
+00:26:39.980 --> 00:26:42.950
+Denis Nikolskiy: If possible, like, plugin interface.
+
+281
+00:26:43.210 --> 00:26:52.369
+Denis Nikolskiy: What comes in, what kind of information you send to plugin, and then what comes out from a plugin.
+
+282
+00:26:53.890 --> 00:27:00.329
+Denis Nikolskiy: So, yeah, that would be nice, because then it would be more clear how you,
+
+283
+00:27:01.530 --> 00:27:07.969
+Denis Nikolskiy: what the system should should expect and should feed into each plugin.
+
+284
+00:27:08.750 --> 00:27:14.139
+Denis Nikolskiy: And yeah, the approach… approach how you're gonna run it, like, and what you're gonna…
+
+285
+00:27:14.440 --> 00:27:20.390
+Denis Nikolskiy: Load it, every time, or, I don't know, preload all the plugins, and then just…
+
+286
+00:27:21.330 --> 00:27:23.970
+Denis Nikolskiy: Take messages, through them.
+
+287
+00:27:24.850 --> 00:27:26.780
+Denis Nikolskiy: Yeah, again, it's up to you.
+
+288
+00:27:27.410 --> 00:27:30.820
+Ali Hamdan: Understood, okay, okay. We have more details for now.
+
+289
+00:27:30.970 --> 00:27:40.230
+Ali Hamdan: Okay. I think that's all for the last one. We have some… we had… I had some information from you. Absolutely.
+
+290
+00:27:41.170 --> 00:27:49.000
+Denis Nikolskiy: Question, question, in what language are you planning to write that that system?
+
+291
+00:27:49.710 --> 00:27:58.439
+Ali Hamdan: Because most of us, like, are good in Python, probably it will be in Python, but we might change to something else if we saw the need for that, but…
+
+292
+00:27:59.530 --> 00:28:03.400
+Denis Nikolskiy: Okay, okay, yeah,
+
+293
+00:28:03.760 --> 00:28:06.950
+Denis Nikolskiy: That's fine, that's okay.
+
+294
+00:28:07.660 --> 00:28:11.370
+Denis Nikolskiy: Yeah, Python is fine, I would say.
+
+295
+00:28:12.200 --> 00:28:22.630
+Denis Nikolskiy: Any like compilable language would be also fine. But Python is good. I don't have anything against Python. In fact, actually, it's preferred because I
+
+296
+00:28:23.310 --> 00:28:24.120
+Denis Nikolskiy: Bye.
+
+297
+00:28:24.320 --> 00:28:26.720
+Denis Nikolskiy: proficient in Python more than me.
+
+298
+00:28:27.380 --> 00:28:28.070
+Denis Nikolskiy: Yeah.
+
+299
+00:28:28.070 --> 00:28:45.900
+Ali Hamdan: Understood. We will, we will, like, see the final, not the final, like, while we are working, if we see the need for some, something, like, very fast or very specific needs, we might just put this component into different language, but probably it will be mostly Python, but it's up to, it's up to the question for change, so, yeah.
+
+300
+00:28:46.990 --> 00:28:48.979
+Denis Nikolskiy: Okay, cool,
+
+301
+00:28:51.020 --> 00:28:51.380
+Ali Hamdan: never.
+
+302
+00:28:51.380 --> 00:28:54.450
+Denis Nikolskiy: Everyone else, like, other teams, was it useful, like, to…
+
+303
+00:28:55.050 --> 00:29:03.819
+Denis Nikolskiy: Did I give you more new information, or you already understood what was… Required from the project.
+
+304
+00:29:07.040 --> 00:29:08.629
+Ali Hamdan: You're asking me or the other team?
+
+305
+00:29:08.630 --> 00:29:11.950
+Denis Nikolskiy: No, I'm asking other people, other teams.
+
+306
+00:29:12.740 --> 00:29:22.880
+Azamat Bayramov: For me, it was, like, now I understand more about how and what the customer waiting for. It's, like, not just about
+
+307
+00:29:23.270 --> 00:29:35.879
+Azamat Bayramov: How it will work in logic, but how the architecture will be organized. So, yeah, it's more about, like, more technical persons, and we…
+
+308
+00:29:36.100 --> 00:29:48.399
+Azamat Bayramov: initially, thought. Like, it's about how the DevOps, or how the developers of this company can, like, fork, or maybe add some plugins, and so on, and yeah.
+
+309
+00:29:48.710 --> 00:29:54.809
+Azamat Bayramov: more about architecture, and I think, like, we should think about it.
+
+310
+00:29:55.850 --> 00:30:03.830
+Denis Nikolskiy: I'll take off my customer hat and I'll put on my instructor hat. I'll tell you that.
+
+311
+00:30:05.380 --> 00:30:14.670
+Denis Nikolskiy: It's, you have to be very, very careful about who your customers are, and what their technical, level.
+
+312
+00:30:15.000 --> 00:30:16.290
+Denis Nikolskiy: Sometimes.
+
+313
+00:30:16.790 --> 00:30:22.000
+Denis Nikolskiy: you get, very technical customers.
+
+314
+00:30:22.560 --> 00:30:24.710
+Denis Nikolskiy: And on one hand, it could…
+
+315
+00:30:24.980 --> 00:30:29.929
+Denis Nikolskiy: Like, you kind of speak their language. On the other hand.
+
+316
+00:30:30.120 --> 00:30:34.500
+Denis Nikolskiy: It's a little more challenging because.
+
+317
+00:30:35.270 --> 00:30:40.190
+Denis Nikolskiy: they expect different… Yeah.
+
+318
+00:30:40.930 --> 00:30:46.819
+Denis Nikolskiy: visual stuff, they say, yeah, yeah, it's like, it's a UI, who cares? Like, just show me the request.
+
+319
+00:30:47.040 --> 00:30:52.149
+Denis Nikolskiy: Or, like, they expect other things, so you have to be careful.
+
+320
+00:30:52.280 --> 00:30:56.680
+Denis Nikolskiy: In terms of who your customers are, like, if they technically
+
+321
+00:30:57.150 --> 00:31:08.449
+Denis Nikolskiy: incompetent at all. Like it's even it's sometimes even easier because you you show them the user interface, they're like, "Oh yeah, this button goes here. I can I my problem is solved.
+
+322
+00:31:09.780 --> 00:31:13.299
+Denis Nikolskiy: When you get technical customers.
+
+323
+00:31:13.570 --> 00:31:18.550
+Denis Nikolskiy: Then it's… it's a lot more… More challenging to satisfy them.
+
+324
+00:31:19.020 --> 00:31:30.540
+Denis Nikolskiy: And that's it's a good preparation for your next semester course, which is industrial project. Sometimes you get very technical customers like we had.
+
+325
+00:31:31.210 --> 00:31:41.210
+Denis Nikolskiy: From… from a bank, or from… Other, like, the actual developers. And.
+
+326
+00:31:41.340 --> 00:31:46.240
+Denis Nikolskiy: Satisfying them is harder because they are
+
+327
+00:31:46.610 --> 00:31:50.740
+Denis Nikolskiy: Technically proficient, and they expect… their expectations are very different.
+
+328
+00:31:50.850 --> 00:31:59.030
+Denis Nikolskiy: So yeah, that's my instructor hat. Put it down, back to my customer hat. So, okay,
+
+329
+00:31:59.460 --> 00:32:00.920
+Denis Nikolskiy: Any other questions?
+
+330
+00:32:01.090 --> 00:32:01.870
+Denis Nikolskiy: Or…
+
+331
+00:32:04.180 --> 00:32:05.689
+Ali Hamdan: That's all from my side.
+
+332
+00:32:06.110 --> 00:32:07.760
+Denis Nikolskiy: Okay, Artem.
+
+333
+00:32:10.530 --> 00:32:11.130
+Artem Lisitcin: Oh.
+
+334
+00:32:11.370 --> 00:32:13.580
+Artem Lisitcin: I do have questions, too.
+
+335
+00:32:14.270 --> 00:32:22.319
+Denis Nikolskiy: Okay, okay, good. So, for each team, what do you guys think, like, next week, what should I expect?
+
+336
+00:32:24.020 --> 00:32:25.320
+Denis Nikolskiy: As a customer.
+
+337
+00:32:29.590 --> 00:32:34.239
+Azamat Bayramov: I think maybe from our… Sorry, Artem, interrupted you.
+
+338
+00:32:34.240 --> 00:32:34.630
+Artem Lisitcin: the.
+
+339
+00:32:34.630 --> 00:32:48.859
+Azamat Bayramov: Like, okay. So I think for… from our side, it's like, first of all, yeah, I understood that, we want to present you more, like, more technical stuff about how the architecture will be…
+
+340
+00:32:49.410 --> 00:32:57.120
+Azamat Bayramov: how it will be, and I think, first of all, it's, like, the architecture, and second is, like, more prototype of
+
+341
+00:32:57.290 --> 00:32:59.360
+Azamat Bayramov: how… And…
+
+342
+00:32:59.680 --> 00:33:08.020
+Azamat Bayramov: This pod will work. Not just how the logic will be organized, but how the pod will be organized, basically. Like, the basic question.
+
+343
+00:33:09.120 --> 00:33:10.980
+Denis Nikolskiy: Okay, yeah, good, good.
+
+344
+00:33:14.100 --> 00:33:16.050
+Denis Nikolskiy: Artem or Abby?
+
+345
+00:33:18.460 --> 00:33:19.100
+Artem Lisitcin: Oh.
+
+346
+00:33:19.360 --> 00:33:23.830
+Artem Lisitcin: I believe you will expect, as a customer from us, some
+
+347
+00:33:24.030 --> 00:33:26.950
+Artem Lisitcin: Maybe API, or even,
+
+348
+00:33:27.110 --> 00:33:35.040
+Artem Lisitcin: example of CLI interface, for, interacting with, between user, user, and.
+
+349
+00:33:35.690 --> 00:33:41.869
+Artem Lisitcin: The system, for example, some methods that can be used for.
+
+350
+00:33:42.210 --> 00:33:45.640
+Artem Lisitcin: Creating a plugin, or adding it.
+
+351
+00:33:46.330 --> 00:33:47.080
+Artem Lisitcin: Oh.
+
+352
+00:33:49.250 --> 00:33:49.960
+Artem Lisitcin: And so…
+
+353
+00:33:49.960 --> 00:33:55.830
+Denis Nikolskiy: Yeah, yeah, it would be great if, I don't… I don't…
+
+354
+00:33:57.710 --> 00:34:07.110
+Denis Nikolskiy: You don't require it the next week, but as soon as possible, minimum usable product is something like I can start.
+
+355
+00:34:07.350 --> 00:34:14.370
+Denis Nikolskiy: And, I can… Like, I don't know, like, grand theft, for example, or send,
+
+356
+00:34:15.409 --> 00:34:20.250
+Denis Nikolskiy: some kind of request to it, and then I can add a plugin
+
+357
+00:34:21.090 --> 00:34:25.810
+Denis Nikolskiy: Myself, to the system, like, two plugins, for example.
+
+358
+00:34:26.880 --> 00:34:27.739
+Denis Nikolskiy: Wow.
+
+359
+00:34:27.860 --> 00:34:34.660
+Denis Nikolskiy: Yeah, maybe they can be dependent on each other, but yeah, two plugins, and send a request, and see the…
+
+360
+00:34:35.260 --> 00:34:41.270
+Denis Nikolskiy: on the response. That would be great. They don't have to be… Icon.
+
+361
+00:34:41.679 --> 00:34:49.059
+Denis Nikolskiy: Anything super… Difficult or crazy just to should work, or start system.
+
+362
+00:34:49.489 --> 00:34:55.170
+Denis Nikolskiy: Or, I guess, since we agreed it's not gonna be, oh.
+
+363
+00:35:00.890 --> 00:35:10.690
+Denis Nikolskiy: Like, constantly online, so we hot-swapping plugins, we decided that we don't need that, so it's okay to restart.
+
+364
+00:35:11.000 --> 00:35:18.439
+Denis Nikolskiy: If I want to add plugins. I add some plugins, I start the system, I send some text to it.
+
+365
+00:35:18.860 --> 00:35:21.139
+Denis Nikolskiy: Since,
+
+366
+00:35:22.140 --> 00:35:30.949
+Denis Nikolskiy: I don't know, some kind of testing API. It doesn't have to be even LLM, just responses like, I don't know, Hello World or with some…
+
+367
+00:35:31.110 --> 00:35:37.379
+Denis Nikolskiy: It's even better if it's not LLM because that way we can check
+
+368
+00:35:37.660 --> 00:35:44.250
+Denis Nikolskiy: Deterministically, what our plugins do with, with text.
+
+369
+00:35:44.360 --> 00:35:47.520
+Denis Nikolskiy: That we want to handle, right?
+
+370
+00:35:48.040 --> 00:35:48.940
+Denis Nikolskiy: No.
+
+371
+00:35:49.540 --> 00:35:58.159
+Denis Nikolskiy: So, yeah, some kind of minimum usable product that they can play with. And it doesn't even need to be connected to actual LLM.
+
+372
+00:35:59.280 --> 00:36:05.099
+Denis Nikolskiy: Just some kind of, static server that spits out, text.
+
+373
+00:36:05.690 --> 00:36:08.649
+Denis Nikolskiy: And that will be easier to manage.
+
+374
+00:36:11.020 --> 00:36:11.930
+Denis Nikolskiy: Okay.
+
+375
+00:36:11.930 --> 00:36:12.600
+Artem Lisitcin: Okay.
+
+376
+00:36:13.080 --> 00:36:14.690
+Denis Nikolskiy: Cool, cool, cool.
+
+377
+00:36:14.980 --> 00:36:15.780
+Denis Nikolskiy: Okay.
+
+378
+00:36:16.560 --> 00:36:17.100
+Denis Nikolskiy: Ali?
+
+379
+00:36:18.000 --> 00:36:26.660
+Ali Hamdan: Okay, for us, as I understood, you need the, at least for now, like, a general flowchart, how the system will work, our proposed version of that.
+
+380
+00:36:27.240 --> 00:36:27.700
+Denis Nikolskiy: Some.
+
+381
+00:36:27.700 --> 00:36:33.499
+Ali Hamdan: Minimum working feature, maybe it's a mock data, but at least it's, like, how it's working, how you can interact.
+
+382
+00:36:33.500 --> 00:36:34.160
+Denis Nikolskiy: Yeah.
+
+383
+00:36:34.160 --> 00:36:34.569
+Ali Hamdan: Makes sense?
+
+384
+00:36:34.570 --> 00:36:35.110
+Denis Nikolskiy: Yes.
+
+385
+00:36:35.380 --> 00:36:37.040
+Denis Nikolskiy: Perfect. Yeah, cool.
+
+386
+00:36:37.520 --> 00:36:39.080
+Ali Hamdan: Okay.
+
+387
+00:36:39.090 --> 00:36:45.899
+Denis Nikolskiy: Okay, okay, cool, thank you guys for stopping, stopping by in this, early morning and,
+
+388
+00:36:46.450 --> 00:36:51.569
+Denis Nikolskiy: I hope you have a wonderful Friday, and the classes will not be too boring.
+
+389
+00:36:53.060 --> 00:36:54.400
+Denis Nikolskiy: Oh, yeah.
+
+390
+00:36:54.930 --> 00:36:56.909
+Ali Hamdan: Thank you, Professor. Thank you for the feedback.
+
+391
+00:36:57.570 --> 00:37:05.589
+Denis Nikolskiy: Okay, yeah, thank you guys. And I'll send you the posted transcript in the… in the channel.
+
+392
+00:37:05.740 --> 00:37:08.089
+Denis Nikolskiy: In the, in the main, in the general. Okay.
+
+393
+00:37:08.090 --> 00:37:10.119
+Ali Hamdan: Okay, okay, good, good.
+
+394
+00:37:10.120 --> 00:37:10.650
+Denis Nikolskiy: Cool.
+
+395
+00:37:11.280 --> 00:37:12.040
+Denis Nikolskiy: Yeah.
+
+396
+00:37:12.320 --> 00:37:13.130
+Denis Nikolskiy: Goodbye.
+
+397
+00:37:14.240 --> 00:37:14.950
+Sergey Atkonov: Goodbye.
+
