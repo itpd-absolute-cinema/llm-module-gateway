@@ -13,13 +13,12 @@ Companies need a way to let employees use LLMs while applying organization-speci
 7. Observability – how requests and policy decisions can be inspected.
 8. Onboarding – how much effort is required to start using the product.
 
-## ALT-01: [LiteLLM](alternatives/litellm.md)
+## Alternatives
 
-## ALT-02: [Portkey](alternatives/portkey.md)
-
-## ALT-03: [Kong AI Gateway](alternatives/kong-ai-gateway.md)
-
-## ALT-04: [Cloudflare AI Gateway](alternatives/cloudflare-ai-gateway.md)
+- [ALT-01](alternatives/litellm.md#alt-01): LiteLLM
+- [ALT-02](alternatives/portkey.md#alt-02): Portkey
+- [ALT-03](alternatives/kong-ai-gateway.md#alt-03): Kong AI Gateway
+- [ALT-04](alternatives/cloudflare-ai-gateway.md#alt-04): Cloudflare AI Gateway
 
 todo
 

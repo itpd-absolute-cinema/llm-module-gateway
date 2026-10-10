@@ -21,7 +21,7 @@ The customer confirmed easy plugin creation as the main goal. Plugins should pro
 | Deliverable | Artifact |
 | --- | --- |
 | Candidate list | [candidate-list.md](candidate-list.md) — 12 candidates |
-| Alternatives search | [alternatives.md](../../docs/research/alternatives.md); detailed entries: [ALT-01](../../docs/research/alternatives/litellm.md), [ALT-02](../../docs/research/alternatives/portkey.md), [ALT-03](../../docs/research/alternatives/kong-ai-gateway.md), [ALT-04](../../docs/research/alternatives/cloudflare-ai-gateway.md) |
+| Alternatives search | [alternatives.md](../../docs/research/alternatives.md); detailed entries: [ALT-01](../../docs/research/alternatives/litellm.md#alt-01), [ALT-02](../../docs/research/alternatives/portkey.md#alt-02), [ALT-03](../../docs/research/alternatives/kong-ai-gateway.md#alt-03), [ALT-04](../../docs/research/alternatives/cloudflare-ai-gateway.md#alt-04) |
 | Compare the alternatives | [comparison.md](../../docs/research/comparison.md) |
 | Gap analysis | [gap-analysis.md](../../docs/research/gap-analysis.md) — two pursued and five rejected gaps |
 | Value proposition | [value-proposition.md](../../docs/research/value-proposition.md) — VP-01, VP-02, and assumptions A-01–A-09 |

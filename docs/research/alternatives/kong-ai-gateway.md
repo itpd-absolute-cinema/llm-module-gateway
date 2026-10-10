@@ -1,15 +1,16 @@
-# ALT-03: Kong AI Gateway
+# ALT-03
 
-**Kind:** General-purpose API gateway extended with AI plugins (open-source core + enterprise/SaaS)
+Kong AI Gateway
 
-**Link:** [https://github.com/Kong/kong](https://github.com/Kong/kong)
+- **Status:** Active
+- **Kind:** General-purpose API gateway extended with AI plugins (open-source core + enterprise/SaaS)
+- **Link:** [https://github.com/Kong/kong](https://github.com/Kong/kong)
+- **Version looked at:** Not recorded in Week 1.
+- **Depth of evaluation:** Documentation, repository, architecture, configuration and usage examples.
+- **Problem it solves:** Kong AI Gateway applies the existing Kong API gateway to LLM traffic through a set of AI plugins (AI Proxy, prompt guard/decorator/template, semantic cache, AI rate limiting, request/response transformers).
+  It lets organizations that already run Kong manage LLM access with the same authentication, rate limiting, logging and deployment model as the rest of their APIs, instead of adding a separate LLM-specific product.
 
-**Depth of evaluation:** Documentation, repository, architecture, configuration and usage examples.
-
-**Problem it solves:**
-Kong AI Gateway applies the existing Kong API gateway to LLM traffic through a set of AI plugins (AI Proxy, prompt guard/decorator/template, semantic cache, AI rate limiting, request/response transformers). It lets organizations that already run Kong manage LLM access with the same authentication, rate limiting, logging and deployment model as the rest of their APIs, instead of adding a separate LLM-specific product.
-
-## Observations by property
+**Observations by property**
 
 | Property | Observation |
 | --- | --- |
@@ -22,14 +23,14 @@ Kong AI Gateway applies the existing Kong API gateway to LLM traffic through a s
 | Observability | Prometheus, OpenTelemetry, Datadog, Splunk and log-shipping plugins. AI plugins emit token usage and model metadata, but there are no built-in LLM-specific dashboards like prompt browsing or per-key spend views. |
 | Onboarding | Easy for teams that already know Kong; steeper for others because of the concepts (services, routes, consumers, plugins) and the OSS vs enterprise plugin split. |
 
-## Strengths
+**Strengths**
 
 - One gateway for both regular APIs and LLM traffic, with consistent policies.
 - Mature authentication, authorization, rate limiting and multi-tenant controls.
 - Powerful plugin system and GitOps-friendly declarative configuration.
 - Proven performance and operational tooling at scale.
 
-## Weaknesses
+**Weaknesses**
 
 - Advanced AI features and workspace/RBAC capabilities require paid tiers.
 - Heavier to deploy and operate than LLM-specific proxies.
