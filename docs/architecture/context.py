@@ -1,0 +1,58 @@
+from pathlib import Path
+
+
+SVG = r'''<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="660" viewBox="0 0 1100 660" role="img" aria-labelledby="title desc">
+  <title id="title">Modular LLM Gateway system context</title>
+  <desc id="desc">Users send requests to the product. Developers provide plugins and tests. Administrators provide configuration and credentials. An external provider or test endpoint returns responses.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/></marker>
+  </defs>
+  <rect width="1100" height="660" fill="#ffffff"/>
+  <g font-family="Arial, sans-serif" fill="#172033" text-anchor="middle">
+    <text x="550" y="38" font-size="23" font-weight="bold">System context</text>
+    <text x="550" y="64" font-size="15">One product boundary; external actors and systems</text>
+    <g stroke="#64748b" stroke-width="2" fill="#f1f5f9">
+      <rect x="30" y="270" width="230" height="110" rx="12"/>
+      <rect x="435" y="100" width="230" height="100" rx="12"/>
+      <rect x="435" y="480" width="230" height="100" rx="12"/>
+      <rect x="840" y="270" width="230" height="110" rx="12"/>
+      <rect x="390" y="270" width="320" height="120" rx="12" fill="#e0f2fe" stroke="#0369a1" stroke-width="3"/>
+    </g>
+    <g font-size="18" font-weight="bold">
+      <text x="145" y="314">Application users</text>
+      <text x="550" y="142">Company developers</text>
+      <text x="550" y="519">Company administrators</text>
+      <text x="955" y="312">LLM provider</text>
+      <text x="550" y="321">Modular LLM Gateway</text>
+    </g>
+    <g font-size="15">
+      <text x="145" y="343">Employees and client apps</text>
+      <text x="550" y="171">DevOps / plugin authors</text>
+      <text x="550" y="548">Deployment and access</text>
+      <text x="955" y="343">or test endpoint</text>
+      <text x="550" y="350">Product boundary</text>
+      <text x="550" y="374">CLI, API, and plugin execution</text>
+    </g>
+    <g stroke="#334155" stroke-width="2" fill="none" marker-end="url(#arrow)">
+      <path d="M 260 297 H 390"/><path d="M 390 360 H 260"/>
+      <path d="M 710 297 H 840"/><path d="M 840 360 H 710"/>
+      <path d="M 470 200 V 270"/><path d="M 630 270 V 200"/>
+      <path d="M 470 480 V 390"/><path d="M 630 390 V 480"/>
+    </g>
+    <g font-size="13" fill="#334155">
+      <text x="325" y="288">Requests</text><text x="325" y="350">Results / errors</text>
+      <text x="775" y="280">Processed</text><text x="775" y="294">requests</text>
+      <text x="775" y="350">Responses / errors</text>
+      <text x="425" y="225">Plugin files</text><text x="425" y="243">and test cases</text>
+      <text x="675" y="225">Test results</text><text x="675" y="243">and errors</text>
+      <text x="417" y="424">Configuration</text><text x="417" y="442">and credentials</text>
+      <text x="680" y="424">Status</text><text x="680" y="442">and errors</text>
+    </g>
+    <text x="550" y="625" font-size="14">Trusted plugins only. No GUI or untrusted-plugin sandbox in the initial scope.</text>
+  </g>
+</svg>
+'''
+
+
+if __name__ == '__main__':
+    Path(__file__).with_suffix('.svg').write_text(SVG, encoding='utf-8')
