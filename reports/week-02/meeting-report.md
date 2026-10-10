@@ -39,4 +39,3 @@ A GUI is not required. The CLI will provide the primary interface for interactin
 - Test plugin discovery and execution.
 - Investigate hot-loading and horizontal scaling.
 - Validate the prototype with the customer.
-

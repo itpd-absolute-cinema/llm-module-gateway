@@ -1,4 +1,4 @@
-## ALT-02: Portkey
+# ALT-02: Portkey
 
 **Kind:** AI gateway with a hosted control plane (open-source gateway core + commercial platform)
 
@@ -9,10 +9,10 @@
 **Problem it solves:**
 Portkey gives applications one API to many LLM providers and adds reliability and governance features on top: fallbacks, retries, load balancing, caching, guardrails, budgets and request logging. Its lightweight TypeScript gateway can be self-hosted, while the hosted platform adds prompt management, observability dashboards and access control. It targets teams that want production controls for LLM traffic without building them.
 
-### Observations by property
+## Observations by property
 
 | Property | Observation |
-|---|---|
+| --- | --- |
 | Data control | Two modes: the open-source gateway run in the team's own environment, or the hosted SaaS where requests and logs pass through Portkey. Enterprise plans offer private/hybrid deployment. Which mode is used decides who sees prompts and logs. |
 | Policy enforcement | Declarative "configs" define routing, retries, fallbacks, caching and guardrails per request or per key. Guardrails (input/output checks, PII, custom webhooks) and budget/rate limits are available; the more advanced governance features mostly live in the hosted/enterprise platform. |
 | Extensibility | Provider and guardrail plugins can be added to the open-source gateway, and custom guardrails can be called through webhooks. Extension points are narrower than a general plugin system. |
@@ -22,14 +22,14 @@ Portkey gives applications one API to many LLM providers and adds reliability an
 | Observability | Request logs, cost, latency and error analytics, traces and feedback in the hosted platform; the OSS gateway alone offers basic logging. |
 | Onboarding | Quick: change the base URL and add a header or config ID. Good docs and SDKs; understanding which features are OSS and which are hosted takes extra reading. |
 
-### Strengths
+## Strengths
 
 - Lightweight gateway that is easy to embed or self-host.
 - Strong reliability tooling (fallbacks, retries, load balancing, caching) driven by simple declarative configs.
 - Integrated guardrails, prompt management and observability in one product.
 - Very wide provider and model coverage.
 
-### Weaknesses
+## Weaknesses
 
 - Full feature set (analytics, governance, prompt management) depends on the hosted platform or enterprise tier, which affects data control.
 - Self-hosted gateway alone has limited isolation and observability.
