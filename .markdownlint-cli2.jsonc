@@ -1,0 +1,15 @@
+{
+  "config": {
+    "default": true,
+    // One sentence per line and long table rows are fine.
+    "MD013": false,
+    // A meeting script numbers its questions across their area groups.
+    "MD029": false,
+    // The REJECTED-nn sections in gap-analysis.md repeat the same sub-headings under different parents.
+    "MD024": { "siblings_only": true },
+    // The research requirements put bold labels on a line of their own, such as **Strengths**.
+    "MD036": false,
+  },
+  // Skip the files that .gitignore lists, so a local run checks the same files as CI.
+  "gitignore": true,
+}
