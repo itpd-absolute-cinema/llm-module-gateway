@@ -22,6 +22,8 @@ The current evidence is strongest for the existence and shape of extension mecha
 A simple, first-class way to build custom LLM Gateway plugins
 
 - **Status:** Active
+- **Changed:**
+  - The kickoff prioritized request access, then response access, then routing ([DEC-002](../decisions.md#dec-002)), and ruled out a new plugin language in favor of a mainstream language LLMs already know ([DEC-003](../decisions.md#dec-003)).
 - **Who needs it and what they cannot do:** a small development team building or operating an LLM-enabled application.
   The job is to add company-specific request or response behavior to an LLM gateway without modifying the gateway itself and without having to adopt a large general-purpose API gateway.
   Examples of this job include adding a custom check, transformation, guardrail, authentication rule, or provider-specific behavior.
@@ -67,6 +69,8 @@ A simple, first-class way to build custom LLM Gateway plugins
 A plugin development workflow that is easy to learn, test, and deploy
 
 - **Status:** Active
+- **Changed:**
+  - The kickoff settled plugin installation through restart or redeployment rather than live loading ([DEC-001](../decisions.md#dec-001)).
 - **Who needs it and what they cannot do:** a developer who needs to create and maintain gateway plugins as part of an application team.
   The job is to go from "I need this custom gateway behavior" to a tested and running plugin without having to understand a large gateway architecture or build a separate infrastructure component.
   The important need is therefore broader than having a plugin API. The developer needs a usable **plugin development workflow**.
