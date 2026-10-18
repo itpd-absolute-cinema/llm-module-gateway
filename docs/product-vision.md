@@ -10,7 +10,7 @@ Supports [VP-01](research/value-proposition.md#vp-01) and [VP-02](research/value
 
 The first version lets a developer add two simple plugins, start the system, send text, and check the result using a test server with fixed responses. This makes plugin tests repeatable without paying for LLM calls.
 
-The [planned design](decisions.md#1-architecture) uses a Java gateway, Python plugin files, and a CLI. Plugins may be installed with a restart. Loading plugins without a restart is optional.
+The [planned design](decisions.md#dec-001-architecture) uses a Java gateway, Python plugin files, and a CLI. Plugins may be installed with a restart. Loading plugins without a restart is optional.
 
 ## Stakeholders
 
@@ -37,7 +37,7 @@ The project must be built within the course schedule.
 The team has four members and shared experience with Java.
 
 - **Status:** Active
-- **Source:** Team-given - the team roster and the [kickoff discussion](../reports/week-01/meeting-report.md#disagreements).
+- **Source:** Team-given - the team roster and the [kickoff discussion](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-01/meeting-report.md#disagreements).
 - **What it costs:** four people must build and maintain the system. New tools take time to learn.
 
 ### CON-03
@@ -96,7 +96,7 @@ Provide a graphical user interface.
 
 - **Status:** Active
 - **Handled by:** Nobody in the first version. Users have a CLI and an API.
-- **Why:** a GUI is not required, as recorded in the [Week 2 meeting report](../reports/week-02/meeting-report.md#meeting-summary). We focus on adding and running plugins.
+- **Why:** a GUI is not required, as recorded in the [Week 2 meeting report](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-02/meeting-report.md#meeting-summary). We focus on adding and running plugins.
 
 ## System context
 
@@ -111,5 +111,4 @@ Diagram source: [context.py](architecture/context.py).
 ## Where the detail lives
 
 - [User stories](https://github.com/itpd-absolute-cinema/llm-module-gateway/issues?q=label%3Auser-story)
-- [Week 2 report](../reports/week-02/README.md)
-- [Customer validation](../reports/week-02/meeting-report.md)
+- [Customer validation](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-02/meeting-report.md)

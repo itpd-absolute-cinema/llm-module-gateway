@@ -1,0 +1,30 @@
+site_name: Modular LLM Gateway
+site_description: A Java gateway with Python plugins for company-specific LLM policies.
+site_url: https://itpd-absolute-cinema.github.io/llm-module-gateway/
+repo_url: https://github.com/itpd-absolute-cinema/llm-module-gateway
+edit_uri: edit/main/docs/
+
+nav:
+  - Home: index.md
+  - Setup and run: setup.md
+  - Product vision: product-vision.md
+  - Threshold of success: threshold-of-success.md
+  - Project plan: project-plan.md
+  - Risks: risks.md
+  - Definition of Done: definition-of-done.md
+  - Architecture decisions: decisions.md
+  - Research:
+      - Alternatives: research/alternatives.md
+      - Comparison: research/comparison.md
+      - Gap analysis: research/gap-analysis.md
+      - Value proposition: research/value-proposition.md
+      - LiteLLM: research/alternatives/litellm.md
+      - Kong AI Gateway: research/alternatives/kong-ai-gateway.md
+      - Portkey: research/alternatives/portkey.md
+      - Cloudflare AI Gateway: research/alternatives/cloudflare-ai-gateway.md
+
+validation:
+  links:
+    not_found: warn
+    anchors: warn
+    unrecognized_links: warn
