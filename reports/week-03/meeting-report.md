@@ -8,7 +8,6 @@
 - **Presented:** LLM Gateway architecture diagrams (client side, provider side, HTTP API, request core, plugin runner, provider adapter, request/response plugin chains), request lifecycle and plugin chain concept, prototype Swagger page with mock provider request log, plugin constructor/interface code (`gateway7plugins` Python file), YAML configuration example showing provider settings and plugin list (name, enabled, required, request/response chains)
 - **Permission to record:** Yes — Denis started recording at the beginning ("I also started recording, just in case")
 - **Permission to publish transcript:** Yes — Denis stated "I'll post the transcript" and noted "Since it's gonna be a public transcript, I won't name any names"
-- **Permission to use customer name:** Yes — Customer is referred to as Denis Nikolskiy throughout, and Denis himself acknowledged the transcript would be public
 - **Transcript:** [GMT20261016-051701_Recording.transcript.txt](../week-03/meeting-transcript.md)
 - **Meeting script:** [reports/week-03/meeting-script.md](../week-03/meeting-script.md)
 
