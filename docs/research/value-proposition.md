@@ -48,7 +48,7 @@ From blank project to a tested, running plugin in one local workflow
 - **Closes:** [GAP-02](gap-analysis.md#gap-02).
 - **Rests on:** [ASM-01](../assumptions.md#asm-01), [ASM-03](../assumptions.md#asm-03), [ASM-05](../assumptions.md#asm-05), [ASM-07](../assumptions.md#asm-07), [ASM-08](../assumptions.md#asm-08), [ASM-09](../assumptions.md#asm-09).
 - **Changed:**
-  - The kickoff scoped the first runnable example to a proxy, one provider, and one masking plugin ([DEC-004](../decisions.md#dec-004)); coding-agent instructions remain a nice-to-have ([DEC-005](../decisions.md#dec-005)).
+  - The kickoff scoped the first runnable example to a proxy, one provider, and one masking plugin ([DEC-004](../decisions.md)); coding-agent instructions remain a nice-to-have ([DEC-005](../decisions.md)).
 - **What it costs:**
   - the gateway itself is narrower: fewer providers, fewer built-in governance and observability features than LiteLLM, Portkey or Kong (REJECTED-01, REJECTED-02);
   - the workflow supports one language and one deployment style, so it will not fit every team's environment;

@@ -10,7 +10,7 @@ Supports [VP-01](research/value-proposition.md#vp-01) and [VP-02](research/value
 
 The first version lets a developer add two simple plugins, start the system, send text, and check the result using a test server with fixed responses. This makes plugin tests repeatable without paying for LLM calls.
 
-The [planned design](decisions.md#dec-001-architecture) uses a Java gateway, Python plugin files, and a CLI. Plugins may be installed with a restart. Loading plugins without a restart is optional.
+The [planned design](decisions.md) uses a Java gateway, Python plugin files, and a CLI. Plugins may be installed with a restart. Loading plugins without a restart is optional.
 
 ## Stakeholders
 
