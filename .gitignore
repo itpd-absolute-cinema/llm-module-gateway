@@ -25,3 +25,19 @@ Thumbs.db
 
 # Generated files
 generated/
+
+# Gradle
+.gradle/
+**/build/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+*.egg-info/
