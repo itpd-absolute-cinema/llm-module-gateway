@@ -48,7 +48,7 @@ A developer can start the Gateway locally using the documented Docker workflow a
 
 **Goal**
 
-By 31 December 2026, a developer can use the CLI to send a request through the LLM Gateway and receive the corresponding response.
+By the end of the ITPD course, a DevOps engineer can use the CLI to manage the LLM Gateway, register and configure Python plugins, and ensure that incoming LLM requests are processed through the configured plugin chain before the corresponding responses are returned to callers.
 
 **Verification**
 
@@ -60,7 +60,7 @@ The CLI cannot successfully send a request through the Gateway or return the res
 
 **Success statement**
 
-The CLI successfully sends a request through the Gateway and returns the expected response to the caller.
+DevOps engineers can use the CLI to manage the LLM Gateway and register, configure, and load Python plugins. The Gateway processes incoming LLM requests through the configured plugin chain and returns the processed responses to the original callers.
 
 **Status:** Open – pending customer agreement.
 
@@ -68,7 +68,7 @@ The CLI successfully sends a request through the Gateway and returns the expecte
 
 **Goal**
 
-By 31 December 2026, a plugin failure is handled according to the documented error-handling policy, without an unhandled failure terminating the Gateway or violating the defined plugin-chain behavior.
+By the end of the ITPD course, a plugin failure is handled according to the documented error-handling policy, without an unhandled failure terminating the Gateway or violating the defined plugin-chain behavior.
 
 **Verification**
 
