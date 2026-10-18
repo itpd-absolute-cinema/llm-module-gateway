@@ -37,7 +37,7 @@ Dynamic plugin loading without a restart and horizontal scaling are not required
 
 **Due:** 18 October 2026
 
-**Sprint Backlog:** [SPRINT-03 issues](https://github.com/itpd-absolute-cinema/llm-module-gateway/milestone/3)
+**Sprint Backlog:** [SPRINT-03 issues](https://github.com/itpd-absolute-cinema/llm-module-gateway)
 
 #### REL-03
 
@@ -47,7 +47,7 @@ Dynamic plugin loading without a restart and horizontal scaling are not required
 
 **Due:** 25 October 2026
 
-**Sprint Backlog:** [SPRINT-04 issues](https://github.com/itpd-absolute-cinema/llm-module-gateway/milestone/4)
+**Sprint Backlog:** [SPRINT-04 issues](https://github.com/itpd-absolute-cinema/llm-module-gateway)
 
 #### REL-04
 
