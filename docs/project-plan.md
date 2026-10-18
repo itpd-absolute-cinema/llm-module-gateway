@@ -1,7 +1,7 @@
 # Project Plan
 
 **Project:** LLM Gateway  
-**Repository:** https://github.com/itpd-absolute-cinema/llm-module-gateway  
+**Repository:** <https://github.com/itpd-absolute-cinema/llm-module-gateway>\
 **Target completion:** 4 December 2026  
 **Status:** Draft – proposed sprint deadlines require confirmation against the course calendar.
 
@@ -14,6 +14,7 @@
 **Deliverable:** A working Gateway and Python Interpreter that demonstrate the minimum request-processing flow.
 
 **Acceptance criteria:**
+
 - The Gateway accepts an API request.
 - The Python Interpreter can discover and execute an example Python plugin.
 - The Gateway and Interpreter can be run locally using the documented development workflow.
@@ -98,6 +99,7 @@ Dynamic plugin loading without a restart and horizontal scaling are not required
 **Who checks:** The owners of the relevant issues check implementation progress and evidence before the weekly review. The team reviews the overall status, blockers, risks, and next actions together.
 
 **Progress visibility:**
+
 - [GitHub Project – Table view](https://github.com/orgs/itpd-absolute-cinema/projects/1) – issue status, ownership, and overall progress.
 - [GitHub repository](https://github.com/itpd-absolute-cinema/llm-module-gateway) – code, pull requests, tests, and documentation.
 - GitHub sprint milestones – sprint scope, due dates, and completion status.
