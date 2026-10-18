@@ -13,12 +13,18 @@
 - **Meeting script:** [reports/week-08/meeting-script.md](reports/week-08/meeting-script.md)
 
 ## Previous action points
+- "Prepare architecture diagrams and a working prototype demonstrating the plugin chain" — Carried out. The team presented the LLM Gateway architecture diagrams (client/provider sides, request core, plugin runner, provider adapter) and a working prototype: a Python/FastAPI app with a Swagger page sending a request through a Mask plugin to a mock provider, visible in the provider's request log with the phone number masked. The customer found the prototype functional but noted one plugin is trivial and asked for at least three. Decision: None.
 
-None (first meeting with customer for this team)
+- "Define the plugin interface and configuration format for the gateway" — Carried out. The team showed the plugin constructor interface (ID, API version, settings model, on_request/on_response hooks) and the YAML configuration (provider, plugin list with name/enabled/required, request and response chains, ordering). The customer confirmed the configuration model is the kind of interface he would use, and asked that the plugin interface requirements be documented so a developer can add a plugin quickly. Decision: None.
+
+- "Clarify the target audience and the problem the gateway solves for them" — Carried out. The customer restated the target audience as a DevOps engineer who must use LLMs responsibly under IT and security requirements, needs to write plugins quickly, and must be able to identify which plugin failed and where. This confirmed and sharpened the problem statement carried into this meeting. Decision: None.
 
 ## Previous open questions
+- "What level of plugin isolation and failure handling does the customer expect?" — Partially answered. The customer expects the system to identify which plugin failed and where, with per-plugin timing/logging, and to handle plugin exceptions deliberately (propagate, wrap, or degrade). He did not pick a specific policy, leaving fail-fast vs graceful degradation vs configurable per-plugin open. Decision: None.
 
-None (first meeting with customer for this team)
+- "How many plugins must the MVP ship with, and which behaviors?" — Answered. The customer requires at least three plugins for a minimum usable application; one plugin is trivial. The specific set of behaviors remains open (PII masking is present; logging and content filtering were suggested but not confirmed). Decision: None.
+
+- "Should the MVP connect to a real LLM provider or is a mock acceptable?" — Answered. The customer said a mock provider is acceptable for this milestone: "it's not about the actual LLM," but connecting to a real provider would be great if possible. Decision: None.
 
 ## Summary
 
