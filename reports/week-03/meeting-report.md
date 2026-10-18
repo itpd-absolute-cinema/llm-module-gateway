@@ -36,17 +36,17 @@
 
 ## Decisions
 
-None (no formal decisions were recorded in docs/decisions.md during this meeting)
+- It was agreed with the customer to deliver a Minimum Usable Product by next week, containing at least three plugins, setup documentation, and a documented way to add a new plugin.
 
 ## Action points
 
 | Action | Owner | Due |
 |--------|-------|-----|
-| Deliver MVP by end of week: runnable app with at least 3 plugins, documented plugin addition, visible request/response transformations | Azamat Bayramov | Week 08 |
-| Study Django middleware system and Twisted callback/error interface; document chosen plugin-chain architecture with rationale | Azamat Bayramov | Week 09 |
-| Document plugin interface requirements (constructor, ID, API version, settings model, on_request/on_response hooks) so a developer can add a plugin quickly | Azamat Bayramov | Week 09 |
-| Add per-plugin timing/logging so the customer can see which plugin ran, in what order, and where it failed | Azamat Bayramov | Week 09 |
-| Define and implement failure-handling policy (fail-fast vs graceful degradation vs configurable per-plugin) | Azamat Bayramov | Week 09 |
+| Deliver MUP by end of the next week: runnable app with at least 3 plugins, documented plugin addition, visible request/response transformations | Artem Lisitcin | Week 08 |
+| Study Django middleware system and Twisted callback/error interface; document chosen plugin-chain architecture with rationale | Artem Lisitcin | Week 09 |
+| Document plugin interface requirements (constructor, ID, API version, settings model, on_request/on_response hooks) so a developer can add a plugin quickly | Artem Lisitcin | Week 09 |
+| Add per-plugin timing/logging so the customer can see which plugin ran, in what order, and where it failed | Artem Lisitcin | Week 09 |
+| Define and implement failure-handling policy (fail-fast vs graceful degradation vs configurable per-plugin) | Artem Lisitcin | Week 09 |
 
 ## Open questions
 
