@@ -9,7 +9,7 @@
 
 ### MLS-03 – Deliver the Minimum Usable Product (MUP)
 
-**Due:** 18 October 2026
+**Due:** the end of the ITPD course (December 2026)
 
 **Deliverable:** A working Gateway and Python Interpreter that demonstrate the minimum request-processing flow.
 
@@ -34,7 +34,7 @@ Dynamic plugin loading without a restart and horizontal scaling are not required
 
 ### SPRINT-03 – Minimum Usable Product
 
-**Goal:** Deliver a working request-handling Gateway and Python Interpreter that can execute an example plugin.
+**Goal:** Define the MUP candidate, including its core functionality, architecture, and technology stack, without implementing the complete product.
 
 **Due:** 18 October 2026
 
@@ -52,9 +52,9 @@ Dynamic plugin loading without a restart and horizontal scaling are not required
 
 #### REL-04
 
-### SPRINT-05 – CLI Request Flow (Provisional)
+### SPRINT-05 – Client-to-Gateway Request Flow (Provisional)
 
-**Goal:** Provisional – deliver a CLI workflow that sends a request through the Gateway and returns the response to the caller.
+**Goal:** Enable an OpenAI-compatible client to send requests through the Gateway and receive responses processed by the configured plugin chain.
 
 **Due:** 1 November 2026
 

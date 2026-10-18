@@ -6,11 +6,11 @@ The team has built a prototype LLM Gateway — a Python/FastAPI application that
 
 ## Agenda
 
-1. **Permission questions** (5 min) — Show: nothing. Ask questions 1–3.
-2. **Architecture direction recap and failure/monitoring model** (15 min) — Show: architecture diagram and plugin runner design (link to be inserted). Ask questions 4–6.
-3. **Plugin interface and configuration walkthrough** (10 min) — Show: plugin constructor/interface code and YAML config example (links to be inserted). Ask questions 7–8.
-4. **MVP scope and acceptance criteria** (10 min) — Show: prototype Swagger page and mock provider request log (links to be inserted). Ask questions 9–11.
-5. **Read-back of decisions and action points** (5 min) — Show: nothing. Confirm decisions and owners.
+1. **Permission questions** (5 min) — Ask questions 1–3.
+2. **Architecture direction recap and failure/monitoring model** (15 min) — Ask questions 4–6.
+3. **Plugin interface and configuration walkthrough** (10 min) — Ask questions 7–8.
+4. **MVP scope and acceptance criteria** (10 min) — Ask questions 9–11.
+5. **Read-back of decisions and action points** (5 min) — Confirm decisions and owners.
 
 ## Questions
 
