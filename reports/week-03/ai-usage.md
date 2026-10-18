@@ -31,3 +31,10 @@ AI assistance did not replace the team's responsibility for technical decisions,
 This document records the general use of AI tools during the project. It does not imply that every tool was used for every task or that all generated suggestions were incorporated into the final product.
 
 The final implementation and project decisions remain the responsibility of the project team.
+
+## Assignment 3 Part 6
+
+The Zed coding agent (qgm-6-astra(high)) prepared the MkDocs configuration, pinned documentation workflow, landing page, README links, and setup-page revision, reusing the earlier local documentation tooling.
+It preserved the existing planning and architecture decisions, replaced speculative product commands with explicit blockers, and adapted evidence links for the site.
+The agent ran a strict MkDocs build and the repository-wide Markdown check successfully, and checked the linked meeting-evidence URLs for HTTP 200 responses.
+Human review is still pending. No product implementation, configuration schema, deployment, or customer validation was generated or claimed by this Part 6 work.
