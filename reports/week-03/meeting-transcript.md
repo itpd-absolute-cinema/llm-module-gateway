@@ -1,5 +1,7 @@
+# Week 3 Meeting Transcript
+
 - **Date:** 2026-10-16
-- **Participants:** Azamat Bayramov, Artem Lisitcin, Customer 
+- **Participants:** Azamat Bayramov, Artem Lisitcin, Customer
 
 [00:00:03] Customer: I also started recording, just in case.
 [00:00:05] Azamat: Okay.

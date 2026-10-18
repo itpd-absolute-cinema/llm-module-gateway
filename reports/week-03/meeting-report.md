@@ -13,6 +13,7 @@
 - **Meeting script:** [reports/week-03/meeting-script.md](../week-03/meeting-script.md)
 
 ## Previous action points
+
 - "Prepare architecture diagrams and a working prototype demonstrating the plugin chain" — Carried out. The team presented the LLM Gateway architecture diagrams (client/provider sides, request core, plugin runner, provider adapter) and a working prototype: a Python/FastAPI app with a Swagger page sending a request through a Mask plugin to a mock provider, visible in the provider's request log with the phone number masked. The customer found the prototype functional but noted one plugin is trivial and asked for at least three. Decision: None.
 
 - "Define the plugin interface and configuration format for the gateway" — Carried out. The team showed the plugin constructor interface (ID, API version, settings model, on_request/on_response hooks) and the YAML configuration (provider, plugin list with name/enabled/required, request and response chains, ordering). The customer confirmed the configuration model is the kind of interface he would use, and asked that the plugin interface requirements be documented so a developer can add a plugin quickly. Decision: None.
@@ -20,6 +21,7 @@
 - "Clarify the target audience and the problem the gateway solves for them" — Carried out. The customer restated the target audience as a DevOps engineer who must use LLMs responsibly under IT and security requirements, needs to write plugins quickly, and must be able to identify which plugin failed and where. This confirmed and sharpened the problem statement carried into this meeting. Decision: None.
 
 ## Previous open questions
+
 - "What level of plugin isolation and failure handling does the customer expect?" — Partially answered. The customer expects the system to identify which plugin failed and where, with per-plugin timing/logging, and to handle plugin exceptions deliberately (propagate, wrap, or degrade). He did not pick a specific policy, leaving fail-fast vs graceful degradation vs configurable per-plugin open. Decision: None.
 
 - "How many plugins must the MVP ship with, and which behaviors?" — Answered. The customer requires at least three plugins for a minimum usable application; one plugin is trivial. The specific set of behaviors remains open (PII masking is present; logging and content filtering were suggested but not confirmed). Decision: None.
@@ -41,7 +43,7 @@
 ## Action points
 
 | Action | Owner | Due |
-|--------|-------|-----|
+| -------- | ------- | ----- |
 | Deliver MUP by end of the next week: runnable app with at least 3 plugins, documented plugin addition, visible request/response transformations | Artem Lisitcin | Week 08 |
 | Study Django middleware system and Twisted callback/error interface; document chosen plugin-chain architecture with rationale | Artem Lisitcin | Week 09 |
 | Document plugin interface requirements (constructor, ID, API version, settings model, on_request/on_response hooks) so a developer can add a plugin quickly | Artem Lisitcin | Week 09 |
@@ -51,7 +53,7 @@
 ## Open questions
 
 | Question | What it would change | Follow-up |
-|----------|---------------------|-----------|
+| ---------- | --------------------- | ----------- |
 | Which failure-handling policy does the customer prefer: fail-fast, graceful degradation, or configurable per-plugin? | Determines the plugin runner's error-handling implementation and whether `required` flag in YAML becomes the controlling mechanism | Ask at next meeting after presenting a concrete proposal with trade-offs |
 | Should errors propagate back through previously executed plugins (for cleanup/transformation) or return directly to the client with a plugin identifier? | Changes the plugin interface (whether plugins need an error hook) and the request core's error path | Ask at next meeting with a concrete interface proposal |
 | Is the current plugin interface (separate `on_request`/`on_response` hooks) acceptable, or does the customer need a combined plugin with shared state (Django middleware-style)? | Changes the plugin base class and all existing plugin implementations | Ask at next meeting after studying Django middleware |
@@ -61,7 +63,7 @@
 ## Disagreements
 
 | Your position | Customer's position | What you changed |
-|---------------|---------------------|------------------|
+| --------------- | --------------------- | ------------------ |
 | The architecture diagram showing client → gateway → plugin runner → provider → response plugins → client adequately describes the system | The diagram is too trivial; the plugin runner is a black box with no answer for failure detection, monitoring, timing, or error propagation | Kept position on the high-level flow but accepted that the plugin runner needs a detailed design covering failure handling, monitoring, and error propagation; added action points to study Django/Twisted and document the chosen approach |
 | One plugin (PII masking) is sufficient for the prototype | At least three plugins are needed for a minimum usable application; one plugin is trivial | Accepted; MVP will include at least three plugins |
 | The prototype demonstrates the core concept | The prototype is "not a real application" — the customer needs something he can download, start, use, and extend | Accepted; committed to delivering an MVP by end of week with setup documentation and a documented way to add plugins |
