@@ -9,8 +9,8 @@
 - **Permission to record:** Yes — Denis started recording at the beginning ("I also started recording, just in case")
 - **Permission to publish transcript:** Yes — Denis stated "I'll post the transcript" and noted "Since it's gonna be a public transcript, I won't name any names"
 - **Permission to use customer name:** Yes — Customer is referred to as Denis Nikolskiy throughout, and Denis himself acknowledged the transcript would be public
-- **Transcript:** [GMT20261016-051701_Recording.transcript.txt](GMT20261016-051701_Recording.transcript.txt)
-- **Meeting script:** [reports/week-08/meeting-script.md](reports/week-08/meeting-script.md)
+- **Transcript:** [GMT20261016-051701_Recording.transcript.txt](../week-03/meeting-transcript.md)
+- **Meeting script:** [reports/week-03/meeting-script.md](../week-03/meeting-script.md)
 
 ## Previous action points
 - "Prepare architecture diagrams and a working prototype demonstrating the plugin chain" — Carried out. The team presented the LLM Gateway architecture diagrams (client/provider sides, request core, plugin runner, provider adapter) and a working prototype: a Python/FastAPI app with a Swagger page sending a request through a Mask plugin to a mock provider, visible in the provider's request log with the phone number masked. The customer found the prototype functional but noted one plugin is trivial and asked for at least three. Decision: None.
