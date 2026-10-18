@@ -9,7 +9,7 @@
 
 ### MLS-03 – Deliver the Minimum Usable Product (MUP)
 
-**Due:** the end of the ITPD course (December 2026)
+**Due:** Oct 25 2026
 
 **Deliverable:** A working Gateway and Python Interpreter that demonstrate the minimum request-processing flow.
 
