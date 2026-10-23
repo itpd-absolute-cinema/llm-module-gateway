@@ -1,0 +1,31 @@
+[upstream]
+base_url = "http://127.0.0.1:9001/v1"
+api_key_env = "UPSTREAM_API_KEY"
+timeout_seconds = 2.0
+
+# Outer to inner: request order below, response order reversed.
+[[plugins]]
+factory = "gateway.plugins.request_logging:factory"
+
+[[plugins]]
+factory = "gateway.plugins.authentication:factory"
+[plugins.options]
+key_env = "GATEWAY_API_KEY"
+
+[[plugins]]
+factory = "gateway.plugins.model_allowlist:factory"
+[plugins.options]
+models = ["demo-model"]
+
+[[plugins]]
+factory = "gateway.plugins.literal_redaction:factory"
+[plugins.options]
+literals = ["SECRET"]
+replacement = "[REDACTED]"
+
+[[plugins]]
+factory = "gateway.plugins.token_cap:factory"
+[plugins.options]
+default = 256
+maximum = 1024
+parameter = "max_tokens"
