@@ -19,6 +19,7 @@ The gateway is intended to be deployed on a VPS and used by company employees su
 * [Week 01 Report](reports/week-01/README.md)
 * [Project Documentation](https://itpd-absolute-cinema.github.io/llm-module-gateway/)
 * [Setup and Run Instructions](docs/setup.md)
+* [Runnable Python middleware prototype](prototype/README.md)
 
 ## Markdown checks
 
