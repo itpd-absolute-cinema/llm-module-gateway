@@ -5,93 +5,57 @@
 The Week 4 customer meeting did not take place because of circumstances beyond the team's control.
 Customer agreed to postpone it to Week 5. The team continued under working assumptions rather than waiting for the review.
 
-Assignment 4 Part 10 remains deferred: no Week 4 story acceptance, quality-requirement approval, or architecture approval is claimed.
-At the rescheduled meeting, we will demonstrate the work against its acceptance criteria and review the assumptions, including [plugin interface](../../docs/assumptions.md#asm-04), [trusted in-process execution](../../docs/assumptions.md#asm-06), and [failure handling](../../docs/assumptions.md#asm-07).
-
-The transcript-based notes below were already in the repository. They are retained as background, not evidence that the Week 4 Sprint Review took place.
-Their meeting attribution and the provenance of DEC-012 through DEC-014 need clarification; this status note neither verifies nor retracts those earlier entries.
-The [script](meeting-script.md), unfinished actions, and open questions carry forward to Week 5.
+Assignment 4 Part 10 remains deferred. No Week 4 story acceptance, quality-requirement approval, or architecture approval is claimed.
+The [script](meeting-script.md) carries the demonstration and unresolved questions into Week 5.
 
 ## Metadata
 
-The following metadata describes the previously recorded transcript notes, not the postponed Sprint Review.
-
-- **Date:** 2026-10-23; repository reviewed on 2026-10-25.
-- **Duration:** About 27 minutes in the supplied transcript.
-- **Present:** Customer and other participants; their GitHub usernames are not given in the transcript.
-- **Presented:** Plugin installation and registration, request/response processing, setup instructions, and handling of badly behaved plugins were discussed. The transcript contains no acceptance verdicts for this repository's stories.
-- **Permission to record:** The supplied excerpt does not include the permission question or its answer.
-- **Permission to publish transcript:** Not stated in the supplied excerpt.
-- **Permission to share transcript privately:** Not stated in the supplied excerpt.
-- **Transcript:** Reviewed source: `GMT20261023-050545_Recording.transcript.vtt`; the original file is not republished here. Times below refer to that file.
-- **Meeting script:** No script for 23 October was supplied; [follow-up questions](meeting-script.md) were prepared afterwards for the remaining points.
+- **Meeting date:** Not held; postponed to Week 5.
+- **Recording and transcript:** None for this team's Week 4 review.
+- **Correction:** The 23 October transcript previously summarized here was a call with a different team. It is not evidence of this project's customer feedback. The team member clarified this when reviewing the postponement record.
 
 ## Previous action points
 
-The actions below come from `reports/week-03/meeting-report.md`, dated 16 October.
-The report says Week 08/09, although it is stored under Week 3.
-All five actions are reviewed below; the original report is unchanged.
-The implementation reviewed here is the Python experiment in PR #39.
-A release of the Java/Python product has not been verified.
+This is a repository follow-up, not customer validation. The original [Week 3 report](../week-03/meeting-report.md#action-points) is unchanged.
 
-| Action | Outcome | Decision |
-| --- | --- | --- |
-| [Week 3: "Deliver MUP by end of the next week: runnable app with at least 3 plugins, documented plugin addition, visible request/response transformations"](../week-03/meeting-report.md#action-points) | Partly carried out. [PR #39](https://github.com/itpd-absolute-cinema/llm-module-gateway/pull/39) has five plugins, a demo provider, and run/add-plugin instructions; local in-process checks passed. Delivery and story acceptance are still unconfirmed. The customer emphasized adding and managing plugins over building more examples (17:35–19:38); see the [setup follow-up](../../docs/setup.md#week-4-follow-up). | [DEC-012](../../docs/decisions.md#dec-012), [DEC-014](../../docs/decisions.md#dec-014) |
-| [Week 3: "Study Django middleware system and Twisted callback/error interface; document chosen plugin-chain architecture with rationale"](../week-03/meeting-report.md#action-points) | Carried out for the experiment. The [comparison](../../docs/architecture/plugin-chain.md#why-middleware) explains keeping async middleware and using explicit exception handling rather than adding Twisted. This does not replace the proposed Java/Python product architecture. | None |
-| [Week 3: "Document plugin interface requirements (constructor, ID, API version, settings model, on_request/on_response hooks) so a developer can add a plugin quickly"](../week-03/meeting-report.md#action-points) | Partly carried out. The [interface note](../../docs/architecture/plugin-chain.md#interface-in-the-prototype) documents the factory, options, context, response, and extension steps. The customer asked for documentation a DevOps engineer or coding assistant could follow (18:12–18:41), but did not approve a specific interface. Versioning and compatibility remain open. | [DEC-012](../../docs/decisions.md#dec-012), [DEC-014](../../docs/decisions.md#dec-014) |
-| [Week 3: "Add per-plugin timing/logging so the customer can see which plugin ran, in what order, and where it failed"](../week-03/meeting-report.md#action-points) | Not carried out. The current logger measures the whole request and does not identify each plugin. The customer confirmed the need to detect and log a stuck plugin without stopping the system (19:41–20:42). The [monitoring note](../../docs/architecture/plugin-chain.md#monitoring-still-needed) records the missing implementation and check. | [DEC-013](../../docs/decisions.md#dec-013) |
-| [Week 3: "Define and implement failure-handling policy (fail-fast vs graceful degradation vs configurable per-plugin)"](../week-03/meeting-report.md#action-points) | Partly carried out. The customer was clear about one requirement: a badly written or stalled plugin must not stop the system (19:41–20:42). The prototype still has no per-plugin deadline, and the transcript does not settle what happens to a request whose required rule fails. The [failure note](../../docs/architecture/plugin-chain.md#failure-handling) covers both exceptions and timeouts. | [DEC-013](../../docs/decisions.md#dec-013) |
+| Action | Outcome |
+| --- | --- |
+| Deliver a runnable MUP with at least three plugins, setup instructions, and visible transformations. | The Python prototype provides five plugins and a local demo provider. Customer acceptance remains pending. |
+| Study Django middleware and Twisted; document the chosen plugin chain. | The [comparison](../../docs/architecture/plugin-chain.md#why-middleware) documents the prototype's middleware approach. |
+| Document the plugin interface so a developer can add a plugin quickly. | The [interface note](../../docs/architecture/plugin-chain.md#interface-in-the-prototype) describes the current contract. Interface approval and compatibility requirements remain open. |
+| Add per-plugin timing and failure logging. | Still open. Current logging measures the whole request, not each plugin. |
+| Define and implement the failure-handling policy. | Partly implemented: unexpected exceptions return an error. Per-plugin deadlines and the customer’s preferred recovery policy remain open. |
 
 ## Previous open questions
 
-| Question | Answer | Decision |
-| --- | --- | --- |
-| [Week 3: "Which failure-handling policy does the customer prefer: fail-fast, graceful degradation, or configurable per-plugin?"](../week-03/meeting-report.md#open-questions) | Partly answered at 19:41–20:42: detect the faulty or stalled plugin, stop its execution, log the problem, and keep the system running. Whether the affected request is rejected, skips the plugin, or uses a fallback still needs clarification; see [failure handling](../../docs/architecture/plugin-chain.md#failure-handling). | [DEC-013](../../docs/decisions.md#dec-013) |
-| [Week 3: "Should errors propagate back through previously executed plugins (for cleanup/transformation) or return directly to the client with a plugin identifier?"](../week-03/meeting-report.md#open-questions) | Still open. The transcript does not settle cleanup or client diagnostics. The [prototype contract](../../docs/architecture/plugin-chain.md#interface-in-the-prototype) currently allows exceptions to unwind through outer handlers. | None |
-| [Week 3: "Is the current plugin interface (separate on_request/on_response hooks) acceptable, or does the customer need a combined plugin with shared state (Django middleware-style)?"](../week-03/meeting-report.md#open-questions) | Still open. Request and response hooks were discussed at 13:35–14:20, but that discussion does not approve this repository's factory/handler interface or choose between the two designs. The current interface is described in the [interface note](../../docs/architecture/plugin-chain.md#interface-in-the-prototype). | None |
-| [Week 3: "What is the minimum set of plugins and behaviors (e.g., PII masking, logging, content filtering) required for the MVP to be considered usable?"](../week-03/meeting-report.md#open-questions) | The customer clarified at 17:35–19:38 that basic example plugins are useful, but the main value is the management system and the ability to add custom plugins. No new count or required list was agreed, so the earlier minimum of three plugins still applies. See the [setup follow-up](../../docs/setup.md#week-4-follow-up). | [DEC-012](../../docs/decisions.md#dec-012) |
-| [Week 3: "Should the MVP connect to a real LLM provider or is a mock provider acceptable?"](../week-03/meeting-report.md#open-questions) | Already answered in the earlier report's [Previous open questions](../week-03/meeting-report.md#previous-open-questions): a mock is acceptable for that milestone; a real provider is optional. This was not changed in the discussion. The [setup follow-up](../../docs/setup.md#week-4-follow-up) uses a local demo provider. | None |
+No Week 3 question received a new customer answer this week.
+Failure policy, cleanup, the final plugin interface, and the required example behaviors remain pending in the [follow-up script](meeting-script.md).
+The earlier agreement allowing a mock provider remains as recorded in [Week 3](../week-03/meeting-report.md#previous-open-questions).
 
 ## Summary
 
-- The customer wants a plugin management system that a DevOps engineer can extend and another engineer can maintain, rather than a collection of manually connected functions.
-- Installation and plugin development need clear instructions, ideally enough for a coding assistant to produce a compatible plugin.
-- A stalled or faulty plugin must be detected and logged without making the whole service stop.
-- Story acceptance, quality requirements, and the proposed container split were not approved in this discussion.
+We continued implementation without treating it as customer-approved scope.
+The next review will demonstrate the work against acceptance criteria and revisit the [interface](../../docs/assumptions.md#asm-04), [in-process execution](../../docs/assumptions.md#asm-06), and [failure-handling](../../docs/assumptions.md#asm-07) assumptions.
 
 ## Decisions
 
-The decisions below record the customer's guidance.
-They do not mark any story as accepted.
-
-- [DEC-012: Focus on a plugin management system that DevOps engineers can extend and maintain, with basic plugins as examples.](../../docs/decisions.md#dec-012)
-- [DEC-013: Detect and log stalled or faulty plugins while keeping the Gateway responsive.](../../docs/decisions.md#dec-013)
-- [DEC-014: Provide reproducible installation instructions and a clear guide for adding a plugin.](../../docs/decisions.md#dec-014)
+No product decisions or acceptance verdicts were obtained from Customer this week.
+[DEC-012](../../docs/decisions.md#dec-012), [DEC-013](../../docs/decisions.md#dec-013), and [DEC-014](../../docs/decisions.md#dec-014) were attributed to this project in error and must not be used as customer authority.
+Their identifiers remain reserved so existing links reach the correction.
 
 ## Action points
 
-The unfinished Week 3 actions continue below.
-Owners and deadlines were assigned during the follow-up on 25 October, after the customer discussion.
+The following follow-ups carry into Week 5. Proposed owners follow the existing script roles and need confirmation; these are not assignments made in a customer meeting.
 
-| Action | Owner | Due |
+| Action | Proposed owner | Due |
 | --- | --- | --- |
-| Check installation from a clean checkout, run the HTTP demo, and record delivery and story acceptance. | @egozhuk | Week 5, 2026-10-31 |
-| Finish the plugin interface documentation and check that a developer can follow it to add a plugin without changing the core. | @b4lmor | Week 5, 2026-10-31 |
-| Log each plugin's duration, processing stage, and failures; test with a plugin that deliberately fails. | @FallenChromium | Week 5, 2026-10-31 |
-| Add and test plugin timeouts. Agree what happens to the affected request and how cleanup runs before adding recovery. | @FallenChromium | Week 5, 2026-10-31 |
+| Confirm the postponed meeting and use the script to obtain story-by-story verdicts and review the architecture and quality requirements. | @b4lmor | Week 5, 2026-10-31 |
+| Prepare the runnable demonstration and list which acceptance criteria and assumptions still need a customer answer. | @FallenChromium | Week 5, 2026-10-31 |
 
 ## Open questions
 
-| Question | What it would change | Follow-up |
-| --- | --- | --- |
-| When a required plugin fails or times out, should we reject the request, skip the plugin, or use a fallback? | Decides whether processing stops or continues after a rule fails. | Ask question 7 in the [follow-up script](meeting-script.md). |
-| Should outer plugins receive exceptions for cleanup, and which diagnostics may reach the client? | Determines the exception path and public error response. | Ask question 8 with the current error path on screen. |
-| Should the final plugin interface use separate hooks or one async handler, and what identification and version fields are required? | Determines the extension contract and compatibility rules. | Ask question 9 with a minimal plugin example. |
-| Do the current example behaviors satisfy the earlier minimum, and can the extension workflow be accepted against its criteria? | Determines acceptance of the plugin examples and developer workflow. | Ask question 5; keep the earlier minimum until a change is agreed. |
+The [Week 3 open questions](../week-03/meeting-report.md#open-questions) remain the review agenda, especially what to do when a required plugin fails or stalls and which extension interface to adopt.
 
 ## Disagreements
 
-| Your position | Customer's position | What you changed |
-| --- | --- | --- |
-| We tracked progress partly by the number of example plugins. | At 17:35–19:38, the customer emphasized plugin management, extension, and maintainability rather than the examples themselves. | Updated the setup and interface notes to focus on installing the system and adding a plugin. |
-| The prototype already returns an error when a plugin raises an exception. | At 19:41–20:42, the customer also required handling plugins that stall without stopping the service. | Updated the failure note to show that exceptions are handled, but plugin timeouts still need implementation. |
+None recorded: the Week 4 customer review did not take place.

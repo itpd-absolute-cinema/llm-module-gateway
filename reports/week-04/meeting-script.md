@@ -5,8 +5,8 @@
 ## Context
 
 DevOps engineers need to add company rules without changing the Gateway core and to identify failures when those rules run.
-This script was prepared after 23 October to follow up the unanswered questions.
-The customer emphasized plugin management, clear documentation, and handling faulty or stalled plugins; the Python experiment still needs a final interface and a plugin timeout policy.
+This script carries the unanswered Week 3 questions into the postponed review.
+The Python experiment still needs customer feedback on its interface and failure policy; the 23 October call with a different team supplies no answers for this project.
 The meeting should settle the plugin interface and failure behavior, review the proposed architecture, and agree the remaining delivery work.
 
 ## Agenda
@@ -38,5 +38,5 @@ The meeting should settle the plugin interface and failure behavior, review the 
 
 ## Key improvements
 
-- Before: "Which failure-handling policy do you prefer?" After: question 7 asks what happens to the request when a required plugin fails. Keeping the service running is already agreed; request recovery is not.
+- Before: "Which failure-handling policy do you prefer?" After: question 7 asks what happens to the request when a required plugin fails. The Week 3 report leaves the request recovery policy open.
 - Before: "Is our plugin interface acceptable?" After: question 9 names the proposed interface and asks which fields it needs. The answer can lead to a concrete change.

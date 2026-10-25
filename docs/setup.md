@@ -161,5 +161,5 @@ The [follow-up note](architecture/plugin-chain.md) records the interface, error 
 The prototype has not been verified as a released or customer-accepted MUP.
 The remaining actions are in `reports/week-04/meeting-report.md`, under `Action points`.
 
-The [23 October guidance](decisions.md#dec-012) puts plugin management and a clear extension workflow ahead of adding more examples.
-[DEC-014](decisions.md#dec-014) calls for instructions that a developer can follow to install the system and add a plugin.
+The [Week 3 action points](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-03/meeting-report.md#action-points) call for setup instructions and a documented way to add a plugin.
+Week 4 customer validation was [postponed](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-04/meeting-report.md#sprint-review-status); the team continued under assumptions.

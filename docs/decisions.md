@@ -134,7 +134,9 @@ Use Java 25 with Spring Boot 4 for the Gateway, and Python for the Interpreter, 
 
 Focus on a plugin management system that DevOps engineers can extend and maintain, with basic plugins as examples.
 
-- **Status:** Active
+This entry was attributed to this project in error: the source call involved a different team. It is not a customer decision for this project; see the [correction](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-04/meeting-report.md#decisions). The original statement and source remain below for traceability, and this identifier will not be reused.
+
+- **Status:** Recorded in error; not applicable
 - **Date:** 2026-10-23
 - **Made by:** Customer, during the LLM Gateway discussion.
 - **Source:** [Week 4 meeting report](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/a573fc0f8f604d2c29ca7d24e33a25847893a4a8/reports/week-04/meeting-report.md#decisions), transcript 17:35–19:38.
@@ -144,7 +146,9 @@ Focus on a plugin management system that DevOps engineers can extend and maintai
 
 Detect and log stalled or faulty plugins while keeping the Gateway responsive.
 
-- **Status:** Active
+This entry was attributed to this project in error: the source call involved a different team. It is not a customer decision for this project; see the [correction](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-04/meeting-report.md#decisions). The original statement and source remain below for traceability, and this identifier will not be reused.
+
+- **Status:** Recorded in error; not applicable
 - **Date:** 2026-10-23
 - **Made by:** Customer, during the LLM Gateway discussion.
 - **Source:** [Week 4 meeting report](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/a573fc0f8f604d2c29ca7d24e33a25847893a4a8/reports/week-04/meeting-report.md#decisions), transcript 19:41–20:42.
@@ -154,7 +158,9 @@ Detect and log stalled or faulty plugins while keeping the Gateway responsive.
 
 Provide reproducible installation instructions and a clear guide for adding a plugin.
 
-- **Status:** Active
+This entry was attributed to this project in error: the source call involved a different team. It is not a customer decision for this project; see the [correction](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-04/meeting-report.md#decisions). The original statement and source remain below for traceability, and this identifier will not be reused.
+
+- **Status:** Recorded in error; not applicable
 - **Date:** 2026-10-23
 - **Made by:** Customer, during the LLM Gateway discussion.
 - **Source:** [Week 4 meeting report](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/a573fc0f8f604d2c29ca7d24e33a25847893a4a8/reports/week-04/meeting-report.md#decisions), transcript 15:25–15:55 and 18:12–18:41.

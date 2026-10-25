@@ -42,7 +42,7 @@ No core change is needed.
 
 The Week 3 discussion used a constructor, plugin ID, API version, settings model, and separate `on_request`/`on_response` hooks.
 The experiment instead uses the factory import path, options, and one async handler; it has no explicit API-version field or separate hooks.
-On [23 October](../decisions.md#dec-014), the customer asked for clear instructions for adding plugins.
+The [Week 3 action points](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-03/meeting-report.md#action-points) ask for documentation that makes adding a plugin straightforward.
 The choice between separate hooks and one handler still needs agreement.
 
 ## Failure Handling
@@ -61,7 +61,7 @@ The prototype does not automatically skip a failed plugin or retry a provider ca
 An exception before the provider call prevents that call; a failure after the call cannot undo data already sent.
 The provider timeout does not limit how long a plugin can run.
 
-The [23 October guidance](../decisions.md#dec-013) requires detecting and logging stalled or faulty plugins while keeping the service responsive.
+The [Week 3 action points](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-03/meeting-report.md#action-points) leave failure handling and per-plugin logging to be completed; the recovery policy still needs customer agreement.
 Returning 500 for an exception is not enough: a plugin can also hang, and the current runtime has no plugin execution deadline.
 Add a time limit for plugin execution and check that other requests can still complete.
 Blocking Python code may require a worker process that can be stopped, rather than an async timeout alone.
@@ -75,7 +75,7 @@ Those questions remain in `reports/week-04/meeting-script.md`.
 The [logging plugin](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/ca30bcf8979aefb6fe0d9d870429e022214a40ed/prototype/gateway/plugins/request_logging.py) records one request ID, status, exception class, and total elapsed time.
 It omits request bodies, credentials, and exception messages.
 It does not record each plugin's duration, execution order, or the identity of the failed plugin.
-Per-plugin monitoring from Week 3 is still missing, including the [failure detection requested by the customer](../decisions.md#dec-013).
+The per-plugin monitoring recorded in the [Week 3 action points](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-03/meeting-report.md#action-points) is still missing.
 
 For each plugin call, log the request ID, plugin ID or factory path, processing stage, position in the chain, elapsed time, and result.
 Record failures before re-raising them, and omit payloads and exception messages.
