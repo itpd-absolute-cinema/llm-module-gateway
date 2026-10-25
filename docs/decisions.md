@@ -130,6 +130,36 @@ Use Java 25 with Spring Boot 4 for the Gateway, and Python for the Interpreter, 
 - **Source:** Part 3 – stack selection
 - **Why:** Java 25 provides a modern LTS runtime for the Gateway, while Spring Boot 4 provides a framework for implementing the Gateway service. Python is used for the Interpreter and plugins because plugins must be implementable as individual `.py` files. Using Python for the CLI as well reduces the number of language ecosystems and allows the CLI to reuse Python libraries where appropriate. Gradle is used for Java build and dependency management. Docker Compose is proposed for reproducible local development and testing.
 
+## DEC-012
+
+Focus on a plugin management system that DevOps engineers can extend and maintain, with basic plugins as examples.
+
+- **Status:** Active
+- **Date:** 2026-10-23
+- **Made by:** Customer, during the LLM Gateway discussion.
+- **Source:** [Week 4 meeting report](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-04/meeting-report.md#decisions), transcript 17:35–19:38.
+- **Why:** A DevOps engineer should be able to add rules and hand the system over to another engineer. The earlier minimum plugin count still applies; story acceptance is recorded separately.
+
+## DEC-013
+
+Detect and log stalled or faulty plugins while keeping the Gateway responsive.
+
+- **Status:** Active
+- **Date:** 2026-10-23
+- **Made by:** Customer, during the LLM Gateway discussion.
+- **Source:** [Week 4 meeting report](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-04/meeting-report.md#decisions), transcript 19:41–20:42.
+- **Why:** A badly written plugin must not stop the whole service. What happens to its request, and how cleanup runs, still needs agreement.
+
+## DEC-014
+
+Provide reproducible installation instructions and a clear guide for adding a plugin.
+
+- **Status:** Active
+- **Date:** 2026-10-23
+- **Made by:** Customer, during the LLM Gateway discussion.
+- **Source:** [Week 4 meeting report](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-04/meeting-report.md#decisions), transcript 15:25–15:55 and 18:12–18:41.
+- **Why:** A developer should be able to install the system and add a plugin using the documentation, including with help from a coding assistant. The final plugin interface still needs agreement.
+
 ## Open Questions
 
 - Communication protocol between Gateway and Interpreter.
