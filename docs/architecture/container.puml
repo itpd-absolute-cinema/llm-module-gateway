@@ -1,0 +1,57 @@
+
+@startuml
+title System context\nOne product boundary; external actors and systems
+
+left to right direction
+
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontColor #172033
+skinparam shadowing false
+skinparam roundcorner 12
+skinparam ArrowColor #334155
+skinparam ArrowThickness 2
+skinparam packageStyle rectangle
+
+skinparam rectangle {
+    BackgroundColor #F1F5F9
+    BorderColor #64748B
+    FontColor #172033
+}
+
+skinparam component {
+    BackgroundColor #E0F2FE
+    BorderColor #0369A1
+    FontColor #172033
+}
+
+rectangle "Application users\n\nEmployees and client apps" as Users
+rectangle "Company developers\n\nDevOps / plugin authors" as Developers
+rectangle "Company administrators\n\nDeployment and access" as Admins
+rectangle "LLM provider\n\nor test endpoint" as Provider
+
+component "Modular LLM Gateway\n\nProduct boundary\nCLI, API, and plugin execution" as Gateway #E0F2FE
+
+' Users <-> Gateway
+Users --> Gateway : Requests
+Gateway --> Users : Results / errors
+
+' Gateway <-> External LLM provider
+Gateway --> Provider : Processed\nrequests
+Provider --> Gateway : Responses / errors
+
+' Developers <-> Gateway
+Developers --> Gateway : Plugin files\nand test cases
+Gateway --> Developers : Test results\nand errors
+
+' Administrators <-> Gateway
+Admins --> Gateway : Configuration\nand credentials
+Gateway --> Admins : Status\nand errors
+
+note bottom of Gateway
+  Trusted plugins only.
+  No GUI or untrusted-plugin sandbox
+  in the initial scope.
+end note
+
+@enduml

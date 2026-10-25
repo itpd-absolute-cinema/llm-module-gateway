@@ -40,23 +40,27 @@ Dynamic plugin loading without a restart and horizontal scaling are not required
 
 **Sprint Backlog:** [SPRINT-03 issues](https://github.com/itpd-absolute-cinema/llm-module-gateway)
 
-#### REL-03
+### SPRINT-04
 
-### SPRINT-04 – Core Integration and Reliability
-
-**Goal:** Integrate the Gateway and Python Interpreter, verify the request-processing flow, and establish automated tests for plugin execution and error handling.
+**Goal:** Establish the first working integration between the CLI and the Gateway through an HTTP API, and enable the integration of the first plugins into the request-processing pipeline.
 
 **Due:** 25 October 2026
 
-**Sprint Backlog:** [SPRINT-04 issues](https://github.com/itpd-absolute-cinema/llm-module-gateway)
+**Sprint Backlog:** [SPRINT-04 milestone](https://github.com/itpd-absolute-cinema/llm-module-gateway/milestone/2)
+
+**Planned Velocity:** 6
+
+**Actual Velocity:** 6
 
 #### REL-04
+
+TODO
 
 ### SPRINT-05 – Client-to-Gateway Request Flow (Provisional)
 
 **Goal:** Enable an OpenAI-compatible client to send requests through the Gateway and receive responses processed by the configured plugin chain.
 
-**Due:** 1 November 2026
+**Due:** 31 October 2026
 
 #### REL-05
 
@@ -64,7 +68,7 @@ Dynamic plugin loading without a restart and horizontal scaling are not required
 
 **Goal:** Provisional – define and test the plugin error-handling policy so failures are handled predictably without unintended Gateway termination.
 
-**Due:** 8 November 2026
+**Due:** 7 November 2026
 
 #### REL-06
 
@@ -72,7 +76,7 @@ Dynamic plugin loading without a restart and horizontal scaling are not required
 
 **Goal:** Provisional – make the documented local Docker workflow reproducible and improve the developer instructions for running the Gateway and adding plugins.
 
-**Due:** 15 November 2026
+**Due:** 14 November 2026
 
 #### REL-07
 
@@ -80,7 +84,7 @@ Dynamic plugin loading without a restart and horizontal scaling are not required
 
 **Goal:** Provisional – strengthen automated end-to-end verification of the Gateway, Interpreter, CLI, and plugin-chain behavior against the Threshold of Success.
 
-**Due:** 22 November 2026
+**Due:** 21 November 2026
 
 #### REL-08
 
@@ -88,7 +92,7 @@ Dynamic plugin loading without a restart and horizontal scaling are not required
 
 **Goal:** Provisional – address remaining MVP gaps, verify the agreed Threshold of Success criteria, and prepare the final demonstration and documentation.
 
-**Due:** 4 December 2026
+**Due:** 28 November 2026
 
 #### REL-09
 

@@ -100,7 +100,7 @@ Provide a graphical user interface.
 
 ## System context
 
-![System context diagram](architecture/context.svg)
+![System context diagram](architecture/container.svg)
 
 Users send text through the CLI or API. Developers add plugin files and test cases. Administrators configure the system and provider access. The provider returns model responses; the test server returns fixed responses during tests.
 
@@ -112,3 +112,7 @@ Diagram source: [context.py](architecture/context.py).
 
 - [User stories](https://github.com/itpd-absolute-cinema/llm-module-gateway/issues?q=label%3Auser-story)
 - [Customer validation](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-02/meeting-report.md)
+
+## Architecture
+
+The architecture that answers these drivers is in [Architecture](architecture/README.md).
