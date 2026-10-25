@@ -50,11 +50,11 @@ Dynamic plugin loading without a restart and horizontal scaling are not required
 
 **Planned Velocity:** 6
 
-**Actual Velocity:** 6
+**Actual Velocity:** 0 completed story points (sum over no completed stories). Customer acceptance was deferred; the CLI story [#45](https://github.com/itpd-absolute-cinema/llm-module-gateway/issues/45) and its open tasks #44, #46, and #47 moved to SPRINT-05. Merged API work is not counted as completion of the CLI story.
 
 #### REL-04
 
-TODO
+Released as [v0.1.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/releases/tag/v0.1.0) on 2026-10-25.
 
 ### SPRINT-05 – Client-to-Gateway Request Flow (Provisional)
 
@@ -114,4 +114,4 @@ TODO
 
 **Sprint planning:** SPRINT-03 and SPRINT-04 have concrete goals in this draft. The goals for SPRINT-05 through SPRINT-09 are provisional and must be revisited before each sprint is planned.
 
-**Release records:** Each `REL-nn` section remains empty until the corresponding release has actually been published. No release is claimed by this draft.
+**Release records:** Each `REL-nn` section remains empty until its release is published. REL-04 records the prototype snapshot; customer validation was postponed to Week 5.
