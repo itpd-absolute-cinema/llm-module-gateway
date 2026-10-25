@@ -66,7 +66,6 @@ The comparison and the gap analysis establish that extension mechanisms exist an
 The Week 1 entries `A-01`–`A-09` now live in the [assumptions log](../assumptions.md) as `ASM-01`–`ASM-09`, in the same order.
 The `Rests on` fields above preserve the original table's dependencies.
 
-
 ## VP-03
 
 A CLI to manage gateway plugins without touching the gateway internals
@@ -94,4 +93,3 @@ we own the CLI surface and its compatibility with the plugin interface.
 These are the price of keeping plugin operations small and scriptable.
 
 How a competitor would respond: LiteLLM, Kong, or Portkey could each wrap their config in a small plugin CLI within weeks, so the command set is not a moat. The defensible part is the same discipline as VP-01: plugin lifecycle effort treated as a primary product constraint, with the CLI sharing the exact plugin interface and lifecycle points the rest of the product is built around.
-

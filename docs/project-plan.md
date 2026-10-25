@@ -40,7 +40,7 @@ Dynamic plugin loading without a restart and horizontal scaling are not required
 
 **Sprint Backlog:** [SPRINT-03 issues](https://github.com/itpd-absolute-cinema/llm-module-gateway)
 
-## SPRINT-04
+### SPRINT-04
 
 **Goal:** Establish the first working integration between the CLI and the Gateway through an HTTP API, and enable the integration of the first plugins into the request-processing pipeline.
 
