@@ -5,25 +5,62 @@ repo_url: https://github.com/itpd-absolute-cinema/llm-module-gateway
 edit_uri: edit/main/docs/
 
 nav:
-  - Home: index.md
-  - Setup and run: setup.md
-  - Product vision: product-vision.md
-  - Glossary: glossary.md
-  - Threshold of success: threshold-of-success.md
-  - Project plan: project-plan.md
-  - Risks: risks.md
-  - Definition of Done: definition-of-done.md
-  - Architecture decisions: decisions.md
-  - Plugin chain follow-up: architecture/plugin-chain.md
+
+  - Start here:
+      - Home: index.md
+      - Setup and run: setup.md
+      - Glossary: glossary.md
+  - Product:
+      - Product vision: product-vision.md
+      - Threshold of success: threshold-of-success.md
+      - Assumptions: assumptions.md
+      - Customer decisions and earlier design: decisions.md
+  - Requirements:
+      - Functional:
+          - Overview: functional-requirements/README.md
+          - "FR-01: Upload disabled plugins": functional-requirements/fr/FR-01.md
+          - "FR-02: Inspect saved state": functional-requirements/fr/FR-02.md
+          - "FR-03: Enable after restart": functional-requirements/fr/FR-03.md
+          - "FR-04: Disable after restart": functional-requirements/fr/FR-04.md
+          - "FR-05: Delete inactive plugins": functional-requirements/fr/FR-05.md
+          - "FR-06: Ordered plugin processing": functional-requirements/fr/FR-06.md
+          - "FR-07: Provider routing": functional-requirements/fr/FR-07.md
+          - "FR-008: Admin authorization": functional-requirements/fr/FR-008.md
+          - "FR-009: Replace plugin options": functional-requirements/fr/FR-009.md
+      - Quality:
+          - Overview: quality-requirements/README.md
+          - "QR-01: Plugin chain completeness": quality-requirements/qr/QR-01.md
+          - "QR-02: Plugin failure resilience target": quality-requirements/qr/QR-02.md
+          - "QR-03: Plugin testability": quality-requirements/qr/QR-03.md
+          - "QR-04: Reject unauthorized administration": quality-requirements/qr/QR-04.md
+          - "QR-05: Preserve state on failed updates": quality-requirements/qr/QR-05.md
+  - Technical:
+      - Architecture overview: architecture/README.md
+      - Plugin chain follow-up: architecture/plugin-chain.md
+      - Plugin management API: api/plugin-management.md
+      - Architecture decisions:
+          - "ADR-001: Planned Java/Python deployment": architecture/adr/ADR-001.md
+          - "ADR-002: Restart-only changes": architecture/adr/ADR-002.md
+          - "ADR-003: Thin CLI and targeted API": architecture/adr/ADR-003.md
+          - "ADR-004: Single-process prototype": architecture/adr/ADR-004.md
+          - "ADR-005: Independent admin authorization": architecture/adr/ADR-005.md
+          - "ADR-006: Retain disabled options": architecture/adr/ADR-006.md
+          - ADR template: architecture/adr/TEMPLATE.md
+  - Delivery:
+      - Project plan: project-plan.md
+      - Risks: risks.md
+      - Definition of Done: definition-of-done.md
+
   - Research:
-      - Alternatives: research/alternatives.md
+      - Alternatives overview: research/alternatives.md
       - Comparison: research/comparison.md
       - Gap analysis: research/gap-analysis.md
       - Value proposition: research/value-proposition.md
-      - LiteLLM: research/alternatives/litellm.md
-      - Kong AI Gateway: research/alternatives/kong-ai-gateway.md
-      - Portkey: research/alternatives/portkey.md
-      - Cloudflare AI Gateway: research/alternatives/cloudflare-ai-gateway.md
+      - Gateway reviews:
+          - LiteLLM: research/alternatives/litellm.md
+          - Kong AI Gateway: research/alternatives/kong-ai-gateway.md
+          - Portkey: research/alternatives/portkey.md
+          - Cloudflare AI Gateway: research/alternatives/cloudflare-ai-gateway.md
 
 validation:
   links:
