@@ -1,5 +1,7 @@
 # Week 4 Follow-up Meeting Script
 
+**Status:** Pending Week 5. Customer agreed to postpone the Week 4 meeting; this agenda has not been carried out as that week's Sprint Review. See the [status note](meeting-report.md#sprint-review-status).
+
 ## Context
 
 DevOps engineers need to add company rules without changing the Gateway core and to identify failures when those rules run.
