@@ -115,4 +115,4 @@ Diagram source: [context.py](architecture/context.py).
 
 ## Architecture
 
-The architecture that answers these drivers is in [Architecture](architecture/README.md).
+The architecture that answers these drivers is in [Architecture](architecture/README.md), including the planned Java/Python deployment and the separately scoped Python prototype.

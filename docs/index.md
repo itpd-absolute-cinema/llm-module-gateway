@@ -2,13 +2,15 @@
 
 A gateway for applying company-specific rules to LLM requests and responses through Python plugins.
 The planned system uses a Java gateway, a Python plugin runtime, and a CLI.
-This is a work in progress for the ITPD course. This checkout contains planning and research, but no runnable product yet.
+This is a work in progress for the ITPD course. The checkout also contains a runnable Python prototype, separate from the planned Java/Python system.
 
 ## Start here
 
 - [Setup and run](setup.md): install the documentation tools and see what still blocks running the product.
 - [Product vision](product-vision.md): the goal, stakeholders, constraints, and system boundary.
-- [Architecture decisions](decisions.md): the recorded decisions and open questions.
+- [Plugin management API](api/plugin-management.md): administration, restart behavior, and the exported OpenAPI schema.
+- [Architecture](architecture/README.md): prototype scope, requirements, and ADRs.
+- [Customer decisions and earlier design](decisions.md): recorded decisions and open questions.
 
 ## Planning and delivery
 
