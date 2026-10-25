@@ -100,7 +100,7 @@ Provide a graphical user interface.
 
 ## System context
 
-![System context diagram](architecture/context.svg)
+![System context diagram](architecture/container.svg)
 
 Users send text through the CLI or API. Developers add plugin files and test cases. Administrators configure the system and provider access. The provider returns model responses; the test server returns fixed responses during tests.
 
