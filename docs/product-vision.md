@@ -112,3 +112,7 @@ Diagram source: [context.py](architecture/context.py).
 
 - [User stories](https://github.com/itpd-absolute-cinema/llm-module-gateway/issues?q=label%3Auser-story)
 - [Customer validation](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-02/meeting-report.md)
+
+## Architecture
+
+The architecture that answers these drivers is in [Architecture](architecture/README.md).

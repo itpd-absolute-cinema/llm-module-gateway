@@ -65,3 +65,33 @@ The comparison and the gap analysis establish that extension mechanisms exist an
 
 The Week 1 entries `A-01`–`A-09` now live in the [assumptions log](../assumptions.md) as `ASM-01`–`ASM-09`, in the same order.
 The `Rests on` fields above preserve the original table's dependencies.
+
+
+## VP-03
+
+A CLI to manage gateway plugins without touching the gateway internals
+
+Status: Active
+
+User: DevOps engineer who owns the operational side of the gateway: installing, enabling, disabling, and removing plugins.
+
+Problem: the alternatives expose plugin management only through their broader config surfaces (LiteLLM YAML and restart, Kong Admin API and its service/route/consumer model, Portkey's split hosted/self-hosted management, Cloudflare Workers deployment). None offers a small, scriptable, single-purpose CLI for the plugin lifecycle.
+
+What we do that the alternatives do not: one CLI for the full plugin lifecycle, built on the same small plugin interface as VP-01. A DevOps engineer can upload a plugin (.py file), list plugins with their status, enable, disable, and remove a plugin by name. The commands map directly to the few fixed lifecycle points the gateway already supports, so concepts from VP-01 and VP-02 carry over to operations.
+
+What it costs:
+
+plugins only: no provider config, routing, observability, or user management;
+
+one language and one packaging format, so other teams cannot use it;
+
+trusted plugins only, no sandboxing on upload;
+
+no plugin registry; plugins are uploaded, not discovered;
+
+we own the CLI surface and its compatibility with the plugin interface.
+
+These are the price of keeping plugin operations small and scriptable.
+
+How a competitor would respond: LiteLLM, Kong, or Portkey could each wrap their config in a small plugin CLI within weeks, so the command set is not a moat. The defensible part is the same discipline as VP-01: plugin lifecycle effort treated as a primary product constraint, with the CLI sharing the exact plugin interface and lifecycle points the rest of the product is built around.
+
