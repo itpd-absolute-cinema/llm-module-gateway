@@ -5,13 +5,15 @@ from uuid import uuid4
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
+from fastapi.openapi.utils import get_openapi
 from fastapi.responses import JSONResponse
 from openai import APIConnectionError, APIStatusError, APITimeoutError, AsyncOpenAI
 from starlette.exceptions import HTTPException
 
-from gateway.config import factories, load, secret
+from gateway.admin import PluginManager, router as admin_router
+from gateway.config import config_path, factories, load, secret
 from gateway.core import Context, Response, compose, error
-from gateway.schema import ChatRequest
+from gateway.schema import ChatRequest, error_response
 
 logger = logging.getLogger("gateway")
 
@@ -23,7 +25,8 @@ async def lifespan(app: FastAPI):
     logging.getLogger("httpx").setLevel(logging.WARNING)
     logging.getLogger("httpcore").setLevel(logging.WARNING)
     logging.getLogger("openai").setLevel(logging.WARNING)
-    config = load()
+    path = config_path()
+    config = load(path)
     async with AsyncOpenAI(
         base_url=str(config.upstream.base_url),
         api_key=secret(config.upstream.api_key_env),
@@ -48,10 +51,32 @@ async def lifespan(app: FastAPI):
                 return error(status, "Upstream rejected the request.", "upstream_error")
 
         app.state.handler = compose(upstream, factories(config))
+        app.state.plugin_manager = PluginManager(config, path)
         yield
 
 
 app = FastAPI(title="LLM Gateway Prototype", lifespan=lifespan)
+app.include_router(admin_router)
+
+
+def openapi_schema():
+    if app.openapi_schema is None:
+        schema = get_openapi(title=app.title, version=app.version, routes=app.routes)
+        # Validation failures use our 400 envelope, not FastAPI's default 422.
+        # Keep explicitly declared 422 responses for non-TOML plugin options.
+        for path in schema["paths"].values():
+            for operation in path.values():
+                responses = operation.get("responses", {})
+                validation = responses.get("422", {}).get("content", {}).get("application/json", {}).get("schema", {})
+                if validation.get("$ref") == "#/components/schemas/HTTPValidationError":
+                    del responses["422"]
+        for name in ("HTTPValidationError", "ValidationError"):
+            schema.get("components", {}).get("schemas", {}).pop(name, None)
+        app.openapi_schema = schema
+    return app.openapi_schema
+
+
+app.openapi = openapi_schema
 
 
 def http_response(result: Response, request_id: str) -> JSONResponse:
@@ -64,6 +89,8 @@ def http_response(result: Response, request_id: str) -> JSONResponse:
 @app.exception_handler(RequestValidationError)
 async def invalid_request(request: Request, exc: RequestValidationError):
     # Validation errors contain submitted values; never echo or log them.
+    if request.url.path.startswith("/admin/"):
+        return http_response(error(400, "Invalid admin request. Check the documented fields.", "invalid_request"), uuid4().hex)
     return http_response(
         error(400, "Invalid request. Use the documented non-streaming text chat fields.", "invalid_request"),
         uuid4().hex,
@@ -72,7 +99,8 @@ async def invalid_request(request: Request, exc: RequestValidationError):
 
 @app.exception_handler(HTTPException)
 async def http_error(request: Request, exc: HTTPException):
-    return http_response(error(exc.status_code, "HTTP request rejected.", "http_error"), uuid4().hex)
+    message = exc.detail if request.url.path.startswith("/admin/") else "HTTP request rejected."
+    return http_response(error(exc.status_code, message, "http_error"), uuid4().hex)
 
 
 @app.get("/health")
@@ -80,7 +108,15 @@ async def health():
     return {"status": "ok"}
 
 
-@app.post("/v1/chat/completions")
+@app.post("/v1/chat/completions", responses={
+    400: error_response("Malformed JSON or invalid non-streaming text chat fields."),
+    401: error_response("Missing or invalid bearer credentials when authentication is enabled.", unauthorized=True),
+    403: error_response("The requested model is blocked by the model allowlist plugin."),
+    429: error_response("The upstream provider rejected the request with a rate-limit response."),
+    500: error_response("Unexpected gateway or plugin processing failure."),
+    502: error_response("Could not connect to upstream, or upstream returned a non-429 error response."),
+    504: error_response("The upstream request timed out."),
+})
 async def chat(body: ChatRequest, request: Request):
     context = Context(
         body=body.model_dump(exclude_none=True),

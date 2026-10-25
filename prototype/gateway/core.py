@@ -31,4 +31,6 @@ def compose(terminal: Handler, plugins: Sequence[Plugin]) -> Handler:
     handler = terminal
     for plugin in reversed(plugins):
         handler = plugin(handler)
+        if not callable(handler):
+            raise TypeError("Plugin factory must return a handler")
     return handler
