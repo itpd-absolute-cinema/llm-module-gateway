@@ -1,0 +1,990 @@
+openapi: 3.1.0
+info:
+  title: LLM Gateway Prototype
+  version: 0.1.0
+paths:
+  /admin/plugins:
+    get:
+      tags:
+      - Plugin administration
+      summary: List Plugins
+      operationId: list_plugins_admin_plugins_get
+      responses:
+        '200':
+          description: Successful Response
+          headers:
+            X-Restart-Required:
+              description: Whether saved enabled plugins differ from the running pipeline.
+              schema:
+                type: string
+                enum:
+                - 'true'
+                - 'false'
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/RunningPluginInfo'
+                type: array
+                title: Response List Plugins Admin Plugins Get
+        '400':
+          description: Malformed request, invalid plugin name, or symlink plugin.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Missing or invalid admin bearer credentials.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+            WWW-Authenticate:
+              description: Bearer authentication is required.
+              schema:
+                type: string
+                const: Bearer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Multiple configuration entries exist for a plugin.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Plugin storage operation failed.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Plugin administration is disabled because GATEWAY_ADMIN_API_KEY
+            is unset.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - HTTPBearer: []
+    post:
+      tags:
+      - Plugin administration
+      summary: Upload Plugin
+      operationId: upload_plugin_admin_plugins_post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_plugin_admin_plugins_post'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          headers:
+            X-Restart-Required:
+              description: Whether saved enabled plugins differ from the running pipeline.
+              schema:
+                type: string
+                enum:
+                - 'true'
+                - 'false'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PluginInfo'
+        '400':
+          description: Malformed multipart request, invalid filename or Python source,
+            symlink plugin, invalid ordering hint, or options that are not a JSON
+            object.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Missing or invalid admin bearer credentials.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+            WWW-Authenticate:
+              description: Bearer authentication is required.
+              schema:
+                type: string
+                const: Bearer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Plugin already exists, multiple configuration entries exist,
+            or configuration changed on disk.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Plugin storage operation failed.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Plugin administration is disabled because GATEWAY_ADMIN_API_KEY
+            is unset.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Ordering target has no configuration entry.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '413':
+          description: Plugin source exceeds the 1 MiB limit.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Options cannot be represented in TOML, for example JSON null.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - HTTPBearer: []
+  /admin/plugins/{name}:
+    get:
+      tags:
+      - Plugin administration
+      summary: Get Plugin
+      operationId: get_plugin_admin_plugins__name__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunningPluginInfo'
+          headers:
+            X-Restart-Required:
+              description: Whether saved enabled plugins differ from the running pipeline.
+              schema:
+                type: string
+                enum:
+                - 'true'
+                - 'false'
+        '400':
+          description: Malformed request, invalid plugin name, or symlink plugin.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Missing or invalid admin bearer credentials.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+            WWW-Authenticate:
+              description: Bearer authentication is required.
+              schema:
+                type: string
+                const: Bearer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Multiple configuration entries exist for a plugin.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Plugin storage operation failed.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Plugin administration is disabled because GATEWAY_ADMIN_API_KEY
+            is unset.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Plugin source and configuration entry were not found.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      tags:
+      - Plugin administration
+      summary: Update Settings
+      operationId: update_settings_admin_plugins__name__put
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Name
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Settings'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PluginInfo'
+          headers:
+            X-Restart-Required:
+              description: Whether saved enabled plugins differ from the running pipeline.
+              schema:
+                type: string
+                enum:
+                - 'true'
+                - 'false'
+        '400':
+          description: Malformed request, invalid plugin name, symlink plugin, or
+            invalid ordering hint.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Missing or invalid admin bearer credentials.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+            WWW-Authenticate:
+              description: Bearer authentication is required.
+              schema:
+                type: string
+                const: Bearer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Multiple configuration entries exist, or configuration changed
+            on disk; restart before editing.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Plugin storage operation failed.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Plugin administration is disabled because GATEWAY_ADMIN_API_KEY
+            is unset.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Plugin not found, or ordering target has no configuration entry.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Options cannot be represented in TOML, for example JSON null.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch:
+      tags:
+      - Plugin administration
+      summary: Set Status
+      operationId: set_status_admin_plugins__name__patch
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Name
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Status'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PluginInfo'
+          headers:
+            X-Restart-Required:
+              description: Whether saved enabled plugins differ from the running pipeline.
+              schema:
+                type: string
+                enum:
+                - 'true'
+                - 'false'
+        '400':
+          description: Malformed request, invalid plugin name, symlink plugin, or
+            invalid ordering hint.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Missing or invalid admin bearer credentials.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+            WWW-Authenticate:
+              description: Bearer authentication is required.
+              schema:
+                type: string
+                const: Bearer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Multiple configuration entries exist, or configuration changed
+            on disk; restart before editing.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Plugin storage operation failed.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Plugin administration is disabled because GATEWAY_ADMIN_API_KEY
+            is unset.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Plugin not found, or ordering target has no configuration entry.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+      - Plugin administration
+      summary: Delete Plugin
+      operationId: delete_plugin_admin_plugins__name__delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Name
+      responses:
+        '204':
+          description: Successful Response
+          headers:
+            X-Restart-Required:
+              description: Whether saved enabled plugins differ from the running pipeline.
+              schema:
+                type: string
+                enum:
+                - 'true'
+                - 'false'
+        '400':
+          description: Malformed request, invalid plugin name, or symlink plugin.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Missing or invalid admin bearer credentials.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+            WWW-Authenticate:
+              description: Bearer authentication is required.
+              schema:
+                type: string
+                const: Bearer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Plugin is enabled or still running, multiple configuration
+            entries exist, or configuration changed on disk.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Plugin storage operation failed.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Plugin administration is disabled because GATEWAY_ADMIN_API_KEY
+            is unset.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Plugin source and configuration entry were not found.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /health:
+    get:
+      summary: Health
+      operationId: health_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /v1/chat/completions:
+    post:
+      summary: Chat
+      operationId: chat_v1_chat_completions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: Malformed JSON or invalid non-streaming text chat fields.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Missing or invalid bearer credentials when authentication is
+            enabled.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+            WWW-Authenticate:
+              description: Bearer authentication is required.
+              schema:
+                type: string
+                const: Bearer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The requested model is blocked by the model allowlist plugin.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: The upstream provider rejected the request with a rate-limit
+            response.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected gateway or plugin processing failure.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '502':
+          description: Could not connect to upstream, or upstream returned a non-429
+            error response.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '504':
+          description: The upstream request timed out.
+          headers:
+            X-Request-ID:
+              description: Identifier for this request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Body_upload_plugin_admin_plugins_post:
+      properties:
+        file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: File
+        options:
+          type: string
+          title: Options
+          default: '{}'
+        before:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Before
+          description: Insert immediately before this configured plugin; mutually
+            exclusive with after.
+        after:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: After
+          description: Insert immediately after this configured plugin; mutually exclusive
+            with before.
+      type: object
+      required:
+      - file
+      title: Body_upload_plugin_admin_plugins_post
+    ChatRequest:
+      properties:
+        model:
+          type: string
+          minLength: 1
+          title: Model
+        messages:
+          items:
+            $ref: '#/components/schemas/Message'
+          type: array
+          minItems: 1
+          title: Messages
+        stream:
+          type: boolean
+          const: false
+          title: Stream
+          default: false
+        temperature:
+          anyOf:
+          - type: number
+            maximum: 2.0
+            minimum: 0.0
+          - type: 'null'
+          title: Temperature
+        top_p:
+          anyOf:
+          - type: number
+            maximum: 1.0
+            minimum: 0.0
+          - type: 'null'
+          title: Top P
+        max_tokens:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Max Tokens
+        max_completion_tokens:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Max Completion Tokens
+        stop:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stop
+      additionalProperties: false
+      type: object
+      required:
+      - model
+      - messages
+      title: ChatRequest
+    ErrorDetail:
+      properties:
+        message:
+          type: string
+          title: Message
+        type:
+          type: string
+          const: gateway_error
+          title: Type
+        param:
+          type: 'null'
+          title: Param
+        code:
+          type: string
+          title: Code
+      type: object
+      required:
+      - message
+      - type
+      - param
+      - code
+      title: ErrorDetail
+    ErrorResponse:
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorDetail'
+      type: object
+      required:
+      - error
+      title: ErrorResponse
+    Message:
+      properties:
+        role:
+          type: string
+          enum:
+          - system
+          - developer
+          - user
+          - assistant
+          title: Role
+        content:
+          type: string
+          title: Content
+      additionalProperties: false
+      type: object
+      required:
+      - role
+      - content
+      title: Message
+    PluginInfo:
+      properties:
+        name:
+          type: string
+          title: Name
+        enabled:
+          type: boolean
+          title: Enabled
+        options:
+          additionalProperties: true
+          type: object
+          title: Options
+      type: object
+      required:
+      - name
+      - enabled
+      - options
+      title: PluginInfo
+    RunningPluginInfo:
+      properties:
+        name:
+          type: string
+          title: Name
+        enabled:
+          type: boolean
+          title: Enabled
+          description: Whether this process loaded the plugin at startup.
+        options:
+          additionalProperties: true
+          type: object
+          title: Options
+          description: Options used by the running plugin; empty when inactive.
+        restart_required:
+          type: boolean
+          title: Restart Required
+          description: Whether saved enabled state, options or enabled-chain position
+            differ from this process.
+      type: object
+      required:
+      - name
+      - enabled
+      - options
+      - restart_required
+      title: RunningPluginInfo
+    Settings:
+      properties:
+        options:
+          additionalProperties: true
+          type: object
+          title: Options
+        before:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Before
+          description: Move immediately before this configured plugin; mutually exclusive
+            with after.
+        after:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: After
+          description: Move immediately after this configured plugin; mutually exclusive
+            with before.
+      additionalProperties: false
+      type: object
+      required:
+      - options
+      title: Settings
+    Status:
+      properties:
+        enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enabled
+        before:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Before
+          description: Move immediately before this configured plugin; mutually exclusive
+            with after.
+        after:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: After
+          description: Move immediately after this configured plugin; mutually exclusive
+            with before.
+      additionalProperties: false
+      type: object
+      title: Status
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
