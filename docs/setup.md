@@ -143,3 +143,23 @@ Run the commands from the appropriate module directories and confirm that all re
 A clean checkout can be configured and started by following this guide. A client request passes through the Java Gateway and the Python plugin chain, reaches the configured target LLM, and returns the processed response to the client.
 
 All commands and configuration values in this guide must match the current repository implementation.
+
+## Week 4 Follow-up
+
+The [Week 3 delivery action](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-03/meeting-report.md#action-points) asked for a runnable application with at least three plugins and instructions for adding one.
+This checkout does not contain the Java/Python application described above.
+The earlier commands are general examples, not a verified way to start that application.
+
+For the available Python experiment, use the [run instructions](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/ca30bcf8979aefb6fe0d9d870429e022214a40ed/prototype/README.md#run-locally) and [plugin example](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/ca30bcf8979aefb6fe0d9d870429e022214a40ed/prototype/README.md#add-a-plugin) from PR #39.
+Check out that revision in a separate directory before following commands from its `prototype/` folder; that folder is not part of this branch.
+The supplied configuration enables request logging, authentication, a model allowlist, literal redaction, and a token cap.
+Its local demo provider returns fixed text without model calls; it needs no real provider credentials.
+Literal redaction replaces configured strings and does not promise general PII detection.
+
+Both PR #39 and the architecture work in PR #48 were still open on 25 October 2026.
+The [follow-up note](architecture/plugin-chain.md) records the interface, error behavior, and checks performed.
+The prototype has not been verified as a released or customer-accepted MUP.
+The remaining actions are in `reports/week-04/meeting-report.md`, under `Action points`.
+
+The [23 October guidance](decisions.md#dec-012) puts plugin management and a clear extension workflow ahead of adding more examples.
+[DEC-014](decisions.md#dec-014) calls for instructions that a developer can follow to install the system and add a plugin.

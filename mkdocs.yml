@@ -8,11 +8,13 @@ nav:
   - Home: index.md
   - Setup and run: setup.md
   - Product vision: product-vision.md
+  - Glossary: glossary.md
   - Threshold of success: threshold-of-success.md
   - Project plan: project-plan.md
   - Risks: risks.md
   - Definition of Done: definition-of-done.md
   - Architecture decisions: decisions.md
+  - Plugin chain follow-up: architecture/plugin-chain.md
   - Research:
       - Alternatives: research/alternatives.md
       - Comparison: research/comparison.md
