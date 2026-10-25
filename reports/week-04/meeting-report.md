@@ -1,6 +1,20 @@
 # Week 4 Customer Meeting Report
 
+## Sprint Review status
+
+The Week 4 customer meeting did not take place because of circumstances beyond the team's control.
+Customer agreed to postpone it to Week 5. The team continued under working assumptions rather than waiting for the review.
+
+Assignment 4 Part 10 remains deferred: no Week 4 story acceptance, quality-requirement approval, or architecture approval is claimed.
+At the rescheduled meeting, we will demonstrate the work against its acceptance criteria and review the assumptions, including [plugin interface](../../docs/assumptions.md#asm-04), [trusted in-process execution](../../docs/assumptions.md#asm-06), and [failure handling](../../docs/assumptions.md#asm-07).
+
+The transcript-based notes below were already in the repository. They are retained as background, not evidence that the Week 4 Sprint Review took place.
+Their meeting attribution and the provenance of DEC-012 through DEC-014 need clarification; this status note neither verifies nor retracts those earlier entries.
+The [script](meeting-script.md), unfinished actions, and open questions carry forward to Week 5.
+
 ## Metadata
+
+The following metadata describes the previously recorded transcript notes, not the postponed Sprint Review.
 
 - **Date:** 2026-10-23; repository reviewed on 2026-10-25.
 - **Duration:** About 27 minutes in the supplied transcript.
