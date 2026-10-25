@@ -3,6 +3,32 @@ from typing import Literal, Self
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
+class ErrorDetail(BaseModel):
+    message: str
+    type: Literal["gateway_error"]
+    param: None
+    code: str
+
+
+class ErrorResponse(BaseModel):
+    error: ErrorDetail
+
+
+def error_response(description: str, *, unauthorized: bool = False) -> dict:
+    headers = {
+        "X-Request-ID": {
+            "description": "Identifier for this request.",
+            "schema": {"type": "string"},
+        },
+    }
+    if unauthorized:
+        headers["WWW-Authenticate"] = {
+            "description": "Bearer authentication is required.",
+            "schema": {"type": "string", "const": "Bearer"},
+        }
+    return {"model": ErrorResponse, "description": description, "headers": headers}
+
+
 class Message(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
 

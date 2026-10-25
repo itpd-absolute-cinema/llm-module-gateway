@@ -21,6 +21,7 @@ class PluginConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     factory: str
+    enabled: bool = True
     options: dict = Field(default_factory=dict)
 
 
@@ -31,8 +32,12 @@ class Config(BaseModel):
     plugins: list[PluginConfig]
 
 
-def load() -> Config:
-    path = Path(os.environ.get("GATEWAY_CONFIG", "config.toml"))
+def config_path() -> Path:
+    return Path(os.environ.get("GATEWAY_CONFIG", "config.toml")).resolve()
+
+
+def load(path: Path | None = None) -> Config:
+    path = path or config_path()
     with path.open("rb") as file:
         return Config.model_validate(tomllib.load(file))
 
@@ -47,6 +52,8 @@ def secret(name: str) -> str:
 def factories(config: Config) -> list[Plugin]:
     plugins = []
     for item in config.plugins:
+        if not item.enabled:
+            continue
         module, name = item.factory.rsplit(":", 1)
         factory = getattr(import_module(module), name)
         plugins.append(partial(factory, **item.options))
