@@ -1,0 +1,246 @@
+openapi: 3.1.0
+info:
+  title: Plugin Manager
+  version: 0.2.0
+  description: >
+    Internal API of the Plugin Manager, called by the LLM Gateway.
+    The gateway calls it twice per chat request: first to run the request_filter
+    plugins, then (after the LLM call) to run the response_filter plugins.
+    On every call the gateway sends the ordered list of enabled plugins of the
+    needed type together with their settings. Plugin sources are not transferred:
+    they are read from the plugins directory shared between the gateway and the
+    plugin manager containers, as <plugins_dir>/<name>.py.
+    A plugin that rejects the data makes the manager answer 400 (invalid data)
+    or 403 (forbidden); the gateway passes both on to its client.
+servers:
+  - url: http://plugin-manager:8000
+paths:
+  /request-filters:
+    post:
+      tags:
+      - Filters
+      summary: Run Request Filters
+      description: >
+        Applies the request_filter plugins to the chat request, from first to last,
+        and returns the resulting request. Filters may validate the request,
+        mask data (for example phone numbers) or route it to another model
+        by changing the model field.
+      operationId: run_request_filters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestFiltersInput'
+      responses:
+        '200':
+          description: The filtered chat request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatRequest'
+        '400':
+          description: A plugin rejected the request as invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: A plugin forbade the request (for example, the model is not allowed).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: Any other failure; the gateway reports it as 502.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /response-filters:
+    post:
+      tags:
+      - Filters
+      summary: Run Response Filters
+      description: >
+        Applies the response_filter plugins to the LLM response, from first to last,
+        and returns the resulting response (for example, with 18+ content removed).
+        The request that was sent to the LLM is passed for context.
+      operationId: run_response_filters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResponseFiltersInput'
+      responses:
+        '200':
+          description: The filtered chat completion.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatCompletionResponse'
+        '400':
+          description: A plugin rejected the response as invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: A plugin forbade the response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        default:
+          description: Any other failure; the gateway reports it as 502.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    RequestFiltersInput:
+      type: object
+      required: [request, plugins]
+      properties:
+        request:
+          $ref: '#/components/schemas/ChatRequest'
+        plugins:
+          type: array
+          description: Enabled request_filter plugins in chain order. Never empty (the gateway skips the call otherwise).
+          items:
+            $ref: '#/components/schemas/PluginSpec'
+    ResponseFiltersInput:
+      type: object
+      required: [request, response, plugins]
+      properties:
+        request:
+          $ref: '#/components/schemas/ChatRequest'
+        response:
+          $ref: '#/components/schemas/ChatCompletionResponse'
+        plugins:
+          type: array
+          description: Enabled response_filter plugins in chain order. Never empty (the gateway skips the call otherwise).
+          items:
+            $ref: '#/components/schemas/PluginSpec'
+    PluginSpec:
+      type: object
+      required: [name, type, enabled, options]
+      properties:
+        name:
+          type: string
+          pattern: '^[A-Za-z_][A-Za-z0-9_]*$'
+          description: Plugin name; the source is <plugins_dir>/<name>.py.
+        type:
+          type: string
+          enum: [request_filter, response_filter]
+        enabled:
+          type: boolean
+          const: true
+        options:
+          type: object
+          additionalProperties: true
+          description: Current settings of the plugin, sent on every call.
+    ChatRequest:
+      type: object
+      required: [model, messages]
+      properties:
+        model:
+          type: string
+          minLength: 1
+        messages:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Message'
+        stream:
+          type: boolean
+          const: false
+          default: false
+        temperature:
+          type: [number, 'null']
+          minimum: 0.0
+          maximum: 2.0
+        top_p:
+          type: [number, 'null']
+          minimum: 0.0
+          maximum: 1.0
+        max_tokens:
+          type: [integer, 'null']
+          exclusiveMinimum: 0
+        max_completion_tokens:
+          type: [integer, 'null']
+          exclusiveMinimum: 0
+        stop:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+    Message:
+      type: object
+      required: [role, content]
+      properties:
+        role:
+          type: string
+          enum: [system, developer, user, assistant]
+        content:
+          type: string
+    ChatCompletionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          examples: [chat.completion]
+        created:
+          type: integer
+          format: int64
+          description: Unix timestamp in seconds.
+        model:
+          type: string
+        choices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Choice'
+        usage:
+          $ref: '#/components/schemas/Usage'
+    Choice:
+      type: object
+      properties:
+        index:
+          type: integer
+        message:
+          $ref: '#/components/schemas/Message'
+        finish_reason:
+          type: [string, 'null']
+    Usage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+        completion_tokens:
+          type: integer
+        total_tokens:
+          type: integer
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorDetail'
+    ErrorDetail:
+      type: object
+      required: [message, type, param, code]
+      properties:
+        message:
+          type: string
+        type:
+          type: string
+        param:
+          type: 'null'
+        code:
+          type: string

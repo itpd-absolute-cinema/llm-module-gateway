@@ -1,0 +1,33 @@
+gateway:
+  admin-api-key: ${GATEWAY_ADMIN_API_KEY:}   # пусто -> /admin/** отвечает 503
+  plugins-dir: ${GATEWAY_PLUGINS_DIR:./plugins}
+  plugin-manager-url: ${PLUGIN_MANAGER_URL:http://localhost:8000}
+  plugin-manager-timeout: 120s
+  llm:
+    provider: ${LLM_PROVIDER:stub}
+
+spring:
+  mongodb:
+    uri: ${MONGODB_URI:mongodb://localhost:27017/gateway}
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 2MB
+
+management:
+  server:
+    port: 9090
+  endpoints:
+    web:
+      exposure:
+        include: openapi, swagger-ui
+
+springdoc:
+  use-management-port: true
+
+logging:
+  level:
+    ru:
+      inno:
+        itpd:
+          gateway: DEBUG
