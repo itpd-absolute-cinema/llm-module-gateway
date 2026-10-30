@@ -1,48 +1,82 @@
-name: User Story
-description: A user story
+name: User story
+description: A requirement written from the user's point of view, with acceptance criteria to validate with the customer
+title: "[Story] "
 labels: ["user-story"]
 body:
-  - type: input
-    id: statement
+  - type: markdown
     attributes:
-      label: Statement
+      value: |
+        Write the story from the user's point of view. Describe *what* and *why*, not *how*.
+        Acceptance criteria are what the customer will confirm, so keep them observable and free of implementation details.
+
+  - type: dropdown
+    id: role
+    attributes:
+      label: As a
+      options:
+        - platform administrator
+        - API consumer
+        - plugin developer
+        - platform owner
     validations:
       required: true
 
   - type: input
-    id: value-proposition
+    id: want
     attributes:
-      label: Value proposition
-      description: "One VP-nn. Example: https://github.com/<org>/<repo>/blob/main/docs/decisions.md#vp-01"
+      label: I want
+      description: The capability, starting with a verb.
+      placeholder: to upload a plugin and declare whether it is a request or a response filter
     validations:
       required: true
 
   - type: input
-    id: priority-reason
+    id: benefit
     attributes:
-      label: Priority reason
+      label: So that
+      description: The value for the user. If you cannot fill this in, the story may not be needed.
+      placeholder: I can extend the gateway without changing its code
     validations:
       required: true
 
   - type: textarea
-    id: traces-to
-    attributes:
-      label: Traces to
-      description: "One note per line. URL-pattern: https://github.com/<org>/<repo>/blob/main/..."
-    validations:
-      required: false
-
-  - type: textarea
-    id: rests-on
-    attributes:
-      label: Rests on
-      description: "One note per line. URL-pattern: https://github.com/<org>/<repo>/blob/main/..."
-    validations:
-      required: false
-
-  - type: textarea
-    id: acceptance-criteria
+    id: acceptance
     attributes:
       label: Acceptance criteria
+      description: >
+        One verifiable yes/no statement per line. Include the negative cases (what must be refused).
+        Keep the checkboxes, they are tracked in the issue.
+      value: |
+        - [ ] 
+        - [ ] 
+        - [ ] 
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority (MoSCoW)
+      options:
+        - Must
+        - Should
+        - Could
+        - Won't (this time)
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Other stories that must be done first, as issue references (#12).
+    validations:
+      required: false
+
+  - type: textarea
+    id: questions
+    attributes:
+      label: Open questions for the customer
+      description: Decisions that need confirmation before or during implementation.
     validations:
       required: false
