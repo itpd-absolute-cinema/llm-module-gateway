@@ -56,7 +56,7 @@ Dynamic plugin loading without a restart and horizontal scaling are not required
 
 Released as [v0.1.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/releases/tag/v0.1.0) on 2026-10-25.
 
-### SPRINT-05 – Client-to-Gateway Request Flow (Provisional)
+### SPRINT-05 – Client-to-Gateway Request Flow. Main features
 
 **Goal:** implement US-01 - US-018
 
@@ -64,13 +64,14 @@ Released as [v0.1.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/
 
 **Sprint Backlog:** [SPRINT-05 milestone](https://github.com/itpd-absolute-cinema/llm-module-gateway/milestone/3)
 
-**Planned Velocity:** 6
+**Planned Velocity:** 18
 
-**Actual Velocity:** 6
-
-**Advances:** implementation of user stories
+**Actual Velocity:** 18, all stories are finished
 
 #### REL-05
+
+todo
+Released as v0.2.0 on 2026-10-31.
 
 ### SPRINT-06 – Plugin Error Handling (Provisional)
 
@@ -123,3 +124,11 @@ Released as [v0.1.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/
 **Sprint planning:** SPRINT-03 and SPRINT-04 have concrete goals in this draft. The goals for SPRINT-05 through SPRINT-09 are provisional and must be revisited before each sprint is planned.
 
 **Release records:** Each `REL-nn` section remains empty until its release is published. REL-04 records the prototype snapshot; customer validation was postponed to Week 5.
+
+## Quality Requirement Testing Plan
+
+| QR | QRT | Status | Checked | Planned for sprint | Evidence |
+|---|---|---|---|---|---|
+| [QR-02](./quality-requirements/qr/QR-02.md) | [QRT-01](./quality-requirements/qr/QR-02.md#qrt-01) | Not Run | SPRINT-06 | SPRINT-06 | <link to scripted test log> |
+| [QR-03](./quality-requirements/qr/QR-03.md) | [QRT-01](./quality-requirements/qr/QR-03.md#qrt-01) | Passes | SPRINT-05 | SPRINT-05 | [CI run](https://github.com/itpd-absolute-cinema/llm-module-gateway/actions/runs/41233035303/job/124630988065?pr=72) |
+| [QR-04](./quality-requirements/qr/QR-04.md) | [QRT-01](./quality-requirements/qr/QR-04.md#qrt-01) | Passes | SPRINT-05 | SPRINT-05 | [CI run](https://github.com/itpd-absolute-cinema/llm-module-gateway/actions/runs/41233035303/job/124630988065?pr=72) |
