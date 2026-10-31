@@ -1,4 +1,5 @@
 FROM eclipse-temurin:25-jdk AS build
+ARG JAVA_TOOL_OPTIONS
 WORKDIR /src
 COPY . .
 RUN ./gradlew :app:bootJar --no-daemon
