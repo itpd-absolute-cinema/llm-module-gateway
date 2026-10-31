@@ -6,7 +6,7 @@ services:
       - mongo-data:/data/db
 
   plugin-manager:
-    build: ./code/plugin-manager
+    image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/plugin-manager:${IMAGE_TAG:?set IMAGE_TAG}
     restart: unless-stopped
     environment:
       PLUGINS_DIR: /data/plugins
@@ -14,11 +14,7 @@ services:
       - plugins:/data/plugins:ro
 
   gateway:
-    build:
-      context: ./code/service-gateway
-      dockerfile: app/Dockerfile
-      args:
-        JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS:-}
+    image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/service-gateway:${IMAGE_TAG:?set IMAGE_TAG}
     restart: unless-stopped
     depends_on:
       - mongo

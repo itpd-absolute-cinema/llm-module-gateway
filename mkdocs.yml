@@ -4,6 +4,23 @@ site_url: https://itpd-absolute-cinema.github.io/llm-module-gateway/
 repo_url: https://github.com/itpd-absolute-cinema/llm-module-gateway
 edit_uri: edit/main/docs/
 
+theme:
+  name: material
+
+extra_css:
+  - css/neoteroi.css
+
+plugins:
+  - search
+  - neoteroi.mkdocsoad:
+      use_pymdownx: true
+
+markdown_extensions:
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
 nav:
 
   - Start here:
@@ -39,6 +56,8 @@ nav:
       - Architecture overview: architecture/README.md
       - Plugin chain follow-up: architecture/plugin-chain.md
       - Plugin management API: api/plugin-management.md
+      - Gateway HTTP API: api/gateway-reference.md
+      - Plugin Manager HTTP API: api/plugin-manager-reference.md
       - Architecture decisions:
           - "ADR-001: Planned Java/Python deployment": architecture/adr/ADR-001.md
           - "ADR-002: Restart-only changes": architecture/adr/ADR-002.md
