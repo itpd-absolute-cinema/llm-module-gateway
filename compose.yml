@@ -1,30 +1,35 @@
 services:
   mongo:
     image: mongo:8
+    restart: unless-stopped
     volumes:
       - mongo-data:/data/db
 
   plugin-manager:
-    image: itpd/plugin-manager:latest
+    build: ./code/plugin-manager
+    restart: unless-stopped
     environment:
       PLUGINS_DIR: /data/plugins
     volumes:
       - plugins:/data/plugins:ro
 
   gateway:
-    image: itpd/llm-gateway:latest
+    build:
+      context: ./code/service-gateway
+      dockerfile: app/Dockerfile
+    restart: unless-stopped
     depends_on:
       - mongo
       - plugin-manager
     ports:
-      - "8080:8080"
-      - "9090:9090"
+      - "${GATEWAY_PORT:?set GATEWAY_PORT}:8080"
     environment:
       GATEWAY_ADMIN_API_KEY: ${GATEWAY_ADMIN_API_KEY:?set GATEWAY_ADMIN_API_KEY}
       GATEWAY_PLUGINS_DIR: /data/plugins
       MONGODB_URI: mongodb://mongo:27017/gateway
       PLUGIN_MANAGER_URL: http://plugin-manager:8000
       LLM_PROVIDER: ${LLM_PROVIDER:-stub}
+      LOGGING_LEVEL_RU_INNO_ITPD_GATEWAY: INFO
     volumes:
       - plugins:/data/plugins
 
