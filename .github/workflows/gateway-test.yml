@@ -1,17 +1,26 @@
-name: CI
-
+name: Gateway tests           
 on:
   push:
     branches: [main]
+    paths:
+      - 'code/service-gateway/**'
+      - '.github/workflows/gateway-test.yml'
   pull_request:
+    paths:
+      - 'code/service-gateway/**'
+      - '.github/workflows/gateway-test.yml'
 
-# a new push to the same PR cancels the previous run
 concurrency:
-  group: ci-${{ github.ref }}
+  group: gateway-test-${{ github.ref }}   
   cancel-in-progress: true
 
 permissions:
   contents: read
+
+# applies to every `run` step; `uses` steps need their own paths
+defaults:
+  run:
+    working-directory: code/service-gateway
 
 jobs:
   test:
@@ -26,6 +35,8 @@ jobs:
           java-version: '25'
 
       - uses: gradle/actions/setup-gradle@v4
+        with:
+          build-root-directory: code/service-gateway
 
       - name: Build and run tests
         run: ./gradlew build
@@ -36,6 +47,25 @@ jobs:
         with:
           name: test-reports
           path: |
-            build/reports/cucumber/
-            build/reports/tests/
-            build/test-results/
+            code/service-gateway/build/reports/cucumber/
+            code/service-gateway/build/reports/tests/
+            code/service-gateway/build/test-results/
+
+  docker:
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          build-root-directory: code/service-gateway
+
+      - name: Build the container image
+        run: ./gradlew dockerBuild
