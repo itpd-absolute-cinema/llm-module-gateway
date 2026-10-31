@@ -163,3 +163,27 @@ The remaining actions are in `reports/week-04/meeting-report.md`, under `Action 
 
 The [23 October guidance](decisions.md#dec-012) puts plugin management and a clear extension workflow ahead of adding more examples.
 [DEC-014](decisions.md#dec-014) calls for instructions that a developer can follow to install the system and add a plugin.
+
+## Run with Docker Compose
+
+As an alternative to the local developer setup above, install Docker with the
+Compose plugin. From the repository root, copy `.env.example` to `.env`, set a
+unique admin key, and start the services:
+
+```sh
+docker compose up --build -d
+```
+
+The gateway listens on the port in `GATEWAY_PORT`. The default provider is a
+stub: it echoes the request rather than calling a real model. Test it with:
+
+```sh
+curl -fsS http://localhost:8080/chat/completions \
+  -H 'Content-Type: application/json' \
+  -d '{"model":"demo","messages":[{"role":"user","content":"Hello"}]}'
+```
+
+Replace `8080` with your configured port. See the [plugin management API](api/plugin-management.md)
+for uploading and enabling plugins. Stop the services with `docker compose down`;
+this keeps the database and plugin volumes. See [deployment](deployment.md) for
+VM deployments.

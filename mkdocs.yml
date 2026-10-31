@@ -9,6 +9,7 @@ nav:
   - Start here:
       - Home: index.md
       - Setup and run: setup.md
+      - Deployment: deployment.md
       - Glossary: glossary.md
   - Product:
       - Product vision: product-vision.md
