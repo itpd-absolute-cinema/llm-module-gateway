@@ -36,3 +36,13 @@ and plugin flow from a campus machine. Repeat with `production.env` and project
 `gateway-production`, using the same image tag. Verify the core task again and
 record the result with the release. If verification fails, restore the previous
 commit, image tag and backed-up data, redeploy it, and verify again.
+
+## Initial verification
+
+On 31 October 2026, staging and production ran the `sha-47c725e` application
+images with deployment configuration from commit `ba21cd9`. From a campus
+machine, a chat request containing a made-up phone number returned
+`[stub] Call [PHONE]` in each environment after enabling the `mask_phone`
+request filter. Both Plugin Manager health checks passed. The provider was a
+stub, so this did not test a real LLM. Carry this evidence into the release
+record when REL-05 is published.
