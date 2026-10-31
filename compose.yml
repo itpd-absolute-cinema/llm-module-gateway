@@ -6,7 +6,8 @@ services:
       - mongo-data:/data/db
 
   plugin-manager:
-    image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/plugin-manager:${IMAGE_TAG:?set IMAGE_TAG}
+    image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/plugin-manager:${IMAGE_TAG:-local}
+    build: ./code/plugin-manager
     restart: unless-stopped
     environment:
       PLUGINS_DIR: /data/plugins
@@ -14,7 +15,8 @@ services:
       - plugins:/data/plugins:ro
 
   gateway:
-    image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/service-gateway:${IMAGE_TAG:?set IMAGE_TAG}
+    image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/service-gateway:${IMAGE_TAG:-local}
+    build: ./code/service-gateway/app
     restart: unless-stopped
     depends_on:
       - mongo
@@ -27,6 +29,7 @@ services:
       MONGODB_URI: mongodb://mongo:27017/gateway
       PLUGIN_MANAGER_URL: http://plugin-manager:8000
       LLM_PROVIDER: ${LLM_PROVIDER:-stub}
+      # DEBUG logs include request and response content.
       LOGGING_LEVEL_RU_INNO_ITPD_GATEWAY: INFO
     volumes:
       - plugins:/data/plugins
