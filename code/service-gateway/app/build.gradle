@@ -17,6 +17,12 @@ repositories {
     mavenCentral()
 }
 
+dependencyManagement {
+    imports {
+        mavenBom 'io.cucumber:cucumber-bom:7.34.6'
+    }
+}
+
 dependencies {
     // Spring boot
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -29,11 +35,16 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    // Tests: JUnit 4
+    // Tests
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'junit:junit:4.13.2'
     testRuntimeOnly 'org.junit.vintage:junit-vintage-engine'
-
+    testImplementation 'io.cucumber:cucumber-java'
+    testImplementation 'io.cucumber:cucumber-spring'
+    testImplementation 'io.cucumber:cucumber-junit-platform-engine'
+    testImplementation 'org.junit.platform:junit-platform-suite'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'de.bwaldvogel:mongo-java-server:1.47.0'
  }
 
 tasks.named('bootJar') {
@@ -51,4 +62,10 @@ tasks.register('dockerBuild', Exec) {
 
 tasks.named('test') {
     useJUnitPlatform()
+    testLogging {
+        exceptionFormat = 'full'
+        showCauses = true
+        showStandardStreams = true
+        events 'failed'
+    }
 }

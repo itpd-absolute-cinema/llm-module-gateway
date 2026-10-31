@@ -11,3 +11,5 @@ Priority matrix of active quality requirements. Sorted by: active first, then Bu
 | QR-03 | Maintainability / Testability | High | Medium | Fast plugin development | Active | [QR-03](qr/QR-03.md) |
 | QR-04 | Security / Authenticity | High | Medium | Unauthorized administration is rejected without saved-state changes | Active | [QR-04](qr/QR-04.md) |
 | QR-05 | Reliability / Fault Tolerance | Medium | High | Admin updates preserve runtime; recoverable storage failures preserve saved state | Active | [QR-05](qr/QR-05.md) |
+
+Test status for each quality requirement is tracked in the [Quality Requirement Testing Plan](../project-plan.md#quality-requirement-testing-plan).

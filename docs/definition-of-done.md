@@ -24,3 +24,4 @@
 - The acceptance criteria claimed by the pull request pass on its branch and on `main` after merging.
 - No secrets, recordings, or private-only material are committed.
 - The pull request description records what changed, why it changed, what was checked, how it was checked, and what the reviewer should verify.
+- All CI workflows are marked as passed.
