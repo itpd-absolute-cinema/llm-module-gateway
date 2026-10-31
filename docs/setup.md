@@ -171,7 +171,8 @@ Compose plugin. From the repository root, copy `.env.example` to `.env`, set a
 unique admin key, and start the services:
 
 ```sh
-docker compose up --build -d
+docker compose pull
+docker compose up -d
 ```
 
 The gateway listens on the port in `GATEWAY_PORT`. The default provider is a
@@ -187,3 +188,6 @@ Replace `8080` with your configured port. See the [plugin management API](api/pl
 for uploading and enabling plugins. Stop the services with `docker compose down`;
 this keeps the database and plugin volumes. See [deployment](deployment.md) for
 VM deployments.
+
+`IMAGE_TAG` selects the commit-tagged images published by CI. Pulling private
+GHCR packages requires a Docker login with permission to read them.

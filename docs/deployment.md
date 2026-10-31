@@ -22,17 +22,17 @@ permissions to the operator. Compose project names isolate networks and volumes.
 Only the gateway port is exposed; the admin API shares that port, permits
 uploading executable plugins, and must be accessible only to trusted operators.
 The current provider is a stub, not a live LLM.
-The VM build uses `JAVA_TOOL_OPTIONS=-Djdk.tls.client.protocols=TLSv1.2` in
-each environment file because its Java TLS negotiation otherwise times out.
+Set `IMAGE_TAG` in both files to the same `sha-<short-commit>` tag published by
+the image workflow. Authenticate Docker to GHCR if the packages are private.
 
 ## Deploy, verify and roll back
 
 From a checkout on the VM, fetch the candidate and check out its exact commit.
 Record the previous production commit and back up its database and plugin
-volumes before changing a running deployment. Use [setup](setup.md) for build
-and run details; set the Compose project to `gateway-staging` and pass its
-environment file with `--env-file`. Verify the core request and plugin flow
-from a campus machine. Deploy the same commit with project `gateway-production`
-and its environment file, then verify the core task again and record the result
-with the release. If verification fails, restore the previous commit and its
-backed-up data, redeploy it, and verify again.
+volumes before changing a running deployment. Use [setup](setup.md) for the
+pull and run commands, adding `--env-file /root/gateway-config/staging.env -p
+gateway-staging` immediately after `docker compose`. Verify the core request
+and plugin flow from a campus machine. Repeat with `production.env` and project
+`gateway-production`, using the same image tag. Verify the core task again and
+record the result with the release. If verification fails, restore the previous
+commit, image tag and backed-up data, redeploy it, and verify again.
