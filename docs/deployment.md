@@ -22,6 +22,8 @@ permissions to the operator. Compose project names isolate networks and volumes.
 Only the gateway port is exposed; the admin API shares that port, permits
 uploading executable plugins, and must be accessible only to trusted operators.
 The current provider is a stub, not a live LLM.
+The VM build uses `JAVA_TOOL_OPTIONS=-Djdk.tls.client.protocols=TLSv1.2` in
+each environment file because its Java TLS negotiation otherwise times out.
 
 ## Deploy, verify and roll back
 

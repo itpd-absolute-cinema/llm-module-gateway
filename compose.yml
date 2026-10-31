@@ -17,6 +17,8 @@ services:
     build:
       context: ./code/service-gateway
       dockerfile: app/Dockerfile
+      args:
+        JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS:-}
     restart: unless-stopped
     depends_on:
       - mongo
