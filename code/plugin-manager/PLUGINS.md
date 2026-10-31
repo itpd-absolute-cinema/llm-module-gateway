@@ -5,7 +5,7 @@ A plugin is a regular Python file located in `PLUGINS_DIR`. The filename must ma
 ## Two Types of Plugins
 
 | Type (`type`) | Base class | Method | Called |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `request_filter` | `RequestFilter` | `apply(self, request: dict) -> dict` | Before the LLM call |
 | `response_filter` | `ResponseFilter` | `apply(self, response: dict, request: dict) -> dict` | After the LLM call |
 

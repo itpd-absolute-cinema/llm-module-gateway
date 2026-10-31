@@ -40,7 +40,7 @@ The CLI supports configuration through command-line arguments and environment va
 ### Environment variables
 
 | Variable | Description | Default |
-|---|---|---|
+| --- | --- | --- |
 | `LLM_GATEWAY_URL` | Gateway API base URL | `http://localhost:8080` |
 | `LLM_GATEWAY_API_KEY` | API authentication key | - |
 
@@ -82,7 +82,7 @@ python llm_gateway_cli.py [GLOBAL OPTIONS] plugins COMMAND [OPTIONS]
 Available global options:
 
 | Option | Description |
-|---|---|
+| --- | --- |
 | `--host` | Gateway API base URL |
 | `--api-key` | API authentication key |
 | `--help` | Display help information |
@@ -136,7 +136,7 @@ python llm_gateway_cli.py plugins upload ./example-plugin.py \
 ```
 
 | Option | Description |
-|---|---|
+| --- | --- |
 | `file` | Path to the plugin file (required) |
 | `--options` | Plugin configuration as a JSON object |
 | `--before` | Plugin ordering reference |
@@ -162,7 +162,7 @@ python llm_gateway_cli.py plugins update example-plugin \
 Supported options:
 
 | Option | Description |
-|---|---|
+| --- | --- |
 | `name` | Plugin name (required) |
 | `--options` | Plugin configuration as a JSON object |
 | `--before` | Plugin ordering reference |
@@ -205,7 +205,7 @@ The API returns `204 No Content` on successful deletion.
 The CLI currently supports the following endpoints:
 
 | Method | Endpoint | CLI command |
-|---|---|---|
+| --- | --- | --- |
 | GET | `/admin/plugins` | `plugins list` |
 | GET | `/admin/plugins/{name}` | `plugins get` |
 | POST | `/admin/plugins` | `plugins upload` |

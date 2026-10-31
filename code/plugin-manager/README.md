@@ -21,7 +21,7 @@ Plugin files are automatically reloaded when modified (no restart required). Plu
 ### What Happens When Something Goes Wrong
 
 | Scenario | Result |
-|---|---|
+| --- | --- |
 | Plugin returns data | The data is passed to the next plugin |
 | Plugin raises `InvalidData` | The chain is interrupted, response is **400** |
 | Plugin raises `Forbidden` | The chain is interrupted, response is **403** |
@@ -37,7 +37,7 @@ Each plugin receives a **copy** of the data, so a failed plugin cannot partially
 Environment variables:
 
 | Variable | Default | Description |
-|---|---|---|
+| --- | --- | --- |
 | `PLUGINS_DIR` | `/data/plugins` | Directory containing plugins (shared volume) |
 | `LOG_LEVEL` | `INFO` | Logging level |
 
