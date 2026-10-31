@@ -70,8 +70,7 @@ Released as [v0.1.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/
 
 #### REL-05
 
-todo
-Released as v0.2.0 on 2026-10-31.
+Released as [v0.2.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/releases/tag/v0.2.0) on 2026-10-31.
 
 ### SPRINT-06 – Plugin Error Handling (Provisional)
 

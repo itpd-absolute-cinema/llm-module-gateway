@@ -20,6 +20,4 @@ Companies need a way to let employees use LLMs while applying organization-speci
 - [ALT-03](alternatives/kong-ai-gateway.md#alt-03): Kong AI Gateway
 - [ALT-04](alternatives/cloudflare-ai-gateway.md#alt-04): Cloudflare AI Gateway
 
-todo
-
 ## [Board with working notes](https://example.com)
