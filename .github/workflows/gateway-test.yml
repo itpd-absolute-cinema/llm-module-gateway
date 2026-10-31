@@ -47,9 +47,9 @@ jobs:
         with:
           name: test-reports
           path: |
-            code/service-gateway/build/reports/cucumber/
-            code/service-gateway/build/reports/tests/
-            code/service-gateway/build/test-results/
+            code/service-gateway/app/build/reports/cucumber/
+            code/service-gateway/app/build/reports/tests/
+            code/service-gateway/app/build/test-results/
 
   docker:
     needs: test
@@ -69,3 +69,4 @@ jobs:
 
       - name: Build the container image
         run: ./gradlew dockerBuild
+        

@@ -62,4 +62,10 @@ tasks.register('dockerBuild', Exec) {
 
 tasks.named('test') {
     useJUnitPlatform()
+    testLogging {
+        exceptionFormat = 'full'
+        showCauses = true
+        showStandardStreams = true
+        events 'failed'
+    }
 }

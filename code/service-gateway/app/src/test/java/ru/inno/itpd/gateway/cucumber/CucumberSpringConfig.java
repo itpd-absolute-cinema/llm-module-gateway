@@ -31,9 +31,18 @@ public class CucumberSpringConfig {
 
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {
-        registry.add("spring.mongodb.uri", () -> MONGO.getReplicaSetUrl("gateway"));
+        registry.add("spring.mongodb.uri", CucumberSpringConfig::mongoUri);
         registry.add("gateway.plugins-dir", PLUGINS_DIR::toString);
     }
+
+    private static String mongoUri() {
+        if (!MONGO.isRunning()) {
+            throw new IllegalStateException(
+                    "MongoDB container is not running. Container logs:\n" + MONGO.getLogs());
+        }
+        return MONGO.getReplicaSetUrl("gateway");
+    }
+
 
     /** The Plugin Manager is an external service: tests replace it with a mock. */
     @MockitoBean
