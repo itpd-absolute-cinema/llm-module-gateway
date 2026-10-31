@@ -128,7 +128,7 @@ Released as v0.2.0 on 2026-10-31.
 ## Quality Requirement Testing Plan
 
 | QR | QRT | Status | Checked | Planned for sprint | Evidence |
-|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- |
 | [QR-02](./quality-requirements/qr/QR-02.md) | [QRT-01](./quality-requirements/qr/QR-02.md#qrt-01) | Not Run | SPRINT-06 | SPRINT-06 | <link to scripted test log> |
 | [QR-03](./quality-requirements/qr/QR-03.md) | [QRT-01](./quality-requirements/qr/QR-03.md#qrt-01) | Passes | SPRINT-05 | SPRINT-05 | [CI run](https://github.com/itpd-absolute-cinema/llm-module-gateway/actions/runs/41233035303/job/124630988065?pr=72) |
 | [QR-04](./quality-requirements/qr/QR-04.md) | [QRT-01](./quality-requirements/qr/QR-04.md#qrt-01) | Passes | SPRINT-05 | SPRINT-05 | [CI run](https://github.com/itpd-absolute-cinema/llm-module-gateway/actions/runs/41233035303/job/124630988065?pr=72) |
