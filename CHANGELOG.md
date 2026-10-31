@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- Isolated staging and production deployments using the CI container images.
+- Rendered Gateway and Plugin Manager OpenAPI references in the documentation.
+
 ## [0.1.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/releases/tag/v0.1.0) - 2026-10-25
 
 ### Added
