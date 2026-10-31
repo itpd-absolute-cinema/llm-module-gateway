@@ -1,6 +1,7 @@
 """Plugin Manager: прогоняет chat-запрос / ответ LLM через цепочку плагинов."""
 import logging
 import os
+from time import perf_counter
 from copy import deepcopy
 from typing import Callable
 
@@ -38,6 +39,7 @@ def run_chain(kind: str, data: dict, plugins: list[PluginSpec], model_cls,
         if spec.type != kind:
             log.warning("plugin %s has type %s, expected %s: skipped", spec.name, spec.type, kind)
             continue
+        started = perf_counter()
         try:
             plugin = load_plugin(spec.name, kind, spec.options)
             result = call(plugin, deepcopy(data))  # плагин работает с копией
@@ -49,6 +51,9 @@ def run_chain(kind: str, data: dict, plugins: list[PluginSpec], model_cls,
             raise
         except Exception:
             log.exception("plugin %s failed, skipped", spec.name)
+        finally:
+            log.info("plugin %s stage=%s duration_ms=%.3f", spec.name, kind,
+                     (perf_counter() - started) * 1000)
     return data
 
 
