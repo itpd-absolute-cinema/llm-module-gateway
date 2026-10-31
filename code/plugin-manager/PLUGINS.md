@@ -130,6 +130,7 @@ More examples are available in the `examples/` directory:
 - The standard library and packages included in the image are available. Any additional dependencies must be added to the image.
 - The gateway controls plugin execution order. Run data-masking plugins before filters that inspect message content.
 - Plugin files are automatically reloaded when changed. Check the service logs for plugin errors (`plugin <name> failed, skipped`).
+- Each attempted plugin logs its name, stage, and duration in milliseconds, including on rejection or failure. The measurement includes loading, execution, and result validation.
 - To test a plugin locally, run:
 
 ```bash
