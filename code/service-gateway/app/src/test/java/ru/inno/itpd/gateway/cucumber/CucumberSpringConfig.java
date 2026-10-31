@@ -1,19 +1,20 @@
 package ru.inno.itpd.gateway.cucumber;
 
+import de.bwaldvogel.mongo.MongoServer;
+import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.mongodb.MongoDBContainer;
-
 import ru.inno.itpd.gateway.PluginManagerClient;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.net.InetSocketAddress;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
 
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {
@@ -24,24 +25,19 @@ public class CucumberSpringConfig {
     public static final String ADMIN_KEY = "test-key";
     public static final Path PLUGINS_DIR = createTempDir();
 
-    private static final int MONGO_PORT = 27017;
-
-    private static final GenericContainer<?> MONGO = new GenericContainer<>("mongo:8")
-            .withExposedPorts(MONGO_PORT)
-            .withLogConsumer(frame -> System.out.print("[mongo] " + frame.getUtf8String()));
-
-    static {
-        MONGO.start();
-    }
+    private static final MongoServer MONGO = new MongoServer(new MemoryBackend());
+    private static final InetSocketAddress MONGO_ADDRESS = MONGO.bind();   // random free port on localhost
 
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {
         registry.add("spring.mongodb.uri", () ->
-                "mongodb://" + MONGO.getHost() + ":" + MONGO.getMappedPort(MONGO_PORT) + "/gateway");
+                "mongodb://" + MONGO_ADDRESS.getHostString() + ":" + MONGO_ADDRESS.getPort() + "/gateway");
         registry.add("gateway.plugins-dir", PLUGINS_DIR::toString);
     }
 
-    /** The Plugin Manager is an external service: tests replace it with a mock. */
+    /**
+     * The Plugin Manager is an external service: tests replace it with a mock.
+     */
     @MockitoBean
     PluginManagerClient pluginManager;
 

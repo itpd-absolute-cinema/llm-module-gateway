@@ -40,13 +40,6 @@ jobs:
         with:
           build-root-directory: code/service-gateway
 
-      # separates runner/Docker problems from test problems; can be removed once the tests are green
-      - name: Docker diagnostics
-        run: |
-          docker version
-          docker info
-          docker pull mongo:8
-
       - name: Build and run tests
         run: ./gradlew build
 

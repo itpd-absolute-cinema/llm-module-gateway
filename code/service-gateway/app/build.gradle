@@ -43,8 +43,8 @@ dependencies {
     testImplementation 'io.cucumber:cucumber-spring'
     testImplementation 'io.cucumber:cucumber-junit-platform-engine'
     testImplementation 'org.junit.platform:junit-platform-suite'
-    testImplementation 'org.testcontainers:testcontainers-mongodb'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'de.bwaldvogel:mongo-java-server:1.47.0'
  }
 
 tasks.named('bootJar') {
