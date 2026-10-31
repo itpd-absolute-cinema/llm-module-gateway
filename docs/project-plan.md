@@ -58,9 +58,17 @@ Released as [v0.1.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/
 
 ### SPRINT-05 – Client-to-Gateway Request Flow (Provisional)
 
-**Goal:** Enable an OpenAI-compatible client to send requests through the Gateway and receive responses processed by the configured plugin chain.
+**Goal:** implement US-01 - US-018
 
 **Due:** 31 October 2026
+
+**Sprint Backlog:** [SPRINT-05 milestone](https://github.com/itpd-absolute-cinema/llm-module-gateway/milestone/3)
+
+**Planned Velocity:** 6
+
+**Actual Velocity:** 6
+
+**Advances:** implementation of user stories
 
 #### REL-05
 
