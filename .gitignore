@@ -73,7 +73,6 @@ spring-boot-devtools.properties
 
 # Test / coverage
 **/test-results/
-**/reports/
 **/jacoco/
 *.coverage
 *.coverage.*
