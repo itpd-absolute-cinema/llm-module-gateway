@@ -1,30 +1,36 @@
 services:
   mongo:
     image: mongo:8
+    restart: unless-stopped
     volumes:
       - mongo-data:/data/db
 
   plugin-manager:
-    image: itpd/plugin-manager:latest
+    image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/plugin-manager:${IMAGE_TAG:-local}
+    build: ./code/plugin-manager
+    restart: unless-stopped
     environment:
       PLUGINS_DIR: /data/plugins
     volumes:
       - plugins:/data/plugins:ro
 
   gateway:
-    image: itpd/llm-gateway:latest
+    image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/service-gateway:${IMAGE_TAG:-local}
+    build: ./code/service-gateway/app
+    restart: unless-stopped
     depends_on:
       - mongo
       - plugin-manager
     ports:
-      - "8080:8080"
-      - "9090:9090"
+      - "${GATEWAY_PORT:?set GATEWAY_PORT}:8080"
     environment:
       GATEWAY_ADMIN_API_KEY: ${GATEWAY_ADMIN_API_KEY:?set GATEWAY_ADMIN_API_KEY}
       GATEWAY_PLUGINS_DIR: /data/plugins
       MONGODB_URI: mongodb://mongo:27017/gateway
       PLUGIN_MANAGER_URL: http://plugin-manager:8000
       LLM_PROVIDER: ${LLM_PROVIDER:-stub}
+      # DEBUG logs include request and response content.
+      LOGGING_LEVEL_RU_INNO_ITPD_GATEWAY: INFO
     volumes:
       - plugins:/data/plugins
 
