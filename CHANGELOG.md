@@ -1,7 +1,5 @@
 # Changelog
 
-## [Unreleased]
-
 ## [0.1.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/releases/tag/v0.1.0) - 2026-10-25
 
 ### Added
@@ -18,15 +16,6 @@
 ### Fixed
 
 - OpenAPI validation responses now describe the actual HTTP 400 contract instead of FastAPI's automatic 422 response; non-TOML plugin options retain HTTP 422.
-
-# Changelog
-
-## [Unreleased]
-
-### Added
-
-- Isolated staging and production deployments using the CI container images.
-- Rendered Gateway and Plugin Manager OpenAPI references in the documentation.
 
 ## [0.2.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/releases/tag/v0.2.0) - 2026-10-31
 
