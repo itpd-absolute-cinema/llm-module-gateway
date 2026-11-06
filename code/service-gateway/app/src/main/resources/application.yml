@@ -1,5 +1,4 @@
 gateway:
-  admin-api-key: ${GATEWAY_ADMIN_API_KEY:}   # пусто -> /admin/** отвечает 503
   plugins-dir: ${GATEWAY_PLUGINS_DIR:./plugins}
   plugin-manager-url: ${PLUGIN_MANAGER_URL:http://localhost:8000}
   plugin-manager-timeout: 120s
@@ -13,6 +12,12 @@ spring:
     multipart:
       max-file-size: 1MB
       max-request-size: 2MB
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8081/realms/gateway}
+          jwk-set-uri: ${KEYCLOAK_JWK_SET_URI:http://localhost:8081/realms/gateway/protocol/openid-connect/certs}
 
 management:
   server:

@@ -1,258 +1,148 @@
 # LLM Gateway CLI
 
-A lightweight command-line client for the **LLM Gateway API**.
+Command-line client for administering plugins of the LLM Gateway. Python standard library only, no dependencies.
 
-The CLI provides convenient access to plugin administration, including uploading, configuring, enabling, disabling, inspecting, and deleting plugins.
+**Requires:** Python 3.9+, a running gateway, a Keycloak account with the `gateway-admin` role.
 
-Built with Python's standard library. No third-party dependencies required.
-
-## Features
-
-- List installed plugins.
-- Get plugin information.
-- Upload new plugins.
-- Update plugin settings.
-- Enable or disable plugins.
-- Delete plugins.
-- Configure API host and authentication token.
-- Support for JSON configuration options.
-- Environment variable configuration.
-- No external Python dependencies.
-
-## Requirements
-
-- Python 3.9+
-- Access to an LLM Gateway API instance.
-- A valid API key.
-
-## Installation
-
-Make the script executable (Linux/macOS):
+## Quick start
 
 ```bash
-chmod +x llm_gateway_cli.py
+alias gw='python3 llm_gateway_cli.py'     # the examples below use `gw`
+export LLM_GATEWAY_URL=http://localhost:8080
+
+gw login                                   # sign in through the browser
+gw plugins upload mask_phones.py --type request_filter
+gw plugins patch mask_phones --enabled true
+gw plugins list
 ```
+
+## Commands
+
+| Command | What it does |
+| --- | --- |
+| `gw login` | Sign in through the browser (device flow) |
+| `gw logout` | End the session and delete the saved token |
+| `gw whoami` | Show the user, roles and token expiry |
+| `gw plugins list` | List all plugins in chain order |
+| `gw plugins get NAME` | Show one plugin |
+| `gw plugins upload FILE --type TYPE` | Add a plugin (created disabled) |
+| `gw plugins update NAME` | Replace a plugin's settings and/or move it |
+| `gw plugins patch NAME` | Enable or disable a plugin and/or move it |
+| `gw plugins delete NAME` | Delete a disabled plugin and its file |
+
+### login / logout / whoami
+
+```bash
+gw login                # opens the browser; prints the URL and code if it cannot
+gw login --no-browser   # only print the URL and code
+gw whoami               # user, roles, expiry
+gw logout
+```
+
+### plugins list / get
+
+```bash
+gw plugins list
+gw plugins get mask_phones
+```
+
+### plugins upload
+
+The plugin name is the file name without `.py`. New plugins are disabled and go to the end of the chain unless `--before` or `--after` is given.
+
+```bash
+gw plugins upload mask_phones.py --type request_filter \
+    --options '{"phone_mask": "[MASKED]"}' --before validate_input
+```
+
+| Option | Description |
+| --- | --- |
+| `FILE` | Python file, up to 1 MiB (required) |
+| `--type` | `request_filter` or `response_filter` (required, cannot be changed later) |
+| `--options` | Plugin settings, a JSON object |
+| `--before` / `--after` | Insert next to an existing plugin (not both) |
+
+### plugins update
+
+Replaces the settings completely (not a merge) and can move the plugin.
+
+```bash
+gw plugins update mask_phones --options '{"phone_mask": "***"}'
+gw plugins update mask_phones --options '{}' --after validate_input
+```
+
+| Option | Description |
+| --- | --- |
+| `--options` | New settings, a JSON object |
+| `--before` / `--after` | Move next to another plugin (not both) |
+
+### plugins patch
+
+Changes the state or the position; the settings stay as they are.
+
+```bash
+gw plugins patch mask_phones --enabled true
+gw plugins patch mask_phones --enabled false
+gw plugins patch mask_phones --before validate_input
+```
+
+| Option | Description |
+| --- | --- |
+| `--enabled` | `true` or `false` |
+| `--before` / `--after` | Move next to another plugin (not both) |
+
+### plugins delete
+
+```bash
+gw plugins delete mask_phones     # the plugin must be disabled first
+```
+
+## Authentication
+
+| Mode | When | How |
+| --- | --- | --- |
+| **Browser login** | A person at a terminal | `gw login`; the token is saved and refreshed automatically |
+| **Service account** | Scripts and CI | Set `LLM_GATEWAY_CLIENT_ID` and `LLM_GATEWAY_CLIENT_SECRET`; a token is requested on every run, nothing is stored |
+| **Ready token** | Debugging | `--token` or `LLM_GATEWAY_TOKEN` |
+
+If several are set, the order is: ready token, then service account, then the saved login.
+
+The saved session lives in `~/.config/llm-gateway/token.json` (mode `600`) and holds a refresh token, so treat it like a password. After about 30 minutes without use, run `gw login` again.
 
 ## Configuration
 
-The CLI supports configuration through command-line arguments and environment variables.
-
-### Environment variables
-
-| Variable | Description | Default |
+| Option | Environment variable | Default |
 | --- | --- | --- |
-| `LLM_GATEWAY_URL` | Gateway API base URL | `http://localhost:8080` |
-| `LLM_GATEWAY_API_KEY` | API authentication key | - |
+| `--host` | `LLM_GATEWAY_URL` | `http://localhost:8080` |
+| `--issuer` | `LLM_GATEWAY_ISSUER` | `http://localhost:8091/realms/gateway` |
+| `--client-id` | `LLM_GATEWAY_CLIENT_ID` | `gateway-cli` |
+| `--token` | `LLM_GATEWAY_TOKEN` | none |
+| none (environment only) | `LLM_GATEWAY_CLIENT_SECRET` | none |
 
-Example (Linux/macOS):
+Command-line options override environment variables. The client secret has no option on purpose: arguments are visible to other users.
 
-```bash
-export LLM_GATEWAY_URL="http://localhost:8080"
-export LLM_GATEWAY_API_KEY="secret"
-```
+## Errors and exit codes
 
-Example (Windows PowerShell):
+Every failure prints a message to stderr and exits with code `1`; success exits with `0`. For HTTP errors the response body is printed too.
 
-```powershell
-$env:LLM_GATEWAY_URL = "http://localhost:8080"
-$env:LLM_GATEWAY_API_KEY = "secret"
-```
-
-### Command-line arguments
-
-Configuration can also be supplied directly:
-
-```bash
-python llm_gateway_cli.py \
-    --host https://gateway.example.com \
-    --api-key your-api-key \
-    plugins list
-```
-
-Command-line arguments take precedence over environment variables.
-
-## Usage
-
-General syntax:
-
-```bash
-python llm_gateway_cli.py [GLOBAL OPTIONS] plugins COMMAND [OPTIONS]
-```
-
-Available global options:
-
-| Option | Description |
+| Message | Likely cause |
 | --- | --- |
-| `--host` | Gateway API base URL |
-| `--api-key` | API authentication key |
-| `--help` | Display help information |
+| `Not logged in, or the session has expired` | Run `gw login` |
+| `HTTP 401` | The token expired, or its issuer does not match the gateway's |
+| `HTTP 403` | The token is valid but the user lacks the `gateway-admin` role |
+| `unauthorized_client` at login | Enable *OAuth 2.0 Device Authorization Grant* for the client in Keycloak |
+| `Cannot reach the identity provider` | Wrong `--issuer`, or Keycloak is not running |
+| `Connection error` | Wrong `--host`, or the gateway is not running |
 
-## Plugin Management
+## Command to API map
 
-### List plugins
-
-Retrieve all registered plugins:
-
-```bash
-python llm_gateway_cli.py plugins list
-```
-
-Example response:
-
-```json
-[
-  {
-    "name": "example-plugin",
-    "enabled": true,
-    "options": {
-      "temperature": 0.7
-    }
-  }
-]
-```
-
-### Get plugin information
-
-Retrieve information about a specific plugin:
-
-```bash
-python llm_gateway_cli.py plugins get example-plugin
-```
-
-### Upload a plugin
-
-Upload a plugin archive or binary:
-
-```bash
-python llm_gateway_cli.py plugins upload ./example-plugin.py
-```
-
-Additional options can be supplied during upload:
-
-```bash
-python llm_gateway_cli.py plugins upload ./example-plugin.py \
-    --options '{"phone_mask": "[MASKED]", "phone_pattern": "..."}' \
-    --before "another-plugin"
-```
-
-| Option | Description |
+| Command | Request |
 | --- | --- |
-| `file` | Path to the plugin file (required) |
-| `--options` | Plugin configuration as a JSON object |
-| `--before` | Plugin ordering reference |
-| `--after` | Plugin ordering reference |
+| `plugins list` | `GET /admin/plugins` |
+| `plugins get` | `GET /admin/plugins/{name}` |
+| `plugins upload` | `POST /admin/plugins` (multipart file; type, options, ordering as query parameters) |
+| `plugins update` | `PUT /admin/plugins/{name}` |
+| `plugins patch` | `PATCH /admin/plugins/{name}` |
+| `plugins delete` | `DELETE /admin/plugins/{name}` |
 
-### Update plugin settings
-
-Update the configuration of an existing plugin:
-
-```bash
-python llm_gateway_cli.py plugins update example-plugin \
-    --options '{"temperature": 0.5}'
-```
-
-You can also specify execution ordering:
-
-```bash
-python llm_gateway_cli.py plugins update example-plugin \
-    --options '{"temperature": 0.5}' \
-    --before "another-plugin"
-```
-
-Supported options:
-
-| Option | Description |
-| --- | --- |
-| `name` | Plugin name (required) |
-| `--options` | Plugin configuration as a JSON object |
-| `--before` | Plugin ordering reference |
-| `--after` | Plugin ordering reference |
-
-### Enable or disable a plugin
-
-Enable:
-
-```bash
-python llm_gateway_cli.py plugins patch example-plugin --enabled true
-```
-
-Disable:
-
-```bash
-python llm_gateway_cli.py plugins patch example-plugin --enabled false
-```
-
-You can also update ordering:
-
-```bash
-python llm_gateway_cli.py plugins patch example-plugin \
-    --enabled true \
-    --before "another-plugin"
-```
-
-### Delete a plugin
-
-Delete a plugin from the Gateway:
-
-```bash
-python llm_gateway_cli.py plugins delete example-plugin
-```
-
-The API returns `204 No Content` on successful deletion.
-
-## API Reference
-
-The CLI currently supports the following endpoints:
-
-| Method | Endpoint | CLI command |
-| --- | --- | --- |
-| GET | `/admin/plugins` | `plugins list` |
-| GET | `/admin/plugins/{name}` | `plugins get` |
-| POST | `/admin/plugins` | `plugins upload` |
-| PUT | `/admin/plugins/{name}` | `plugins update` |
-| PATCH | `/admin/plugins/{name}` | `plugins patch` |
-| DELETE | `/admin/plugins/{name}` | `plugins delete` |
-
-### Authentication
-
-All endpoints use HTTP Bearer authentication.
-
-The CLI automatically adds the following HTTP header:
-
-```http
-Authorization: Bearer <API_KEY>
-```
-
-### Request formats
-
-- `GET`: No request body.
-- `POST`: Multipart form data containing the plugin file. Additional settings are passed as query parameters.
-- `PUT`: JSON request body containing plugin settings.
-- `PATCH`: JSON request body containing plugin status and ordering.
-- `DELETE`: No request body.
-
-## Error Handling
-
-The CLI reports API errors and connection failures to standard error.
-
-Examples:
-
-```text
-HTTP 401: Unauthorized
-```
-
-```text
-Connection error: [Errno 111] Connection refused
-```
-
-For HTTP errors, the response body is also printed when available.
-
-A non-zero exit code is returned when an operation fails.
-
-## Project Structure
-
-```text
-cli/
-├── llm_gateway_cli.py
-└── README.md
-```
+All requests carry `Authorization: Bearer <JWT>`.
