@@ -2,7 +2,7 @@
 
 This plan defines the metrics the team uses to judge whether the LLM Gateway delivers its value proposition. Metrics are exposed by the Gateway and Plugin Manager, scraped by Prometheus, and visualized in Grafana.
 
-**Focus metric:** `gateway_plugin_chain_completeness_ratio` — expresses [VP-01](product-vision.md#vp-01).
+**Focus metric:** `gateway_plugin_chain_completeness_ratio` — expresses [VP-01](research/value-proposition.md#vp-01).
 
 ## Metric Tree
 

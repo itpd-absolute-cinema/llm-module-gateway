@@ -73,7 +73,7 @@ Keep plugin administration behind a secret key, so that only people who hold it 
 A product analyst can see how often the plugin chain completes cleanly and where it fails, using the [events](glossary.md#event) the Gateway and Plugin Manager emit.
 
 **Stories:** US-21
-**Behavior:** [FR-007](functional-requirements/fr/FR-007.md)
+**Behavior:** [FR-007](functional-requirements/fr/FR-07.md)
 **Decisions:** [ADR-004](architecture/adr/ADR-004.md)
 
 ## Diagnose a quality problem from the operating signals
