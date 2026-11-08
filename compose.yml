@@ -6,7 +6,8 @@ services:
       - mongo-data:/data/db
 
   plugin-manager:
-    image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/plugin-manager:${IMAGE_TAG:-local}
+    # image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/plugin-manager:${IMAGE_TAG:-local}
+    image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/plugin-manager:sha-58719e1
     build: ./code/plugin-manager
     restart: unless-stopped
     environment:
@@ -15,25 +16,40 @@ services:
       - plugins:/data/plugins:ro
 
   gateway:
-    image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/service-gateway:${IMAGE_TAG:-local}
+    # image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/service-gateway:${IMAGE_TAG:-local}
+    image: itpd/llm-gateway:latest
     build: ./code/service-gateway/app
     restart: unless-stopped
     depends_on:
       - mongo
       - plugin-manager
+      - keycloak
     ports:
       - "${GATEWAY_PORT:?set GATEWAY_PORT}:8080"
     environment:
-      GATEWAY_ADMIN_API_KEY: ${GATEWAY_ADMIN_API_KEY:?set GATEWAY_ADMIN_API_KEY}
       GATEWAY_PLUGINS_DIR: /data/plugins
       MONGODB_URI: mongodb://mongo:27017/gateway
       PLUGIN_MANAGER_URL: http://plugin-manager:8000
       LLM_PROVIDER: ${LLM_PROVIDER:-stub}
-      # DEBUG logs include request and response content.
       LOGGING_LEVEL_RU_INNO_ITPD_GATEWAY: INFO
+      KEYCLOAK_ISSUER_URI: http://localhost:8091/realms/gateway
+      KEYCLOAK_JWK_SET_URI: http://keycloak:8080/realms/gateway/protocol/openid-connect/certs
     volumes:
       - plugins:/data/plugins
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.4      
+    command: start-dev
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
+      KC_HOSTNAME: http://localhost:8091      
+    ports:
+      - "8091:8080"
+    volumes:
+      - keycloak-data:/opt/keycloak/data      
 
 volumes:
   mongo-data:
   plugins:
+  keycloak-data:

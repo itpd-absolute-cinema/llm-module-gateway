@@ -296,3 +296,20 @@ Feature: Plugin administration API
     Given I authenticate with the token "wrong-key"
     When I list the plugins
     Then the response status is 401
+
+  Scenario Outline: A valid token without the admin role is forbidden
+    Given I am authenticated as a user without the admin role
+    When I request <method> "<path>"
+    Then the response status is 403
+    And the error code is "forbidden"
+
+    Examples:
+      | method | path               |
+      | GET    | /admin/plugins     |
+      | GET    | /admin/plugins/any |
+      | DELETE | /admin/plugins/any |
+
+  Scenario: Non-admin endpoints do not require a token
+    Given I am not authenticated
+    When I ask the model "gpt-test" the question "Hello"
+    Then the response status is 200
