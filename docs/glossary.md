@@ -51,3 +51,30 @@ A [plugin](#plugin) that processes the language model's answer before the client
 ## Settings
 
 The values an administrator gives a [plugin](#plugin) to tune its behaviour, such as the text that replaces masked data. The [gateway](#gateway) passes them to the plugin on every call. The API calls them *options*.
+
+### Focus metric
+The single metric that best expresses whether the product delivers its value proposition. Defined in [Analytics Plan](analytics.md#gateway_plugin_chain_completeness_ratio).
+
+### Input metric
+A metric the team can directly influence that moves the focus metric. Defined in [Analytics Plan](analytics.md#gateway_plugin_execution_success_total).
+
+### Counter-metric
+A metric that guards against gaming the focus metric by moving in the wrong direction. Defined in [Analytics Plan](analytics.md#gateway_plugin_chain_error_ratio).
+
+### Metric tree
+The nested structure linking the focus metric to its inputs and counter-metric. Defined in [Analytics Plan](analytics.md#metric-tree).
+
+### Event
+A recorded occurrence in the product that feeds an analytics metric or an SLI. Defined in [Analytics Plan](analytics.md#events).
+
+### Instrumentation
+The code that emits events and signals from the product containers. Defined in [Analytics Plan](analytics.md#events) and [Observability Plan](observability.md#signals).
+
+### Analytics backend
+The self-hosted system that collects analytics metrics and serves dashboards. Defined in [ADR-004](architecture/adr/ADR-004.md).
+
+### Observability backend
+The self-hosted system that collects metrics and logs for SLIs. Defined in [ADR-005](architecture/adr/ADR-005.md).
+
+### Dashboard
+A visual chart in Grafana that runs the query recorded in a metric or SLI section. Defined in [Analytics Plan](analytics.md) and [Observability Plan](observability.md).

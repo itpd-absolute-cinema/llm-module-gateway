@@ -67,3 +67,19 @@ Remove a [plugin](glossary.md#plugin) you no longer need.
 Keep plugin administration behind a secret key, so that only people who hold it can change how the gateway behaves.
 
 **Stories:** [US-17](https://github.com/itpd-absolute-cinema/llm-module-gateway/issues/68)
+
+## See how the product is used
+
+A product analyst can see how often the plugin chain completes cleanly and where it fails, using the [events](glossary.md#event) the Gateway and Plugin Manager emit.
+
+**Stories:** US-21
+**Behavior:** [FR-007](functional-requirements/fr/FR-007.md)
+**Decisions:** [ADR-004](architecture/adr/ADR-004.md)
+
+## Diagnose a quality problem from the operating signals
+
+A system operator can diagnose a failing request from the [observability backend](glossary.md#observability-backend) by following the request identifier across the SLI dashboard and the per-request log line.
+
+**Stories:** US-20
+**Behavior:** [FR-008](functional-requirements/fr/FR-008.md)
+**Decisions:** [ADR-005](architecture/adr/ADR-005.md)

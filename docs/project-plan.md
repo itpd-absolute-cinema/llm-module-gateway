@@ -72,13 +72,21 @@ Released as [v0.1.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/
 
 Released as [v0.2.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/releases/tag/v0.2.0) on 2026-10-31.
 
-### SPRINT-06 – Plugin Error Handling (Provisional)
+### SPRINT-06 – Observability and Security
 
-**Goal:** Provisional – define and test the plugin error-handling policy so failures are handled predictably without unintended Gateway termination.
+**Goal:** Deliver the first observability and security increments: plugin admin authorization enforced, telemetry pipelines and dashboards in place, and the observability test green.
 
-**Due:** 7 November 2026
+**Due:** 2026-11-08
+
+**Sprint Backlog:** [SPRINT-06 milestone](https://github.com/itpd-absolute-cinema/llm-module-gateway/milestone/4)
+
+**Planned Velocity:** 12
+
+**Actual Velocity:** 12, all stories are finished
 
 #### REL-06
+
+Released as [v0.3.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/releases/tag/v0.3.0) on 2026-11-08.
 
 ### SPRINT-07 – Local Deployment and Documentation (Provisional)
 
