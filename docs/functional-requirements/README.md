@@ -22,3 +22,5 @@ API checks do not establish CLI completion, multi-provider routing, or the plann
 | [FR-07](fr/FR-07.md) | Gateway routes the allowed request to the configured LLM provider | Active | route to appropriate providers | Gateway |
 | [FR-008](fr/FR-008.md) | Separate Admin Authorization | Active | DEC-007; CON-04; ADR-005 | prototype gateway |
 | [FR-009](fr/FR-009.md) | Replace Plugin Options | Active | CON-01; DEC-001; ADR-002; ADR-003; ADR-006 | prototype gateway |
+| [FR-010](fr/FR-010.md) | Record an event for each step of the core task | Active | QR-01, VP-01 | Gateway, Plugin Manager |
+| [FR-011](fr/FR-011.md) | Expose the quality signal for each runtime requirement to the observability backend | Active | QR-02, QR-04 | Gateway, Plugin Manager |

@@ -46,6 +46,8 @@ In the prototype, `prototype gateway` (Python / FastAPI / Uvicorn) owns the loca
 | [ADR-004](adr/ADR-004.md) | Keep prototype administration in one Python process | Accepted | [FR-01](../functional-requirements/fr/FR-01.md), [QR-03](../quality-requirements/qr/QR-03.md), [QR-05](../quality-requirements/qr/QR-05.md) |
 | [ADR-005](adr/ADR-005.md) | Authorize administration independently of plugins | Accepted | [FR-008](../functional-requirements/fr/FR-008.md), [QR-04](../quality-requirements/qr/QR-04.md) |
 | [ADR-006](adr/ADR-006.md) | Retain disabled settings and order in TOML | Accepted | [FR-01](../functional-requirements/fr/FR-01.md), [FR-02](../functional-requirements/fr/FR-02.md), [FR-03](../functional-requirements/fr/FR-03.md), [FR-04](../functional-requirements/fr/FR-04.md), [FR-009](../functional-requirements/fr/FR-009.md), [QR-05](../quality-requirements/qr/QR-05.md) |
+| [ADR-007](adr/ADR-007.md) | Emit analytics events to a self-hosted Prometheus backend | Accepted | FR-010 |
+| [ADR-008](adr/ADR-008.md) | Expose observability signals as metrics and structured logs | Accepted | FR-011, QR-06 |
 
 [ADR template](adr/TEMPLATE.md).
 
@@ -66,3 +68,10 @@ Existing assets are retained without regeneration. Despite their filenames, they
 
 - Diagram image: `docs/architecture/container.svg`
 - Diagram source: `docs/architecture/container.puml`
+
+**External systems:**
+
+- **Analytics backend (Prometheus + Grafana)** — the Gateway and Plugin Manager expose metrics; Prometheus scrapes them over HTTP; Grafana queries Prometheus.
+- **Observability backend (Prometheus + log store)** — the Gateway and Plugin Manager emit metrics and structured logs; the backend collects them.
+
+The team self-hosts both backends and does not build them. The product works with collection off, so they are external systems, not containers.
