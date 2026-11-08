@@ -40,3 +40,21 @@
 
 - Addressed issues identified during implementation and integration of the system components.
 - Improved application startup and configuration consistency across local and deployed environments.
+
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [0.6.0] - 2026-11-08
+
+### Added
+- Analytics ADR (ADR-004) and observability ADR (ADR-005) accepted.
+- Prometheus and Grafana added to the Container View as external systems the team self-hosts and does not build.
+- QR-06 (Maintainability / Analysability) added with a deployed test that runs against staging.
+- `docs/observability.md` with SLI-01 (Active) and SLI-02 (Planned).
+- `docs/deployment.md` now carries `## Analytics Pipeline` and `## Observability Pipeline`.

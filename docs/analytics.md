@@ -72,6 +72,8 @@ This metric is computed by its query, not by hand.
 | `failure_policy_applied_total` | A plugin fails or times out and the Gateway applies a policy | `source`, `plugin_name`, `policy` | Gateway (Java), Prometheus scrape |
 | `smoke_test_total` | Staging pipeline checks itself | `source=smoke`, `test_id` | Gateway (staging), Prometheus scrape |
 
+Each event also produces one structured log line carrying `request_id` (a random UUID), `route`, `outcome`, and `duration_ms`. The `request_id` correlates events of one request across the Gateway and Plugin Manager and is never used as a Prometheus label. Logs are the source for the per-request diagnosis; metrics are the source for the aggregate queries above.
+
 **Naming convention:** `<domain>_<object>_<action>_total` in snake_case. `source` is a closed set: `gateway`, `plugin_manager`, `cli`, `smoke`. Only events with `source=smoke` are excluded from metrics.
 
 **Opaque identifier:** `request_id` (random UUID, not derived from personal data, not reversible to a person) appears only in structured logs for correlation, never in Prometheus labels.
