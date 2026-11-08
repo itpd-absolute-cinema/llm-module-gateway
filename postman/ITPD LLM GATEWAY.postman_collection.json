@@ -1,0 +1,392 @@
+{
+  "info": {
+    "_postman_id": "14678f6a-e63b-45b3-80d8-dbce8d755377",
+    "name": "ITPD LLM GATEWAY",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "59314159",
+    "_collection_link": "https://go.postman.co/collection/59314159-14678f6a-e63b-45b3-80d8-dbce8d755377?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Gateway",
+      "item": [
+        {
+          "name": "keycloak",
+          "item": [
+            {
+              "name": "login",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "grant_type",
+                      "value": "password"
+                    },
+                    {
+                      "key": "client_id",
+                      "value": "gateway-cli"
+                    },
+                    {
+                      "key": "username",
+                      "value": "b4lmor"
+                    },
+                    {
+                      "key": "password",
+                      "value": "secret"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:8091/realms/gateway/protocol/openid-connect/token",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8091",
+                  "path": [
+                    "realms",
+                    "gateway",
+                    "protocol",
+                    "openid-connect",
+                    "token"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "List Plugin",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_0mkx}}Y29tIn0.E5dQt-T-FLlrZW-Wycs56uUmhkRdVHpnXNjuKxWIY1XS7YhKDa0ieEIK7mLMUr5Ifm-0dfEmUUJe98FwK2N6TmKgoIswbQI5SOz3Zwz7rXDkXXukCk2q4uO1U92bSFWz4x9bQPAfb1Gkiyx-HGoB0yfrrQTYg9gHRhPnG7Es1FC9Xi54uQygAkRaIPPFGgilyGwjyvpuTObFyTjcESELLbTHCXlHyovvToYavjquTb21P7_OzAFSTcfkmlMBRLGVJbUf7b6m1ISlbxEVtGyYMvQ54_YLvCJ-tgtOPvIMf_TsEkY5tpmPY-NlWRJd7y5q2POoByh25kBj2I7ahcpz8A"
+              },
+              {
+                "key": "",
+                "value": ""
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/admin/plugins",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "admin",
+                "plugins"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Plugin",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer secret"
+              },
+              {
+                "key": "",
+                "value": ""
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/admin/plugins/test_plugin",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "admin",
+                "plugins",
+                "test_plugin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Plugin Copy",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer secret"
+              },
+              {
+                "key": "",
+                "value": ""
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/admin/plugins/test_plugin",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "admin",
+                "plugins",
+                "test_plugin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload Plugin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer secret"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": [
+                    "/Users/b4lmor/Work/inno/itpd/code/service-gateway/app/src/test/resources/files/test_plugin.py"
+                  ]
+                },
+                {
+                  "key": "options",
+                  "value": "{}",
+                  "type": "text"
+                },
+                {
+                  "key": "type",
+                  "value": "request_filter",
+                  "type": "text"
+                },
+                {
+                  "key": "before",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "after",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            },
+            "url": {
+              "raw": "localhost:8080/admin/plugins",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "admin",
+                "plugins"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Plugin",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer secret"
+              },
+              {
+                "key": "",
+                "value": ""
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/admin/plugins/test_plugin",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "admin",
+                "plugins",
+                "test_plugin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Set Status For Plugin TRUE",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer secret"
+              },
+              {
+                "key": "",
+                "value": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/admin/plugins/test_plugin",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "admin",
+                "plugins",
+                "test_plugin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Set Status For Plugin FALSE",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer secret"
+              },
+              {
+                "key": "",
+                "value": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/admin/plugins/route_model",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "admin",
+                "plugins",
+                "route_model"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Settings For Plugin",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer secret"
+              },
+              {
+                "key": "",
+                "value": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"options\": {\n    \"settings\": {\n        \"hide_to\": \"[PHONE_MASK]\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/admin/plugins/test_plugin",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "admin",
+                "plugins",
+                "test_plugin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Chat",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer secret"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"string\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n            \"content\": \"Hi!   My name is John.  Please call me at +1 (415) 555-26-71 or write to john.doe@example.com   about the invoice. My card is 4111 1111 1111 1111 and the server is 192.168.1.15.\\n\\n\\n\\nThanks!  \"\n\n    }\n  ],\n  \"stream\": false,\n  \"temperature\": 2,\n  \"stop\": \"string\",\n  \"top_p\": 1,\n  \"max_tokens\": 1,\n  \"max_completion_tokens\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/chat/completions",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "chat",
+                "completions"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "bearer_token_0mkx",
+      "secret": true
+    }
+  ]
+}
