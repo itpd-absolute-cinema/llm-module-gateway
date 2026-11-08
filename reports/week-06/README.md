@@ -4,8 +4,6 @@
 
 ## Summary
 
-## Customer outcome
-=======
 SPRINT-06 planned 12 story points and completed 12; no story moved out of the sprint. This week delivered the observability and security increment: the analytics ADR (ADR-004) and the observability ADR (ADR-005) were accepted, Prometheus and Grafana joined the Container View as external systems the team self-hosts but does not build, and QR-06 (Maintainability / Analysability) was added with a deployed test that runs against the staging deployment.
 
 The customer meeting took place on 2026-11-06. The team demonstrated a one-line plugin installation, a request through the Gateway to a real DeepSeek API key, the plugin loading path in the Gateway source, and the plan for Docker-based packaging. The customer acknowledged the real LLM connection but said the demo does not yet answer the DevOps question: why choose this product over writing a few functions in a main loop. The customer asked the team to reframe the next demo around DevOps pain points (plugin validation, failure isolation, deployment) and to package the system in Docker Compose. No story was formally accepted and no `DEC-nnn` was recorded.
@@ -13,7 +11,7 @@ The customer meeting took place on 2026-11-06. The team demonstrated a one-line 
 ## Customer outcome
 
 | Story shown | Verdict | DEC |
-|---|---|---|
+| --- | --- | --- |
 | One-line plugin installation and a request through the Gateway to DeepSeek | Not accepted — the customer said the demo does not yet address DevOps pain points | None |
 | Plugin loading and execution path in the Gateway source | Not accepted — the customer asked for a clearer architecture narrative before the next demo | None |
 
@@ -22,7 +20,7 @@ The customer's three new action points are due in Week 7: Docker Compose packagi
 ## Repository evidence
 
 | Deliverable | Artifact |
-|---|---|
+| --- | --- |
 | Quality requirements | [`docs/quality-requirements/qr/QR-06.md`](../../docs/quality-requirements/qr/QR-06.md), with its row in [`docs/quality-requirements/README.md`](../../docs/quality-requirements/README.md) |
 | Observability plan | [`docs/observability.md`](../../docs/observability.md), with SLI-01 Active and SLI-02 Planned |
 | Architectural decisions | [`ADR-004`](../../docs/architecture/adr/ADR-004.md) and [`ADR-005`](../../docs/architecture/adr/ADR-005.md) |

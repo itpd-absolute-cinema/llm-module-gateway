@@ -47,9 +47,6 @@ Plugin chain error ratio
 **Unit:** ratio (0–1)
 **Window:** 5m
 **Source:** `failure_policy_applied_total` counter.
-<<<<<<< HEAD
-**Query:** `sum(rate(failure_policy_applied_total[5m])) / sum(rate(request_received_total[5m]))`
-=======
 **Query:** `sum(rate(failure_policy_applied_total{source!="smoke"}[5m])) / sum(rate(request_received_total{source!="smoke"}[5m]))`
 
 ### SLI-03
@@ -62,4 +59,3 @@ Plugin chain latency P95
 **Window:** 5m
 **Source:** `request_duration_seconds` histogram exposed by the Gateway.
 **Query:** `histogram_quantile(0.95, sum by (le) (rate(request_duration_seconds_bucket{route="plugin_chain",source!="smoke"}[5m])))`
->>>>>>> 06f2f8b (a6)
