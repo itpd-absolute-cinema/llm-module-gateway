@@ -4,7 +4,6 @@
 
 ## Summary
 
-<<<<<<< HEAD
 ## Customer outcome
 =======
 SPRINT-06 planned 12 story points and completed 12; no story moved out of the sprint. This week delivered the observability and security increment: the analytics ADR (ADR-004) and the observability ADR (ADR-005) were accepted, Prometheus and Grafana joined the Container View as external systems the team self-hosts but does not build, and QR-06 (Maintainability / Analysability) was added with a deployed test that runs against the staging deployment.
@@ -32,9 +31,7 @@ The customer's three new action points are due in Week 7: Docker Compose packagi
 | Testing plan | [`docs/project-plan.md`](../../docs/project-plan.md#quality-requirement-testing-plan), QR-06 QRT-01 `Passes`, `Checked: SPRINT-06` |
 | Feature page | [`docs/features.md`](../../docs/features.md), with the analytics and observability entries |
 | Sprint retrospective | [`reports/week-06/sprint-retrospective.md`](sprint-retrospective.md) |
-| Meeting transcript | [`reports/week-06/meeting-transcript.md`](meeting-transcript.md), publication permission pending |
 
 ## Deviations
 
 None.
->>>>>>> 06f2f8b (a6)
