@@ -29,5 +29,5 @@ Actions from [SPRINT-05 retrospective](../week-05/sprint-retrospective.md#action
 
 | Action (quoted) | Outcome |
 | --- | --- |
-| "<action from SPRINT-05 that was marked Carried: Yes>" | Done / Not done / Dropped |
-| "<action from SPRINT-05 that was marked Carried: Yes>" | Done / Not done / Dropped |
+| "[action from SPRINT-05 that was marked Carried: Yes]" | Done / Not done / Dropped |
+| "[action from SPRINT-05 that was marked Carried: Yes]" | Done / Not done / Dropped |

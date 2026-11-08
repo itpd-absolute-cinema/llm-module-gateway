@@ -60,7 +60,7 @@ This metric is computed by its query, not by hand.
 ## Events
 
 | Event | Fires when | Fields | Collected at |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `plugin_upload_requested_total` | DevOps calls `cli plugin upload` | `source`, `plugin_name`, `file_size_bytes` | Gateway (Java), Prometheus scrape |
 | `plugin_upload_completed_total` | Gateway writes the plugin file to the shared volume | `source`, `plugin_name`, `success` | Gateway (Java), Prometheus scrape |
 | `plugin_enabled_total` | DevOps calls `cli plugin enable` | `source`, `plugin_name` | Gateway (Java), Prometheus scrape |

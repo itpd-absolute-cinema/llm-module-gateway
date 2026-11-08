@@ -17,7 +17,7 @@ An alert is a rule over a signal, not a signal of its own.
 Every request produces one structured log line with these fields:
 
 | Field | Type | Description |
-|---|---|---|
+| --- | --- | --- |
 | `request_id` | string (opaque UUID) | Correlates all events for one request. Never derived from personal data. |
 | `route` | string | The Gateway route or processing stage, e.g. `plugin_chain`, `admin_plugins`. |
 | `outcome` | string | `allow`, `modify`, `block`, or `failure_policy`. |
