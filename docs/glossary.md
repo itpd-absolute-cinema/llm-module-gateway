@@ -89,31 +89,41 @@ The self-hosted system that collects metrics and logs for SLIs. Defined in [ADR-
 A visual chart in Grafana that runs the query recorded in a metric or SLI section. Defined in [Analytics Plan](analytics.md) and [Observability Plan](observability.md).
 
 ### Usability test
+
 A structured session in which a participant performs tasks with the product while the team observes, to find where the interface or workflow fails the user.
 
 ### Participant
+
 A person recruited to take part in a usability session. A participant is identified by a code, never by name, in any recorded or published artifact.
 
 ### Usability session
+
 One scheduled usability test with one participant, covering the tasks, the consent, the recording, and the post-session questionnaire.
 
 ### Consent
+
 A participant's explicit agreement to take part in a usability session and to be recorded. Consent is recorded before the session starts; a participant may withdraw it at any time.
 
 ### Recording
+
 The audio, video, or screen capture of a usability session. The recording is private-only and is deleted when the participant withdraws consent or when the analysis is complete.
 
 ### Measure
+
 The raw observation taken during a usability session, before any processing. A measure is a single value: a task completion time, a success flag, an error count, or a questionnaire response.
 
 ### Metric
+
 A defined computation over one or more measures, with a stated unit and window. A metric is what the team reports: for example, the median task completion time across participants, or the proportion of sessions with a successful task.
 
 ### Statistic
+
 A summary value computed from a sample of measures or metrics, used to describe or compare. A statistic carries uncertainty and is not the same as the metric's target; it is what the data shows, not what the product promises.
 
 ### SUS
+
 The System Usability Scale: a ten-item questionnaire scored to a single number between 0 and 100, used to compare perceived usability across sessions or releases.
 
 ### SEQ
+
 The Single Ease Question: a one-item questionnaire scored from 1 to 7 after each task, used to record how easy the participant found that task.
