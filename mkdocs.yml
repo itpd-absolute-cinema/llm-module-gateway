@@ -53,10 +53,6 @@ nav:
           - "QR-04: Reject unauthorized administration": quality-requirements/qr/QR-04.md
           - "QR-05: Preserve state on failed updates": quality-requirements/qr/QR-05.md
           - "QR-07: Usable gateway setup": quality-requirements/qr/QR-07.md
-      - Usability:
-          - Overview: usability-tests/README.md
-          - "UT-01: First setup": usability-tests/ut-01/README.md
-          - "UT-01: Results": usability-tests/ut-01/results.md
   - Technical:
       - Architecture overview: architecture/README.md
       - Plugin chain follow-up: architecture/plugin-chain.md
@@ -73,6 +69,14 @@ nav:
           - ADR template: architecture/adr/TEMPLATE.md
   - Delivery:
       - Project plan: project-plan.md
+      - Sprint 07 planning draft: sprint-07-planning.md
+      - Usability tests:
+          - Overview: usability-tests/README.md
+          - UT-01: usability-tests/ut-01/README.md
+          - Surveys: usability-tests/ut-01/surveys.md
+          - Consent template: usability-tests/ut-01/consent.md
+          - Session guide: usability-tests/ut-01/sessions/README.md
+          - Results: usability-tests/ut-01/results.md
       - Risks: risks.md
       - Definition of Done: definition-of-done.md
 

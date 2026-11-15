@@ -48,6 +48,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- UT-01 onboarding study design, surveys, consent, recruitment and analysis plans, and the QR-07 manual usability check.
+- A staging-only study CLI that records gateway-call outcomes without request bodies or credentials, with offline checks for its logging and probe behavior.
+
 ## [0.6.0] - 2026-11-08
 
 ### Added

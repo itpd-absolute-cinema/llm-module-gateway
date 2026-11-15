@@ -7,7 +7,7 @@
 Find out whether a new user can set up the gateway and get a first response with documentation, web search, and AI assistance available.
 
 This design is being prepared before the sessions.
-It is not ready to run: facilitator, consent, and instrumentation still need to be settled, and the supplied staging access must be verified.
+It is not ready to run: confirm team availability, fill the consent's tool and contact fields, and verify staging access, private storage access, resets, and instrumentation.
 
 ## Research Questions
 
@@ -115,7 +115,7 @@ Separate future tests can cover writing plugins and more extensive administratio
 
 ## Protocol
 
-Pending the session instructions and surveys from assignment parts 2–4.
+Follow the [session guide](sessions/README.md), [surveys](surveys.md), and [consent template](consent.md).
 Use the fixed order: welcome, consent and recording check, pre-test, think-aloud instruction, the three tasks with an ease rating after each, the usability questionnaire, open questions, and debrief.
 The same facilitator runs every counted session with an observer present.
 
@@ -129,10 +129,36 @@ Record all ten System Usability Scale (SUS) responses after the three tasks.
 
 ## Instrumentation
 
-Pending: identify and verify the actual records available for setup and the request, their private storage, and the session link.
-Do not assume the monitoring described in the week 6 documents is implemented.
-Human observation records reading difficulties, help, and perceived ease; server events cannot establish those.
-Events sent through the analytics pipeline must carry `source=usability-test`.
+Use the test-only wrapper `code/cli/usability_gateway_cli.py` for participant Gateway calls on staging.
+It reuses the normal CLI's plugin commands and adds `gw probe`, which sends the same synthetic request for all three tasks.
+The moderator prepares the wrapper as described in the [session guide](sessions/README.md#moderator-setup); participants receive its reference before timing starts.
+
+| Task | Client records and expected evidence | Observer-only evidence |
+| --- | --- | --- |
+| T1: setup | Failed probes, if attempted, followed by a successful `probe` with `probe_effect=unmasked` | Docker setup, reading, searching, AI use, retries outside the wrapper, task time, and human help |
+| T2: enable | An `enable` call and a successful `probe` with `probe_effect=masked`; `inspect` calls provide evidence that state was queried | Browser sign-in, understanding the state, task time, and help |
+| T3: disable | A `disable` call and a successful `probe` with `probe_effect=unmasked` | Understanding the change, task time, and help |
+
+Each JSONL record carries `source=usability-test`, a random session UUID, action, outcome, UTC completion time, and request duration; probes also carry the classified effect.
+The recorder excludes request/response bodies, plugin names, credentials, and participant identity.
+It also records other plugin calls, such as `upload`, when participants make them; these are observations, not required task steps.
+
+The moderator creates a private JSONL file per session on the workstation, maps its UUID to the participant code in the private session sheet, and copies the export to the [private data repository](https://github.com/itpd-absolute-cinema/llm-module-gateway-usability-data).
+Use the sheet's UTC task boundaries to associate records with T1, T2, or T3.
+Moderator resets use the normal CLI and are kept out of participant event logs.
+
+Week 6 lists equivalent upload, enable, disable, and request events, but their deployment has not been verified for this test.
+This study uses separate client records and sends no new events through the shared analytics pipeline.
+No new analytics-table row is needed for this test-only path.
+
+The recorder cannot observe Docker commands, Keycloak login, external searches, AI interactions, or raw HTTP calls that bypass the wrapper.
+Document such bypasses and compare their observed responses separately; absence from the log is not proof that a participant took no action.
+An `inspect` record proves a query happened, not that its output was understood.
+Use observation for those gaps and for perceived ease.
+
+Instrumentation is implemented in SPRINT-07; university staging verification remains pending under [#91](https://github.com/itpd-absolute-cinema/llm-module-gateway/issues/91) in SPRINT-08 before the first counted session.
+Have a teammate run all three tasks, confirm the unmasked/masked/unmasked sequence and state-change records under the recorded UUID, and confirm the export reaches private storage.
+Record the commit, date, verifier, and outcome in the session guide's verification table. Do not count that run as participant evidence.
 
 ## Analysis Plan
 
@@ -148,7 +174,7 @@ Keep a separate participant table for the SUS score, linked to the sanitized ses
 - For an even number of observations, the median is the mean of the two middle values. Do not round a statistic before comparing it with the pass criterion.
 - Group recurring observations into themes, citing the sessions. A single observation may be a finding, but is not presented as a recurring theme.
 - Rate findings `Critical` if they prevent the journey or expose a serious safety problem, `Major` if they require help or substantial rework, and `Minor` for recoverable friction. Explain each rating.
-- Compare observation with the verified instrumentation, naming gaps and disagreements. Define the exact comparison when the instrumentation is selected, before sessions.
+- Compare each task's observed outcome and UTC window with its `probe` effect and, for T2/T3, the `enable`/`disable` records in the session JSONL export. State disagreements and wrapper bypasses. Request duration is not task time; the recorder cannot explain setup difficulties, sign-in problems, AI use, or perceived ease.
 - State the sample size, participants' relation to intended users, prepared environment, observer presence, and unmeasured behavior. The result concerns a workflow with search and AI available, not documentation alone; it cannot establish whether AI caused better outcomes. Docker installation, obtaining machine access, Keycloak and account provisioning, and live-provider configuration are outside this test. These sessions do not establish a population success rate.
 
 Do not invent missing responses.
@@ -184,7 +210,11 @@ Assign `P-01`, `P-02`, and subsequent codes in scheduling order; never reuse a c
 
 ## Roles
 
-Pending: name the facilitator, observer, and raw-data custodian by GitHub username.
+The assignments from the parts 1–4 draft remain provisional until availability is confirmed:
+
+- Facilitator for every counted session: `@egozhuk`.
+- Observer for timing, help, and friction: `@FallenChromium`.
+- Custodian for raw notes, telemetry, and recordings: `@m1staken`.
 
 ## Environment
 
@@ -213,7 +243,9 @@ Instrumentation verification must also finish before the first counted session; 
 
 ## Consent And Data
 
-The consent template and private storage are dependencies on assignment part 4; their readiness has not been verified.
+The [consent template](consent.md) is ready to fill with the actual tools and study contact before collecting durable consent.
+The [private usability-data repository](https://github.com/itpd-absolute-cinema/llm-module-gateway-usability-data) exists and its private visibility was checked on 15 November 2026.
+That check does not establish instructor access or readiness of the recordings folder; both remain to be verified.
 Before a counted session, collect durable consent covering adulthood, recording, sanitized public results, access, withdrawal, and deletion; quotes need separate optional permission.
 Name the actual AI and search tools in the consent materials before sessions, including how their saved copies will be removed.
 AI inputs may contain public project code, documentation, synthetic examples, and sanitized errors; exclude credentials, private deployment addresses, participant identities, raw session notes, and recordings.
@@ -225,15 +257,15 @@ Delete raw data, the private repository and its history, and recordings after gr
 
 | Evidence | Authoritative home |
 | --- | --- |
-| Design, surveys, unsigned consent template, session instructions | Public `docs/usability-tests/ut-01/`; the supporting files are still pending |
+| Design, [surveys](surveys.md), unsigned [consent template](consent.md), [session instructions](sessions/README.md) | Public `docs/usability-tests/ut-01/` |
 | Sanitized session notes and images | Public `sessions/P-nn.md` and `images/`, created when evidence exists |
 | Aggregates, findings, limitations, and conclusions | Public [results.md](results.md), currently empty |
-| Signed consent, identity mapping, raw notes, retained AI interaction records, filtered test telemetry, working analysis | Private usability-data repository; creation and access are unverified |
+| Signed consent, identity mapping, raw notes, retained AI interaction records, filtered test telemetry, working analysis | Private usability-data repository; instructor access is unverified |
 | Session recordings | Team-owned cloud folder; creation and access are unverified |
 | Private access instructions and recording-folder link | Moodle wrapper, with the recording-folder link also indexed in the private repository; no raw evidence copied into Moodle |
 | Delivery summary and results links | Week 8 public report, linking evidence rather than copying it |
 
-Add the private repository's public link and an authenticated-link-check exclusion once its existence is verified.
+The link-check workflow excludes the private repository URL because it requires authentication.
 Keep deployment addresses, credentials, identities, and recording links out of public files.
 
 See [results.md](results.md) for the eventual findings; the quality verdict belongs in the [testing plan](../../project-plan.md#quality-requirement-testing-plan).

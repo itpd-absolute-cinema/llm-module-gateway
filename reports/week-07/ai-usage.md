@@ -12,6 +12,10 @@ Codex drafted UT-01, QR-07 and its manual test, the analysis and evidence map, t
 
 Codex translated that profile into screening criteria and proposed recruitment channels and a booking timetable; no invitations were sent and no sessions were booked.
 Codex inspected the supplied phone filter and plugin controls to define the expected responses and task resets; no staging run was performed.
-Session roles, consent, and instrumentation are still pending, and staging access remains unverified; the draft does not claim readiness or results.
+Codex integrated PR #83's parts 1–4 with these choices: retained its surveys, provisional roles, private-data link, and client event recorder; changed its plugin-upload task to setup; and reconciled the session guide, consent, timing, AI rules, and probe text.
+The private repository was verified to exist with private visibility; participant records were not opened. Instructor access and the recordings folder remain unverified.
+Five offline recorder tests passed, covering task probe effects, enable/disable events, failed requests, log contents, and rejecting a host outside the configured staging URL. Markdown validation and the strict documentation build also passed; these checks do not verify university staging.
+At the user's request, local link validation used `npx markdown-link-check@3.15.0` for `docs/`, the Week 7 report, AGENTS, the changelog, and the CLI guide, with the authenticated private repository excluded. It passed; the repository's GitHub workflow still uses Lychee.
+The provisional roles need confirmation, consent needs the actual tool/contact details, and staging instrumentation and resets remain unverified; the draft does not claim readiness or results.
 No participant material, recordings, or raw private notes were supplied to the agent.
 Human review of the draft remains pending.

@@ -88,25 +88,37 @@ Released as [v0.2.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/
 
 Released as [v0.3.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/releases/tag/v0.3.0) on 2026-11-08.
 
-<!-- markdownlint-disable-next-line MD033 -->
-<a id="sprint-07"></a>
+<!-- markdownlint-disable MD033 -->
+<a id="sprint-07-local-deployment-and-documentation-provisional"></a>
+<a id="sprint-07--local-deployment-and-documentation-provisional"></a>
+<!-- markdownlint-enable MD033 -->
 
-### SPRINT-07 – Local Deployment and Documentation (Provisional)
+### SPRINT-07
 
-**Goal:** Provisional – make the documented local Docker workflow reproducible and improve the developer instructions for running the Gateway and adding plugins.
+**Goal:** Prepare `UT-01` to test whether a developer new to the gateway can set it up and get a first response, then enable and disable a supplied filter. Implement staging instrumentation, prepare the consent and data storage, and run a rehearsal with a teammate.
 
-**Due:** 14 November 2026
+**Due:** 2026-11-15
+
+**Sprint Backlog:** [SPRINT-07 milestone](https://github.com/itpd-absolute-cinema/llm-module-gateway/milestone/5)
+
+**Planned Velocity:** 0 story points for the tasks listed in the [Sprint 07 planning draft](sprint-07-planning.md).
 
 #### REL-07
 
-<!-- markdownlint-disable-next-line MD033 -->
-<a id="sprint-08"></a>
+<!-- markdownlint-disable MD033 -->
+<a id="sprint-08-end-to-end-verification-provisional"></a>
+<a id="sprint-08--end-to-end-verification-provisional"></a>
+<!-- markdownlint-enable MD033 -->
 
-### SPRINT-08 – End-to-End Verification (Provisional)
+### SPRINT-08
 
-**Goal:** Provisional – strengthen automated end-to-end verification of the Gateway, Interpreter, CLI, and plugin-chain behavior against the Threshold of Success.
+**Goal:** Provisional — run `UT-01` on staging, publish the sanitized findings, record the usability quality requirement verdict, and release `REL-08`.
 
-**Due:** 21 November 2026
+**Due:** 2026-11-21
+
+**Sprint Backlog:** [SPRINT-08 milestone](https://github.com/itpd-absolute-cinema/llm-module-gateway/milestone/6)
+
+See the [Sprint 08 task drafts](sprint-07-planning.md#sprint-08-task-drafts) for verification, sessions, and results.
 
 #### REL-08
 
@@ -134,7 +146,7 @@ Released as [v0.3.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/
 
 **Risk review:** The team reads and reviews the [Risk Register](risks.md) during every Friday review. For each risk, the team checks whether its trigger has occurred, whether its rating remains appropriate, whether mitigation is progressing, and whether its contingency needs to be activated. The team records decisions and follow-up actions in the relevant issues.
 
-**Sprint planning:** SPRINT-03 and SPRINT-04 have concrete goals in this draft. The goals for SPRINT-05 through SPRINT-09 are provisional and must be revisited before each sprint is planned.
+**Sprint planning:** Review each provisional goal when its sprint opens. The [refined product backlog](sprint-07-planning.md#refined-product-backlog) lists unscheduled candidates for SPRINT-08 and SPRINT-09.
 
 **Release records:** Each `REL-nn` section remains empty until its release is published. REL-04 records the prototype snapshot; customer validation was postponed to Week 5.
 

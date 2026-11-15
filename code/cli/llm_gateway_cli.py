@@ -299,10 +299,9 @@ class GatewayClient:
             query = urllib.parse.urlencode(params)
             url += "?" + query
 
-        request_headers = {
-            "Authorization": f"Bearer {self.token}",
-            "Accept": "application/json",
-        }
+        request_headers = {"Accept": "application/json"}
+        if self.token:
+            request_headers["Authorization"] = f"Bearer {self.token}"
 
         if headers:
             request_headers.update(headers)
@@ -650,7 +649,7 @@ def build_parser():
     return parser
 
 
-def main():
+def main(client_factory=GatewayClient):
     parser = build_parser()
     args = parser.parse_args()
 
@@ -677,7 +676,7 @@ def main():
             print_result(describe_token(token))
             return
 
-        client = GatewayClient(
+        client = client_factory(
             host=args.host,
             token=token,
         )

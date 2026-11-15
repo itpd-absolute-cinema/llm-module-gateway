@@ -1,6 +1,8 @@
 # Week 07 Report
 
-Working draft covering assignment 7 parts 5–7 only; the rest of the week's delivery is not yet recorded here.
+Working draft integrating assignment 7 parts 1–7; the remaining weekly delivery and external checks are not yet recorded as complete.
+
+The [project plan](../../docs/project-plan.md#sprint-07) and [planning draft](../../docs/sprint-07-planning.md) cover the sprint and scheduled task issues.
 
 ## Usability test
 
@@ -16,12 +18,15 @@ It is [Not verified](../../docs/project-plan.md#quality-requirement-testing-plan
 The [results file](../../docs/usability-tests/ut-01/results.md) is an empty template; no sessions, findings, or usability results are claimed.
 
 The team plans to supply staging Keycloak and a test account; participants will not provision authentication infrastructure.
-Before sessions, assign session roles, finish consent and instrumentation verification, and confirm staging access, the shared AI tool, private storage, and the booking plan.
+The [surveys](../../docs/usability-tests/ut-01/surveys.md), [consent template](../../docs/usability-tests/ut-01/consent.md), and [session guide](../../docs/usability-tests/ut-01/sessions/README.md) include the agreed tasks and allowed tools.
+The test-only CLI records gateway calls privately; it does not observe Docker setup, login, or AI use.
+Before sessions, confirm the provisional roles, fill consent tool/contact details, verify staging instrumentation and resets, and confirm access and the booking plan.
 
 ## Privacy
 
 No participant data has been collected for this draft.
-Private storage and access have not been verified; the private repository link will be added once they are.
+The [usability-data repository](https://github.com/itpd-absolute-cinema/llm-module-gateway-usability-data) exists and was verified private on 15 November 2026. Its authenticated URL is excluded from the link check.
+Instructor access, the recordings folder, and the data layout remain unverified.
 Raw text and recordings stay outside this public repository, as the test record's evidence map specifies.
 
 ## AI usage
