@@ -12,5 +12,6 @@ Priority matrix of active quality requirements. Sorted by: active first, then Bu
 | QR-04 | Security / Authenticity | High | Medium | Unauthorized administration is rejected without saved-state changes | Active | [QR-04](qr/QR-04.md) |
 | QR-05 | Reliability / Fault Tolerance | Medium | High | Admin updates preserve runtime; recoverable storage failures preserve saved state | Active | [QR-05](qr/QR-05.md) |
 | QR-06 | Maintainability / Analysability | High | Medium | Diagnose a failed request within 5 s from the staging organization | Active | [QR-06](qr/QR-06.md) |
+| QR-07 | Interaction Capability / Operability | High | Medium | Main-task median setup ease rating is at least 5/7 | Active | [QR-07](qr/QR-07.md) |
 
 Test status for each quality requirement is tracked in the [Quality Requirement Testing Plan](../project-plan.md#quality-requirement-testing-plan).
