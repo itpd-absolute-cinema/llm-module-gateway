@@ -52,6 +52,7 @@ nav:
           - "QR-03: Plugin testability": quality-requirements/qr/QR-03.md
           - "QR-04: Reject unauthorized administration": quality-requirements/qr/QR-04.md
           - "QR-05: Preserve state on failed updates": quality-requirements/qr/QR-05.md
+          - "QR-07: Usable gateway setup": quality-requirements/qr/QR-07.md
   - Technical:
       - Architecture overview: architecture/README.md
       - Plugin chain follow-up: architecture/plugin-chain.md

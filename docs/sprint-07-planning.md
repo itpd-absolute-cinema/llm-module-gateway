@@ -1,8 +1,8 @@
 # Sprint 07 Planning Draft
 
-The [project plan](project-plan.md#sprint-07) gives the sprint goals and dates. On 15 November, the SPRINT-07 and SPRINT-08 milestones were empty. The tasks below are drafts for those milestones. The priorities and owners below are proposed. When scheduling a task in GitHub, use its Responsible and Accountable owners for the corresponding project fields and add both as assignees.
+The [project plan](project-plan.md#sprint-07) gives the sprint goals and dates. Task issues #84–#90 cover the design work in SPRINT-07, and #91–#97 cover verification and results in SPRINT-08. The priorities and owners below remain proposed; the issues were unassigned when checked on 15 November. Use the Responsible and Accountable owners for the corresponding project fields and add both as assignees when the team confirms them.
 
-The test covers the existing stories for [uploading a plugin](https://github.com/itpd-absolute-cinema/llm-module-gateway/issues/17), [inspecting the configuration](https://github.com/itpd-absolute-cinema/llm-module-gateway/issues/19), and [switching plugins on and off](https://github.com/itpd-absolute-cinema/llm-module-gateway/issues/22). These stories are currently in SPRINT-05.
+The agreed main task covers [starting the system](https://github.com/itpd-absolute-cinema/llm-module-gateway/issues/70) and [getting a response](https://github.com/itpd-absolute-cinema/llm-module-gateway/issues/45). Secondary tasks cover [switching a supplied plugin on and off](https://github.com/itpd-absolute-cinema/llm-module-gateway/issues/22). The supplied plugin is seeded by the facilitator; uploading a plugin is no longer the main task.
 
 The plan assumes the first and last counted sessions are in SPRINT-08. If all counted sessions move to SPRINT-07, move the session and verification issues there. If the sessions span both sprints, schedule verification before the first session and the session issue in the sprint of the last session. Results and the quality verdict stay in SPRINT-08.
 
@@ -135,7 +135,7 @@ None: repository upkeep
 
 #### Requirements
 
-The Interaction Capability quality requirement created in this task. Add its permanent ID and link to the issue when allocated.
+[QR-07](quality-requirements/qr/QR-07.md), Interaction Capability / Operability; tracked by [#87](https://github.com/itpd-absolute-cinema/llm-module-gateway/issues/87).
 
 #### Acceptance criteria
 
@@ -185,7 +185,7 @@ The Interaction Capability quality requirement created in this task. Add its per
 
 #### Requirements
 
-The usability quality requirement defined above and [FR-010](functional-requirements/fr/FR-010.md).
+[QR-07](quality-requirements/qr/QR-07.md) and [FR-010](functional-requirements/fr/FR-010.md).
 
 #### Acceptance criteria
 

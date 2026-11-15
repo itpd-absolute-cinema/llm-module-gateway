@@ -4,10 +4,14 @@ Save responses in the private session sheet under the participant code.
 
 ## Pre-Test
 
-1. What kinds of services do you usually configure or troubleshoot?
-2. How often do you use a terminal to manage a service? Daily, weekly, less often, or never?
-3. Have you configured an API gateway, proxy, or plugin system before? Describe what you did in general terms.
-4. Have you used this Gateway before?
+1. Are you 18 or older? Are you outside this project team and not its customer, instructor, or course staff?
+2. Have you developed or maintained an application at work, in study, or in a personal project? Describe your role without naming an employer or project.
+3. Have you personally started and stopped a Docker container? Is your Docker use occasional or regular, and have you used Compose?
+4. Have you used this Gateway or rehearsed its setup instructions before? Have you configured another API gateway, proxy, or plugin system?
+5. How often do you use AI tools for development? What do you normally ask them to do?
+6. What would you expect to do to get a first response from an unfamiliar gateway?
+
+Confirm the answers match the [participant profile](README.md#participant-profile); record device and familiarity in the session sheet without personal identifiers.
 
 ## After Each Task
 
@@ -39,3 +43,4 @@ Score each complete response as `SUS = 2.5 × (20 + sum(odd) - sum(even))`, usin
 1. Where did you hesitate or get stuck? What did you expect to happen there?
 2. What told you that your change had taken effect? What would make you more confident?
 3. What would you change about this workflow before using it in your work?
+4. If you used search or AI, where did it help or mislead you? What did you still have to work out yourself?

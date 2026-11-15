@@ -1,6 +1,6 @@
 # UT-01 Participant Consent
 
-We are testing how people use the LLM Gateway to manage request filters. You will use a staging system with synthetic inputs and answer a few questions about the experience. Taking part is voluntary.
+We are testing how people set up the LLM Gateway and enable and disable a supplied request filter. You will use staging with synthetic inputs and answer questions about the experience. Documentation, web search, and the team's AI tool are available. Taking part and using these tools are voluntary.
 
 ## What You Agree To
 
@@ -16,9 +16,17 @@ Leave the quotes box blank to decline quotes. The session requires consent to re
 
 ## Tools and Access
 
-The study uses the Gateway CLI and a synthetic request client on staging, a local event log, written survey and observation sheets, and the recording tool listed below. The team and course instructors can access the private text repository and cloud recording folder. The team uses a participant code in study records and keeps the identity mapping in the private text repository. Any material shared with an AI tool is limited to sanitized notes.
+The study uses the Gateway CLI and a synthetic request client on staging, a local event log, survey and observation sheets, and the recording, search, and AI tools named below. The team and course instructors can access the private text repository and cloud recording folder. The team uses a participant code and keeps the identity mapping, consent, raw notes, survey responses, telemetry, and retained AI interactions in the private text repository. Recordings are kept in the team-owned cloud folder.
+
+During the tasks, AI inputs are limited to public project material, synthetic examples, and sanitized errors. Do not put test credentials, private addresses, or identifying details into search or AI tools. The team may later use AI to help analyze sanitized notes; it will not send raw notes or recordings to an AI tool.
+
+The facilitator fills these fields before consent is collected. The team clears each session's saved tool history from the workstation after transferring any required evidence to private storage, and deletes retained tool copies after grading.
 
 **Recording tool:** ____________________
+
+**Search and AI tools:** ____________________
+
+**Where these tools save copies and how the team deletes them:** ____________________
 
 ## Withdrawal and Deletion
 

@@ -88,9 +88,14 @@ Released as [v0.2.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/
 
 Released as [v0.3.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/releases/tag/v0.3.0) on 2026-11-08.
 
+<!-- markdownlint-disable MD033 -->
+<a id="sprint-07-local-deployment-and-documentation-provisional"></a>
+<a id="sprint-07--local-deployment-and-documentation-provisional"></a>
+<!-- markdownlint-enable MD033 -->
+
 ### SPRINT-07
 
-**Goal:** Prepare `UT-01` to test whether a DevOps engineer can add a plugin and verify its effect on an LLM request. Implement staging instrumentation, prepare the consent and data storage, and run a rehearsal with a teammate.
+**Goal:** Prepare `UT-01` to test whether a developer new to the gateway can set it up and get a first response, then enable and disable a supplied filter. Implement staging instrumentation, prepare the consent and data storage, and run a rehearsal with a teammate.
 
 **Due:** 2026-11-15
 
@@ -99,6 +104,11 @@ Released as [v0.3.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/
 **Planned Velocity:** 0 story points for the tasks listed in the [Sprint 07 planning draft](sprint-07-planning.md).
 
 #### REL-07
+
+<!-- markdownlint-disable MD033 -->
+<a id="sprint-08-end-to-end-verification-provisional"></a>
+<a id="sprint-08--end-to-end-verification-provisional"></a>
+<!-- markdownlint-enable MD033 -->
 
 ### SPRINT-08
 
@@ -147,3 +157,4 @@ See the [Sprint 08 task drafts](sprint-07-planning.md#sprint-08-task-drafts) for
 | [QR-02](quality-requirements/qr/QR-02.md) | [QRT-01](quality-requirements/qr/QR-02.md#qrt-01) | Not Run | SPRINT-06 | SPRINT-06 | (link to scripted test log) |
 | [QR-03](quality-requirements/qr/QR-03.md) | [QRT-01](quality-requirements/qr/QR-03.md#qrt-01) | Passes | SPRINT-05 | SPRINT-05 | [CI run](https://github.com/itpd-absolute-cinema/llm-module-gateway/actions/runs/41233035303/job/124630988065?pr=72) |
 | [QR-04](quality-requirements/qr/QR-04.md) | [QRT-01](quality-requirements/qr/QR-04.md#qrt-01) | Passes | SPRINT-05 | SPRINT-05 | [CI run](https://github.com/itpd-absolute-cinema/llm-module-gateway/actions/runs/41233035303/job/124630988065?pr=72) |
+| [QR-07](quality-requirements/qr/QR-07.md) | [QRT-01](quality-requirements/qr/QR-07.md#qrt-01) | Not verified | None | [SPRINT-08](#sprint-08) | None |

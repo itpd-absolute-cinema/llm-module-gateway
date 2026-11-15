@@ -146,3 +146,15 @@ Every failure prints a message to stderr and exits with code `1`; success exits 
 | `plugins delete` | `DELETE /admin/plugins/{name}` |
 
 All requests carry `Authorization: Bearer <JWT>`.
+
+## Usability study client
+
+`usability_gateway_cli.py` wraps this CLI for UT-01, recording gateway-call outcomes in a private local JSONL file and adding a synthetic `probe` command.
+Use it only with the staging setup in the [session guide](../../docs/usability-tests/ut-01/sessions/README.md).
+Plugin administration still requires authentication; the public chat probe can run without a token.
+
+Run the recorder's offline checks from the repository root:
+
+```sh
+python3 -m unittest discover -s code/cli/tests -v
+```

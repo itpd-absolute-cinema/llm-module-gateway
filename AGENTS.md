@@ -7,6 +7,7 @@ For course rules, start with [SKILL.md](https://github.com/inno-itpd/itpd/blob/m
 - `docs/`: project documentation. Put new project documents here.
 - `docs/architecture/`: diagrams and their source files.
 - `docs/research/`: alternatives, comparisons, gaps, and the value proposition.
+- `docs/usability-tests/`: usability test designs and sanitized results; raw participant data stays in the private usability-data repository.
 - `compose.yml`: the container setup for local use and VM deployments.
 - `reports/week-NN/`: weekly reports, meeting scripts, and transcripts.
 - `.github/ISSUE_TEMPLATE/`: issue forms.

@@ -12,7 +12,7 @@ from pathlib import Path
 from llm_gateway_cli import GatewayClient, main, print_result
 
 
-SYNTHETIC_INPUT = "Contact: +1 202-555-0100"
+SYNTHETIC_INPUT = "Call +1 202 555 0100"
 
 
 class StudyClient(GatewayClient):
@@ -44,7 +44,7 @@ class StudyClient(GatewayClient):
             if action == "probe":
                 content = response["choices"][0]["message"]["content"]
                 event["probe_effect"] = {
-                    "[stub] Contact: [PHONE]": "masked",
+                    "[stub] Call [PHONE]": "masked",
                     f"[stub] {SYNTHETIC_INPUT}": "unmasked",
                 }.get(content, "unexpected")
             event["outcome"] = "ok"
