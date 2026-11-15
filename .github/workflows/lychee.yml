@@ -20,9 +20,11 @@ jobs:
       - name: Check links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
+          # The usability-data repository requires GitHub authentication.
           args: >-
             --no-progress
             --max-concurrency 2
             --accept 200,206,429
+            --exclude '^https://github[.]com/itpd-absolute-cinema/llm-module-gateway-usability-data/?$'
             './**/*.md'
           fail: true
