@@ -1,6 +1,6 @@
 ## Previous action points
 
-Rows from [Week 6 action points](../week-06/meeting-report.md#action-points) due by Week 7.
+Rows from [Week 6 action points](../week-06/meeting-report.md#action-points) due by Week 7
 
 | Action (quoted) | Owner | Outcome | Artifact changed |
 | --- | --- | --- | --- |
