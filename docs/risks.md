@@ -83,6 +83,46 @@
 
 **Contingency:** Reassign available team capacity to the critical path and defer optional features that are not required by the agreed Threshold of Success.
 
+### RISK-06: Recruitment shortfall
+
+**Status:** Open
+**Impact:** High
+**Likelihood:** Medium
+**Trigger:** Fewer than the planned number of participants confirm attendance by the start of SPRINT-08.
+**Window:** SPRINT-08
+**Mitigation:** Recruit from two pools (team contacts and course channels); confirm attendance one week before each session; keep two replacement participants on standby.
+**Contingency:** Recruit replacements. When three participants still cannot be recruited, keep the QR/QRT row `Not verified` in SPRINT-08 or move it to SPRINT-09, declare the shortfall in the report, and claim no result.
+
+### RISK-07: Consent withdrawal or recording refusal
+
+**Status:** Open
+**Impact:** Medium
+**Likelihood:** Medium
+**Trigger:** A participant withdraws consent or refuses the recording before or during the session.
+**Window:** SPRINT-08
+**Mitigation:** Read the consent script before scheduling; state that withdrawal is possible at any time; keep the recording off until consent is confirmed.
+**Contingency:** Do not count the session. Remove the raw text and the recording, retire the participant code, and recruit a replacement under the next code.
+
+### RISK-08: Private data inaccessible to instructors
+
+**Status:** Open
+**Impact:** Medium
+**Likelihood:** Low
+**Trigger:** An instructor cannot access the private repository or folder that holds the usability evidence.
+**Window:** SPRINT-08
+**Mitigation:** Confirm access with the instructors before the first session; use a private repository the course already supports.
+**Contingency:** Create it with the team and the instructors. When an instructor cannot use GitHub, give the private text through a Moodle-only archive and declare the deviation.
+
+### RISK-09: Schedule overrun
+
+**Status:** Open
+**Impact:** High
+**Likelihood:** Medium
+**Trigger:** A usability test cannot finish within SPRINT-08, for example because sessions are rescheduled or analysis takes longer than planned.
+**Window:** SPRINT-08
+**Mitigation:** Schedule sessions in the first half of the sprint; timebox analysis; keep one buffer day before the deadline.
+**Contingency:** Move the QR/QRT row to SPRINT-09 with a reason, declare it in the report, and claim no result.
+
 ## Weekly Risk Review and Settling
 
 The team reviews this register every Friday.
