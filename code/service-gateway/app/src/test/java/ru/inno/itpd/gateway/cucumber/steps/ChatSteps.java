@@ -13,7 +13,7 @@ import ru.inno.itpd.gateway.api.dto.ChatCompletionResponse;
 import ru.inno.itpd.gateway.api.dto.ChatRequest;
 import ru.inno.itpd.gateway.core.exception.GatewayException;
 import ru.inno.itpd.gateway.api.dto.PluginDtos.PluginInfo;
-import ru.inno.itpd.gateway.core.client.PluginManagerClient;
+import ru.inno.itpd.gateway.core.client.pluginmanager.PluginManagerClient;
 import ru.inno.itpd.gateway.cucumber.client.ApiClient;
 
 import java.util.List;

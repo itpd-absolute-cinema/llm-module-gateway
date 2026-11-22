@@ -2,7 +2,6 @@ package ru.inno.itpd.gateway.core.security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,10 +15,14 @@ import tools.jackson.databind.json.JsonMapper;
 
 import java.io.IOException;
 
+/** 401 — нет/невалидный токен, 403 — токен валиден, но роли недостаточно. */
 @Component
-@RequiredArgsConstructor
 public class SecurityErrorHandler implements AuthenticationEntryPoint, AccessDeniedHandler {
     private final JsonMapper mapper;
+
+    public SecurityErrorHandler(JsonMapper mapper) {
+        this.mapper = mapper;
+    }
 
     @Override
     public void commence(HttpServletRequest req, HttpServletResponse res, AuthenticationException e)
@@ -31,7 +34,7 @@ public class SecurityErrorHandler implements AuthenticationEntryPoint, AccessDen
     @Override
     public void handle(HttpServletRequest req, HttpServletResponse res, AccessDeniedException e)
             throws IOException {
-        write(res, HttpStatus.FORBIDDEN, "forbidden", "The token does not grant access to plugin administration");
+        write(res, HttpStatus.FORBIDDEN, "forbidden", "The token does not grant access to this resource: role 'gateway-admin' is required");
     }
 
     private void write(HttpServletResponse res, HttpStatus status, String code, String message) throws IOException {

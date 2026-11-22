@@ -1,0 +1,102 @@
+{
+  "realm": "gateway",
+  "enabled": true,
+  "displayName": "Gateway",
+
+  "registrationAllowed": false,
+  "resetPasswordAllowed": false,
+  "rememberMe": true,
+  "verifyEmail": false,
+
+  "roles": {
+    "realm": [
+      { "name": "chat-user", "description": "Allows users to access chat functionality" },
+      { "name": "gateway-admin", "description": "Allows administrators to manage the Gateway" }
+    ]
+  },
+
+  "clients": [
+    {
+      "clientId": "gateway",
+      "name": "Gateway",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "clientAuthenticatorType": "client-secret",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "implicitFlowEnabled": false,
+      "serviceAccountsEnabled": false,
+      "authorizationServicesEnabled": false,
+      "redirectUris": ["*"],
+      "webOrigins": ["*"]
+    },
+    {
+      "clientId": "ac-gateway-admin",
+      "name": "AC-Gateway Admin Console",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "implicitFlowEnabled": false,
+      "serviceAccountsEnabled": false,
+      "redirectUris": [
+        "http://localhost:8092/*",
+        "http://localhost:5173/*"
+      ],
+      "webOrigins": [
+        "http://localhost:8092",
+        "http://localhost:5173"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:8092/*##http://localhost:5173/*"
+      }
+    },
+    {
+      "clientId": "gateway-admin-service",
+      "name": "Gateway admin service (Keycloak Admin API access)",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "${KEYCLOAK_ADMIN_CLIENT_SECRET}",
+      "standardFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "implicitFlowEnabled": false,
+      "serviceAccountsEnabled": true
+    }
+  ],
+
+  "users": [
+    {
+      "username": "test",
+      "enabled": true,
+      "email": "test@example.com",
+      "emailVerified": true,
+      "firstName": "Test",
+      "lastName": "User",
+      "credentials": [{ "type": "password", "value": "12345", "temporary": false }],
+      "realmRoles": ["chat-user"]
+    },
+    {
+      "username": "admin",
+      "enabled": true,
+      "email": "admin@example.com",
+      "emailVerified": true,
+      "firstName": "Gateway",
+      "lastName": "Admin",
+      "credentials": [{ "type": "password", "value": "admin", "temporary": false }],
+      "realmRoles": ["gateway-admin", "chat-user"]
+    },
+    {
+      "username": "service-account-gateway-admin-service",
+      "enabled": true,
+      "serviceAccountClientId": "gateway-admin-service",
+      "clientRoles": {
+        "realm-management": ["view-users", "query-users", "manage-users", "view-realm"]
+      }
+    }
+  ]
+}

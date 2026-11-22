@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,12 +24,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import ru.inno.itpd.gateway.api.dto.PluginDtos.ErrorResponse;
-import ru.inno.itpd.gateway.api.dto.PluginDtos.PluginInfo;
+import ru.inno.itpd.gateway.api.dto.PluginDtos.PluginView;
 import ru.inno.itpd.gateway.api.dto.PluginDtos.Settings;
 import ru.inno.itpd.gateway.api.dto.PluginDtos.Status;
 import ru.inno.itpd.gateway.core.service.PluginService;
 import ru.inno.itpd.gateway.api.dto.PluginType;
 import ru.inno.itpd.gateway.util.PluginUtils;
+import ru.inno.itpd.gateway.core.service.PluginMetadataService;
 import ru.inno.itpd.gateway.core.service.PythonValidationService;
 
 import java.io.IOException;
@@ -38,7 +38,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin/plugins")
-@RequiredArgsConstructor
 @Tag(name = "Plugin administration",
         description = "Manage plugins: upload, settings, enabling, ordering and deletion")
 @SecurityRequirement(name = "HTTPBearer")
@@ -54,18 +53,26 @@ import java.util.List;
         @ApiResponse(responseCode = "500", description = "Plugin storage operation failed.",
                 headers = @Header(name = "X-Request-ID", description = "Identifier for this request.", schema = @Schema(type = "string")),
                 content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(responseCode = "503", description = "Plugin administration is disabled because GATEWAY_ADMIN_API_KEY is unset.",
+        @ApiResponse(responseCode = "403", description = "The token is valid but lacks the gateway-admin role.",
                 headers = @Header(name = "X-Request-ID", description = "Identifier for this request.", schema = @Schema(type = "string")),
                 content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
 })
 public class PluginAdminController {
     private final PluginService service;
     private final PythonValidationService pythonValidator;
+    private final PluginMetadataService metadata;
+
+    public PluginAdminController(PluginService service, PythonValidationService pythonValidator,
+                                 PluginMetadataService metadata) {
+        this.service = service;
+        this.pythonValidator = pythonValidator;
+        this.metadata = metadata;
+    }
 
     @GetMapping
     @Operation(summary = "List Plugins", description = "Returns all plugins in chain order.")
     @ApiResponse(responseCode = "200", description = "Successful Response")
-    public List<PluginInfo> list() {
+    public List<PluginView> list() {
         return service.list();
     }
 
@@ -93,7 +100,7 @@ public class PluginAdminController {
                     headers = @Header(name = "X-Request-ID", description = "Identifier for this request.", schema = @Schema(type = "string")),
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
-    public PluginInfo upload(
+    public PluginView upload(
             @Parameter(description = "Plugin source file named <name>.py, up to 1 MiB") @RequestParam MultipartFile file,
             @Parameter(description = "Plugin type; cannot be changed after creation",
                     schema = @Schema(allowableValues = {"request_filter", "response_filter"}))
@@ -108,7 +115,8 @@ public class PluginAdminController {
         var parsedOptions = PluginUtils.parseOptions(options);
         byte[] source = file.getBytes();
         pythonValidator.validate(source);
-        return service.create(name, pluginType, parsedOptions, before, after, source);
+        var meta = metadata.extractStrict(source);
+        return service.create(name, pluginType, parsedOptions, before, after, source, meta);
     }
 
     @GetMapping("/{name}")
@@ -119,7 +127,7 @@ public class PluginAdminController {
                     headers = @Header(name = "X-Request-ID", description = "Identifier for this request.", schema = @Schema(type = "string")),
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
-    public PluginInfo get(@Parameter(description = "Plugin name") @PathVariable String name) {
+    public PluginView get(@Parameter(description = "Plugin name") @PathVariable String name) {
         return service.get(name);
     }
 
@@ -135,7 +143,7 @@ public class PluginAdminController {
                     headers = @Header(name = "X-Request-ID", description = "Identifier for this request.", schema = @Schema(type = "string")),
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
-    public PluginInfo update(@Parameter(description = "Plugin name") @PathVariable String name,
+    public PluginView update(@Parameter(description = "Plugin name") @PathVariable String name,
                              @RequestBody Settings body) {
         var options = PluginUtils.checkOptions(body.options());
         return service.updateSettings(name, options, body.before(), body.after());
@@ -150,7 +158,7 @@ public class PluginAdminController {
                     headers = @Header(name = "X-Request-ID", description = "Identifier for this request.", schema = @Schema(type = "string")),
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
-    public PluginInfo patch(@Parameter(description = "Plugin name") @PathVariable String name,
+    public PluginView patch(@Parameter(description = "Plugin name") @PathVariable String name,
                             @RequestBody Status body) {
         return service.setStatus(name, body.enabled(), body.before(), body.after());
     }

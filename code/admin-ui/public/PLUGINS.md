@@ -1,0 +1,295 @@
+# How to Create a Plugin
+
+A plugin is a single Python file that modifies an LLM request or response, can reject data, and can publish metrics.
+
+## 1. Plugin Types
+
+| Type | Base Class | Method | When It Runs |
+| --- | --- | --- | --- |
+| `request_filter` | `RequestFilter` | `apply(self, request: dict) -> dict` | Before the LLM call |
+| `response_filter` | `ResponseFilter` | `apply(self, response: dict, request: dict) -> dict` | After the LLM call |
+
+- **Request filter** modifies what is sent to the model: messages, model, and generation parameters.
+- **Response filter** modifies what the client receives: response text and other fields.
+- Plugins of the same type execute **sequentially**, in the order defined in the pipeline configuration. The output of one plugin becomes the input of the next.
+- The plugin type is selected during creation and must match the base class used in the code.
+
+## 2. Plugin Name and File
+
+- Plugin names may contain only Latin letters, digits, and `_`. They cannot start with a digit. Example: `mask_phone`.
+- The file must be named `<name>.py`. For example, the plugin `mask_phone` must be stored in `mask_phone.py`.
+- Plugin names must be unique across all plugins. A name cannot be changed after creation.
+- Maximum file size: 1 MiB. The file must contain valid Python code; otherwise, the upload will be rejected.
+
+## 3. File Structure
+
+1. Import the appropriate base class from `plugin_api`.
+2. Define **exactly one** concrete subclass of the required plugin type.
+3. Implement the `apply` method and return data in the same format.
+
+Minimal request filter:
+
+```python
+from plugin_api import RequestFilter
+
+
+class MyRequestPlugin(RequestFilter):
+    def apply(self, request: dict) -> dict:
+        return request
+```
+
+Minimal response filter:
+
+```python
+from plugin_api import ResponseFilter
+
+
+class MyResponsePlugin(ResponseFilter):
+    def apply(self, response: dict, request: dict) -> dict:
+        return response
+```
+
+You can modify data in place and return the same object. Plugins operate on a copy of the original data.
+
+## 4. Data Format
+
+### LLM Request
+
+A request filter receives and returns the following structure:
+
+```json
+{
+  "model": "gpt-x",
+  "messages": [{"role": "user", "content": "..."}],
+  "temperature": 0.7,
+  "top_p": 1.0,
+  "max_tokens": 100,
+  "max_completion_tokens": null,
+  "stop": null,
+  "stream": false
+}
+```
+
+- `model`: non-empty string.
+- `messages`: non-empty list. `role` must be `system`, `developer`, `user`, or `assistant`; `content` must be a string.
+- `temperature`: between 0 and 2.
+- `top_p`: between 0 and 1.
+- `max_tokens` and `max_completion_tokens`: positive numbers or `null`.
+- `stop`: a string, a list of strings, or `null`.
+- `stream`: `true` when the client requests a streaming response. **Do not modify this field.**
+- Optional fields may be absent. Access them using `request.get("field")`.
+- Preserve unknown fields.
+
+### LLM Response
+
+A response filter receives and returns the following structure:
+
+```json
+{
+  "id": "chatcmpl-1",
+  "object": "chat.completion",
+  "created": 1730000000,
+  "model": "gpt-x",
+  "choices": [
+    {
+      "index": 0,
+      "message": {"role": "assistant", "content": "..."},
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 10,
+    "completion_tokens": 5,
+    "total_tokens": 15
+  }
+}
+```
+
+A response filter also receives a second argument, `request`, containing the request sent to the LLM. This argument is **read-only**. Any modifications to it are ignored.
+
+The output of every plugin is validated against the expected format. If the output is invalid (for example, `messages` is empty or an unknown `role` is specified), the plugin is considered to have failed and is skipped.
+
+## 5. What Plugins Can Do
+
+### Request Filters
+
+**Modify messages** by masking sensitive data, adding messages, or removing existing ones:
+
+```python
+for msg in request["messages"]:
+    msg["content"] = msg["content"].replace("secret", "[REDACTED]")
+
+request["messages"].insert(
+    0,
+    {"role": "system", "content": "Always respond in English."}
+)
+```
+
+**Change the model** to route a request to another model. Billing is based on the final model used:
+
+```python
+if sum(len(m["content"]) for m in request["messages"]) > 4000:
+    request["model"] = "gpt-x-long"
+```
+
+**Modify generation parameters**, including `temperature`, `top_p`, `max_tokens`, `max_completion_tokens`, and `stop`:
+
+```python
+request["max_tokens"] = min(request.get("max_tokens") or 1000, 1000)
+```
+
+### Response Filters
+
+Modify the response text and other fields.
+
+`choices`, `message`, and `content` may be missing or `null`. Always check them before accessing:
+
+```python
+for choice in response.get("choices") or []:
+    message = choice.get("message")
+    if message and message.get("content"):
+        message["content"] += "\n\nThis response was generated by AI."
+```
+
+- Modifying `usage` does not affect token accounting. The system uses the values returned by the model.
+- **Response filters are not executed for streaming requests** (`stream: true`).
+
+## 6. Plugin Settings (`options`)
+
+Plugin settings are provided as a JSON object and can be accessed through `self.options`:
+
+```json
+{"mask": "***", "timeout_seconds": 2}
+```
+
+Always specify default values in your code because settings may be missing:
+
+```python
+mask = self.options.get("mask", "[PHONE]")
+```
+
+- `null` values are not allowed in plugin settings. Simply omit the key if it is not needed.
+- The key **`timeout_seconds`** is reserved (see Section 8). It is not available through `self.options` and must not be used for custom plugin settings.
+
+### Optional Description and Settings Form
+
+To display a description in the interface and generate a settings form, declare two **literal class attributes**:
+
+```python
+class MaskPhone(RequestFilter):
+    description = "Masks phone numbers in messages"
+    options_schema = {
+        "type": "object",
+        "properties": {
+            "mask": {"type": "string", "default": "[PHONE]"},
+            "timeout_seconds": {"type": "number", "minimum": 0.1, "default": 5},
+        },
+    }
+```
+
+- If `description` is not provided, the first line of the class docstring is used.
+- `options_schema` must be a JSON Schema dictionary literal that can be serialized to JSON. Otherwise, the file will be rejected.
+
+## 7. How to Reject Data
+
+Use `InvalidData` or `Forbidden` to reject a request:
+
+```python
+from plugin_api import InvalidData, Forbidden
+
+raise InvalidData("Message is too long")  # Client receives HTTP 400
+raise Forbidden("This model is not allowed")  # Client receives HTTP 403
+```
+
+- The plugin pipeline stops, and subsequent plugins are not executed.
+- The client receives the error message with the plugin name as a prefix.
+- If a response filter rejects a response, the client receives an error instead of the response. However, the model tokens have already been consumed and are still counted.
+- Use `InvalidData` / `Forbidden` only when you explicitly intend to reject the request.
+- **Any other exception** indicates a plugin failure. The plugin is skipped, and the data continues through the pipeline without that plugin's modifications.
+
+## 8. Failures and Execution Time Limits
+
+| What Happened | Result |
+| --- | --- |
+| `apply` returned valid data | Data is passed to the next plugin |
+| `InvalidData` / `Forbidden` was raised | Pipeline stops; client receives HTTP 400 / 403 |
+| Any other exception, import error, or invalid result | Plugin is **skipped** and the error is logged |
+| Plugin exceeded its execution time limit | Plugin is **skipped** and its process is **forcefully terminated** |
+
+### Execution Time Limit
+
+By default, a plugin is allowed a few seconds to execute (5 seconds unless changed by an administrator).
+
+The limit can be configured individually for each plugin using the `timeout_seconds` setting. The value must be greater than 0 and no more than 600:
+
+```json
+{"timeout_seconds": 20}
+```
+
+Important details:
+
+- The limit covers **the entire plugin execution time**, including file loading, importing dependencies (on the first call), executing `apply`, and transferring data.
+- Avoid importing heavy libraries unless necessary, or increase the timeout.
+- A plugin that hangs due to an infinite loop, catastrophic regular expression, or blocked network call will not block the service. Its process is terminated, and the plugin is skipped.
+- Skipping a plugin means bypassing it: data continues through the pipeline **without** that plugin. If a masking or moderation plugin exceeds its time limit, data proceeds without being masked or checked. Keep these plugins fast and configure reasonable timeouts.
+- An invalid `timeout_seconds` value (negative, non-numeric, or greater than 600) is logged, and the default timeout is applied.
+
+## 9. Metrics
+
+Plugins can publish custom metrics, which are available in Prometheus and Grafana.
+
+### Declare Metrics
+
+Define a `metrics_spec` dictionary literal in the plugin class. Any metric that is not declared will be discarded.
+
+```python
+class BookCounter(RequestFilter):
+    metrics_spec = {
+        "book_requests": {
+            "type": "counter",
+            "help": "Requests containing the word 'book'"
+        },
+        "answer_chars": {
+            "type": "histogram",
+            "help": "Response length",
+            "buckets": [100, 500, 2000, 8000]
+        },
+        "masked": {
+            "type": "counter",
+            "labels": {"kind": ["phone", "card", "ip"]}
+        },
+    }
+```
+
+| Key | Description |
+| --- | --- |
+| `type` | `counter`: monotonically increasing value (events, counts); `gauge`: current value; `histogram`: distribution (sizes, durations) |
+| `help` | Metric description (optional) |
+| `labels` | Optional: `{label_name: [allowed_values]}`, up to 4 labels with up to 20 values each |
+| `buckets` | Histograms only: strictly increasing positive numbers, up to 20 entries |
+
+Metric names must match `[a-z][a-z0-9_]*` and contain no more than 60 characters.
+
+Names must not end with `_total`, `_count`, `_sum`, `_bucket`, `_created`, or `_info`. The following names are also reserved: `calls`, `duration_seconds`, and `worker_restarts`.
+
+Label names cannot be `plugin`, `le`, `quantile`, `name`, or `value`.
+
+### Record Metric Values
+
+The `self.metrics` object is available inside `apply`:
+
+```python
+self.metrics.inc("book_requests")              # Counter += 1
+self.metrics.inc("masked", 3, kind="phone")    # Counter += 3 with a label
+self.metrics.set("queue_size", 12)             # Gauge = 12
+self.metrics.observe("answer_chars", 840)      # Histogram observation
+```
+
+Recording metrics never raises exceptions. Errors in metric recording do not break the plugin and are logged instead.
+
+### Prometheus Output
+
+- Metric names are prefixed with `llm_plugin_`. Counters also receive the `_total` suffix. For example, `book_requests` becomes `llm_plugin_book_requests_total`.
+- Every metric automatically receives a `plugin="<plugin_name>"` label. You do not need to declare it in `labels`.
+- Label values that are not included in the declared list are recorded as `other`.
+- Do not use user IDs, request IDs, or arbitrary text as

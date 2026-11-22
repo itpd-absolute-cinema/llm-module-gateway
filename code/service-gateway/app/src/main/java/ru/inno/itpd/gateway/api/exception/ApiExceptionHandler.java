@@ -3,7 +3,10 @@ package ru.inno.itpd.gateway.api.exception;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +29,8 @@ import java.util.stream.Collectors;
  * Only the path is logged, never the query string: it can carry plugin settings.
  */
 @RestControllerAdvice
-@Slf4j
 public class ApiExceptionHandler {
+    private static final Logger log = LoggerFactory.getLogger(ApiExceptionHandler.class);
 
     @ExceptionHandler(GatewayException.class)
     ResponseEntity<ErrorResponse> gateway(GatewayException e, HttpServletRequest request) {
@@ -39,6 +42,7 @@ public class ApiExceptionHandler {
         }
 
         return ResponseEntity.status(e.status())
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(ErrorResponse.of(e.code(), e.getMessage()));
     }
 
@@ -91,6 +95,19 @@ public class ApiExceptionHandler {
         );
     }
 
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    ResponseEntity<ErrorResponse> typeMismatch(
+            MethodArgumentTypeMismatchException e,
+            HttpServletRequest request
+    ) {
+        return badRequest(
+                request,
+                "Invalid value for parameter '%s'".formatted(e.getName()),
+                "invalid_parameter",
+                e.getName()
+        );
+    }
+
     @ExceptionHandler(MissingServletRequestPartException.class)
     ResponseEntity<ErrorResponse> missingPart(
             MissingServletRequestPartException e,
@@ -127,6 +144,7 @@ public class ApiExceptionHandler {
         log.error("{} {} -> 500 internal_error", request.getMethod(), request.getRequestURI(), e);
 
         return ResponseEntity.internalServerError()
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(ErrorResponse.of(
                         "internal_error",
                         "An unexpected internal error occurred while processing the request"
@@ -160,7 +178,8 @@ public class ApiExceptionHandler {
         }
 
         return ResponseEntity.status(status)
-                .headers(mvcError.getHeaders())   // for example Allow on 405, Accept on 415
+                .headers(mvcError.getHeaders())
+                .contentType(MediaType.APPLICATION_JSON)   // for example Allow on 405, Accept on 415
                 .body(ErrorResponse.of(code, message));
     }
 
@@ -173,6 +192,7 @@ public class ApiExceptionHandler {
         logClientError(request, HttpStatus.BAD_REQUEST.value(), type, message);
 
         return ResponseEntity.badRequest()
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(new ErrorResponse(
                         new PluginDtos.ErrorDetail(message, type, param, "malformed_request")
                 ));

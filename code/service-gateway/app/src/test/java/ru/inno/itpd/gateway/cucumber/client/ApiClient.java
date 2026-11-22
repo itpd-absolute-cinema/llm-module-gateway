@@ -45,6 +45,18 @@ public class ApiClient {
         send(HttpMethod.POST, "/admin/plugins", MediaType.MULTIPART_FORM_DATA, parts);
     }
 
+    /** Request with extra headers (for example Origin for CORS preflight checks). */
+    public void request(HttpMethod method, String path, Map<String, String> headers) {
+        RestClient.RequestBodySpec spec = client().method(method).uri(path);
+        if (token != null) spec = spec.header(HttpHeaders.AUTHORIZATION, "Bearer " + token);
+        for (var h : headers.entrySet()) spec = spec.header(h.getKey(), h.getValue());
+        last = spec.retrieve().onStatus(_ -> true, (_, _) -> { }).toEntity(String.class);
+    }
+
+    public String body() {
+        return last.getBody() == null ? "" : last.getBody();
+    }
+
     public int status() {
         return last.getStatusCode().value();
     }

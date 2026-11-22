@@ -105,8 +105,18 @@ Feature: Chat completions
       | body                                                                                         |
       | {"messages": [{"role": "user", "content": "Hi"}]}                                            |
       | {"model": "gpt-test", "messages": []}                                                        |
-      | {"model": "gpt-test", "messages": [{"role": "user", "content": "Hi"}], "stream": true}       |
       | {"model": "gpt-test", "messages": [{"role": "user", "content": "Hi"}], "temperature": 2.5}   |
       | {"model": "gpt-test", "messages": [{"role": "user", "content": "Hi"}], "top_p": -0.1}        |
       | {"model": "gpt-test", "messages": [{"role": "user", "content": "Hi"}], "max_tokens": 0}      |
       | not a json                                                                                   |
+
+  Scenario: Chat requires a valid token
+    Given I am not authenticated
+    When I ask the model "gpt-test" the question "Hello"
+    Then the response status is 401
+    And the error code is "unauthorized"
+
+  Scenario: Chat does not require the admin role
+    Given I am authenticated as a user without the admin role
+    When I ask the model "gpt-test" the question "Hello"
+    Then the response status is 200

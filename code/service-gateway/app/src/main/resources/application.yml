@@ -4,8 +4,29 @@ gateway:
   plugin-manager-timeout: 120s
   llm:
     provider: ${LLM_PROVIDER:stub}
+    base-url: ${LLM_URL}
+  admin:
+    # origin веб-админки для CORS на /admin/**, через запятую; пусто = CORS выключен
+    cors-origins: ${ADMIN_ORIGIN:}
+  keycloak:
+    # Admin REST через service account шлюза; без них /admin/users недоступен (503)
+    base-url: ${KEYCLOAK_BASE_URL:}
+    realm: ${KEYCLOAK_REALM:gateway}
+    admin-client-id: ${KEYCLOAK_ADMIN_CLIENT_ID:}
+    admin-client-secret: ${KEYCLOAK_ADMIN_CLIENT_SECRET:}
+    sync-enabled: ${KEYCLOAK_SYNC_ENABLED:true}
+  models:
+    cache-ttl: ${MODELS_CACHE_TTL:30s}
+  streaming:
+    reject-with-response-filters: ${STREAM_REJECT_WITH_RESPONSE_FILTERS:true}
+    timeout: ${STREAM_TIMEOUT:10m}
+  billing:
+    default-currency: ${BILLING_DEFAULT_CURRENCY:USD}
 
 spring:
+  threads:
+    virtual:
+      enabled: true   # SSE-стрим блокирует поток запроса на всё время генерации
   mongodb:
     uri: ${MONGODB_URI:mongodb://localhost:27017/gateway}
   servlet:
@@ -25,7 +46,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: openapi, swagger-ui
+        include: openapi, swagger-ui, prometheus
 
 springdoc:
   use-management-port: true
