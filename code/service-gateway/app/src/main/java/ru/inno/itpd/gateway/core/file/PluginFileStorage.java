@@ -1,6 +1,5 @@
 package ru.inno.itpd.gateway.core.file;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import ru.inno.itpd.gateway.config.properties.GatewayProperties;
@@ -12,9 +11,22 @@ import java.nio.file.Path;
 
 /** Имя плагина уже проверено по regexp, поэтому path traversal невозможен. */
 @Component
-@RequiredArgsConstructor
 public class PluginFileStorage {
     private final GatewayProperties props;
+
+    public PluginFileStorage(GatewayProperties props) {
+        this.props = props;
+    }
+
+    /** Исходник плагина или null, если файла нет. */
+    public byte[] read(String name) {
+        try {
+            Path f = file(name);
+            return Files.exists(f) ? Files.readAllBytes(f) : null;
+        } catch (IOException e) {
+            throw storageFailed();
+        }
+    }
 
     public void save(String name, byte[] source) {
         try {

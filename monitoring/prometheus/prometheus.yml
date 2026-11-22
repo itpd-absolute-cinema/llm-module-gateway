@@ -1,0 +1,16 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Plugin Manager отдаёт встроенные метрики плагинов и метрики, которые плагины объявляют сами
+  - job_name: plugin-manager
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["plugin-manager:8000"]
+
+  # Сам шлюз: JVM, HTTP-сервер (management-порт). Нужна зависимость micrometer-registry-prometheus
+  - job_name: gateway
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ["gateway:9090"]

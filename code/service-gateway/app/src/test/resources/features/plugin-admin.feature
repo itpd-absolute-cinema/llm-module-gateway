@@ -309,7 +309,8 @@ Feature: Plugin administration API
       | GET    | /admin/plugins/any |
       | DELETE | /admin/plugins/any |
 
-  Scenario: Non-admin endpoints do not require a token
+  Scenario: The chat endpoint is not public any more
     Given I am not authenticated
     When I ask the model "gpt-test" the question "Hello"
-    Then the response status is 200
+    Then the response status is 401
+    And the error code is "unauthorized"

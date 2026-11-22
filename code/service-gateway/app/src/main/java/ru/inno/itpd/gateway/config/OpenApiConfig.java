@@ -13,7 +13,7 @@ public class OpenApiConfig {
     @Bean
     OpenAPI gatewayOpenApi() {
         return new OpenAPI()
-                .info(new Info().title("LLM Gateway (by Absolute Cinema)").version("0.0.2"))
+                .info(new Info().title("LLM Gateway (by Absolute Cinema)").version("0.4.0"))
                 .components(new Components().addSecuritySchemes("HTTPBearer",
                         new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")));
     }

@@ -8,7 +8,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import ru.inno.itpd.gateway.core.client.PluginManagerClient;
+import ru.inno.itpd.gateway.core.client.keycloak.KeycloakAdminClient;
+import ru.inno.itpd.gateway.core.client.pluginmanager.PluginManagerClient;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -19,7 +20,8 @@ import java.nio.file.Path;
 
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = {
-        "gateway.llm.provider=stub"
+        "gateway.llm.provider=stub",
+        "gateway.admin.cors-origins=http://admin.test"
 })
 @Import(TestSecurityConfiguration.class)
 public class CucumberSpringConfig {
@@ -40,6 +42,12 @@ public class CucumberSpringConfig {
      */
     @MockitoBean
     PluginManagerClient pluginManager;
+
+    /**
+     * Keycloak is an external service too: its Admin REST client is replaced with a mock.
+     */
+    @MockitoBean
+    KeycloakAdminClient keycloak;
 
     private static Path createTempDir() {
         try {

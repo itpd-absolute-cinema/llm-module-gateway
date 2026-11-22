@@ -7,17 +7,18 @@ services:
 
   plugin-manager:
     # image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/plugin-manager:${IMAGE_TAG:-local}
-    image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/plugin-manager:sha-58719e1
     build: ./code/plugin-manager
     restart: unless-stopped
     environment:
       PLUGINS_DIR: /data/plugins
+      PLUGIN_TIMEOUT_SECONDS: ${PLUGIN_TIMEOUT_SECONDS:-5}   # лимит времени плагина по умолчанию; для одного плагина — options.timeout_seconds
+      PLUGIN_WORKERS: ${PLUGIN_WORKERS:-4}                   # сколько вызовов плагинов выполняется одновременно
+    
     volumes:
       - plugins:/data/plugins:ro
 
   gateway:
     # image: ghcr.io/itpd-absolute-cinema/llm-module-gateway/service-gateway:${IMAGE_TAG:-local}
-    image: itpd/llm-gateway:latest
     build: ./code/service-gateway/app
     restart: unless-stopped
     depends_on:
@@ -26,30 +27,92 @@ services:
       - keycloak
     ports:
       - "${GATEWAY_PORT:?set GATEWAY_PORT}:8080"
+      - "9090:9090"
     environment:
       GATEWAY_PLUGINS_DIR: /data/plugins
       MONGODB_URI: mongodb://mongo:27017/gateway
       PLUGIN_MANAGER_URL: http://plugin-manager:8000
       LLM_PROVIDER: ${LLM_PROVIDER:-stub}
+      LLM_URL: ${LLM_URL}
       LOGGING_LEVEL_RU_INNO_ITPD_GATEWAY: INFO
       KEYCLOAK_ISSUER_URI: http://localhost:8091/realms/gateway
       KEYCLOAK_JWK_SET_URI: http://keycloak:8080/realms/gateway/protocol/openid-connect/certs
+      MODELS_CACHE_TTL: 30s
+      STREAM_REJECT_WITH_RESPONSE_FILTERS: "true"
+      BILLING_DEFAULT_CURRENCY: USD
+      KEYCLOAK_BASE_URL: http://keycloak:8080
+      KEYCLOAK_ADMIN_CLIENT_ID: gateway-admin-service
+      KEYCLOAK_ADMIN_CLIENT_SECRET: ${KEYCLOAK_ADMIN_CLIENT_SECRET:-dev-secret-change-me}
     volumes:
       - plugins:/data/plugins
+    networks:
+      - default
 
   keycloak:
-    image: quay.io/keycloak/keycloak:26.4      
-    command: start-dev
+    image: quay.io/keycloak/keycloak:26.4
+    command: start-dev --import-realm
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
-      KC_HOSTNAME: http://localhost:8091      
+      KC_HOSTNAME: http://localhost:8091
+      KEYCLOAK_ADMIN_CLIENT_SECRET: ${KEYCLOAK_ADMIN_CLIENT_SECRET:-dev-secret-change-me}
     ports:
       - "8091:8080"
     volumes:
-      - keycloak-data:/opt/keycloak/data      
+      - keycloak-data:/opt/keycloak/data
+      - ./keycloak/import:/opt/keycloak/data/import:ro
+
+  admin-ui:
+    build:
+      context: ./code/admin-ui
+      args:
+        VITE_KEYCLOAK_URL: http://localhost:8091
+        VITE_KEYCLOAK_REALM: gateway
+        VITE_KEYCLOAK_CLIENT: ac-gateway-admin
+        # VITE_GRAFANA_URL: "http://grafana.example.com/d/llm-gateway-plugins/llm-gateway-c2b7-plugins?from=now-6h&to=now&timezone=browser&var-plugin=$$__all&refresh=30s"  # $$ is compose escaping for $
+    restart: unless-stopped
+    depends_on:
+      - gateway
+    ports:
+      - "${ADMIN_UI_PORT:-8092}:80"
+  
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=${PROMETHEUS_RETENTION:-30d}
+    depends_on:
+      - plugin-manager
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+
+  grafana:
+    image: grafana/grafana:11.3.0
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    ports:
+      - "${GRAFANA_PORT:-3000}:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+
 
 volumes:
   mongo-data:
   plugins:
   keycloak-data:
+  prometheus-data:
+  grafana-data:
+
+networks:
+  default:
+

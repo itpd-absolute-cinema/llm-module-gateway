@@ -21,6 +21,11 @@ public class CommonSteps {
         api.authenticate(TestSecurityConfiguration.USER_TOKEN);
     }
 
+    @Given("I am authenticated as another user without the admin role")
+    public void authenticatedAsOtherUser() {
+        api.authenticate(TestSecurityConfiguration.OTHER_USER_TOKEN);
+    }
+
     @Given("I am not authenticated")
     public void notAuthenticated() {
         api.authenticate(null);
@@ -54,5 +59,45 @@ public class CommonSteps {
     @Then("the response field {string} is {string}")
     public void fieldIs(String jsonPath, String expected) {
         assertThat(String.valueOf(api.<Object>field(jsonPath))).isEqualTo(expected);
+    }
+
+    @Then("the response field {string} is not null")
+    public void fieldNotNull(String jsonPath) {
+        assertThat(api.<Object>field(jsonPath)).isNotNull();
+    }
+
+    @Then("the response has no field {string}")
+    public void noField(String jsonPath) {
+        try {
+            Object value = api.<Object>field(jsonPath);
+            assertThat(value).as("field %s", jsonPath).isNull();
+        } catch (com.jayway.jsonpath.PathNotFoundException expected) {
+            // the field is absent, which is what we want
+        }
+    }
+
+    @Then("the response field {string} is greater than {int}")
+    public void fieldGreaterThan(String jsonPath, int min) {
+        assertThat(api.<Number>field(jsonPath).doubleValue()).isGreaterThan(min);
+    }
+
+    @Then("the response field {string} is approximately {double}")
+    public void fieldApproximately(String jsonPath, double expected) {
+        assertThat(api.<Number>field(jsonPath).doubleValue()).isCloseTo(expected, org.assertj.core.data.Offset.offset(1e-4));
+    }
+
+    @Then("the response header {string} starts with {string}")
+    public void headerStartsWith(String name, String prefix) {
+        assertThat(api.header(name)).startsWith(prefix);
+    }
+
+    @Then("the response body contains {string}")
+    public void bodyContains(String text) {
+        assertThat(api.body()).contains(text);
+    }
+
+    @Then("the response body does not contain {string}")
+    public void bodyDoesNotContain(String text) {
+        assertThat(api.body()).doesNotContain(text);
     }
 }

@@ -26,11 +26,27 @@ Plugin files are automatically reloaded when modified (no restart required). Plu
 | Plugin raises `InvalidData` | The chain is interrupted, response is **400** |
 | Plugin raises `Forbidden` | The chain is interrupted, response is **403** |
 | File is missing, code/import error, any other exception, invalid result, or incorrect plugin type | Plugin is **skipped** (an error is logged), and the data continues unchanged |
+| Plugin runs longer than its time limit (`PLUGIN_TIMEOUT_SECONDS`, or `options.timeout_seconds` for that plugin) | Plugin is **skipped**, its worker process is **killed** and replaced |
+| No free worker process within `PLUGIN_QUEUE_TIMEOUT_SECONDS` | Plugin is **skipped** |
 | Invalid request body | **422** (treated as an "other error" by the Gateway, resulting in 502) |
 
 All errors are returned using the `ErrorResponse` format defined in OpenAPI.
 
 Each plugin receives a **copy** of the data, so a failed plugin cannot partially corrupt the original data.
+
+### Time Limits
+
+Plugins run in a pool of separate worker processes, so a hung plugin (an endless loop, a catastrophic regular expression, a stuck network call) cannot block the service: when it exceeds the limit, its process is killed and the plugin is skipped. The default limit is `PLUGIN_TIMEOUT_SECONDS`; it can be overridden for one plugin with the reserved option `timeout_seconds` in the plugin's settings in the gateway:
+
+```json
+{"name": "heavy_plugin", "type": "request_filter", "enabled": true, "options": {"timeout_seconds": 20}}
+```
+
+Skipping is fail-open: the data continues without the plugin. See [PLUGINS.md](PLUGINS.md#failures-and-time-limits).
+
+## Metrics
+
+`GET /metrics` returns metrics in Prometheus format: built-in metrics for every plugin (`llm_plugin_calls_total`, `llm_plugin_duration_seconds`, `llm_plugin_worker_restarts_total`) and the metrics that plugins declare themselves (`self.metrics.inc(...)`, see [PLUGINS.md](PLUGINS.md#metrics)). Prometheus scrapes the service directly; the endpoint must not be published outside the internal network.
 
 ## Running the Service
 
@@ -40,6 +56,9 @@ Environment variables:
 | --- | --- | --- |
 | `PLUGINS_DIR` | `/data/plugins` | Directory containing plugins (shared volume) |
 | `LOG_LEVEL` | `INFO` | Logging level |
+| `PLUGIN_TIMEOUT_SECONDS` | `5` | Default time limit of one plugin call; override per plugin with `options.timeout_seconds` |
+| `PLUGIN_WORKERS` | `4` | Number of worker processes (plugin calls that can run at the same time) |
+| `PLUGIN_QUEUE_TIMEOUT_SECONDS` | `5` | How long a call waits for a free worker before the plugin is skipped |
 
 **Docker:**
 
@@ -65,17 +84,22 @@ pip install -r requirements.txt
 PYTHONPATH=. PLUGINS_DIR=./examples uvicorn app.main:app --port 8000
 ```
 
+Tests: `pip install -r requirements-dev.txt && PYTHONPATH=. python -m unittest discover -s tests -t .`
+
 The service listens on port `8000`.
 
 - Health check: `GET /health`
+- Prometheus metrics: `GET /metrics`
 - Interactive API documentation: `/docs`
 
 ## Project Structure
 
 ```text
-plugin_api.py     Plugin interface (RequestFilter, ResponseFilter, InvalidData, Forbidden)
+plugin_api.py     Plugin interface (RequestFilter, ResponseFilter, Metrics, InvalidData, Forbidden)
 app/main.py       Endpoints and plugin chain execution logic
-app/loader.py     Plugin loading from PLUGINS_DIR
+app/sandbox.py    Worker process pool with a hard time limit
+app/metrics.py    Prometheus metrics: built-in and plugin-declared
+app/loader.py     Plugin loading from PLUGINS_DIR; metric declarations (read without running the code)
 app/schemas.py    Data models based on OpenAPI
 examples/         Example plugins
 PLUGINS.md        Guide to writing plugins
@@ -83,8 +107,10 @@ PLUGINS.md        Guide to writing plugins
 
 ## Important Notes
 
-- Plugins are **executable code** running inside the service process. Only place trusted code in the shared volume. The volume is mounted read-only, and the service runs as user `uid 10001`. Plugin files must therefore be readable by all users.
-- Plugins have access to the Python standard library and packages installed in the image (currently `fastapi`, `uvicorn`, and `pydantic`). To use additional dependencies, add them to `requirements.txt` and rebuild the image.
-- There is no execution timeout for plugins. They must be fast and must not perform blocking network calls.
-- All plugins within a single request are executed sequentially. Requests are processed concurrently (using a thread pool). Therefore, plugins must not maintain mutable state between calls unless proper locking is implemented.
-- A new plugin instance is created for every call.
+- Plugins are **executable code**. They run in worker processes of the service with the same privileges, so only place trusted code in the shared volume. The volume is mounted read-only, and the service runs as user `uid 10001`. Plugin files must therefore be readable by all users.
+- Plugins have access to the Python standard library and packages installed in the image (currently `fastapi`, `uvicorn`, `pydantic` and `prometheus-client`). To use additional dependencies, add them to `requirements.txt` and rebuild the image.
+- Plugins have a time limit (see above) but no memory limit. Limit the container's memory in compose if plugins process large data.
+- All plugins within a single request are executed sequentially. Requests are processed concurrently, up to `PLUGIN_WORKERS` plugin calls at a time. Plugins must not keep state between calls: a new plugin instance is created for every call, and module-level state is per worker process.
+- The worst case for one request is the sum of the time limits of its plugins; the gateway's timeout for calling the Plugin Manager must be larger.
+- Run **one** uvicorn worker per instance (the default `CMD`): metrics live in the service process. To scale, run more containers; Prometheus will scrape each of them.
+- The service accepts `stream: true` in the request (the gateway sends it for streaming requests); response filters are not called for streams.

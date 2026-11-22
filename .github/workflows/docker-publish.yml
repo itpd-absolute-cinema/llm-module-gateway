@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - week5-artem
 
   workflow_dispatch:
 
@@ -31,6 +30,10 @@ jobs:
           - name: plugin-manager
             dockerfile: code/plugin-manager/Dockerfile
             context: code/plugin-manager
+
+          - name: admin-ui
+            dockerfile: code/admin-ui/Dockerfile
+            context: code/admin-ui
 
     steps:
       - name: Checkout repository

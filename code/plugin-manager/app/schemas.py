@@ -16,7 +16,7 @@ class ChatRequest(BaseModel):
     model_config = Loose
     model: str = Field(min_length=1)
     messages: list[Message] = Field(min_length=1)
-    stream: Literal[False] = False
+    stream: bool = False  # шлюз передаёт stream=true; плагины запроса работают и со стримом
     temperature: float | None = Field(None, ge=0, le=2)
     top_p: float | None = Field(None, ge=0, le=1)
     max_tokens: int | None = Field(None, gt=0)
