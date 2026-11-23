@@ -1,29 +1,21 @@
 # UT-01 Surveys
 
-Save responses in the private session sheet under the participant code.
+## Pre-test
 
-## Pre-Test
+1. What is your role, and what do you do day to day?
+2. Have you used a gateway, proxy, or plugin system before? Which one?
+3. Have you used a web UI to manage plugins or middleware before?
+4. What device are you using for this session?
 
-1. Are you 18 or older? Are you outside this project team and not its customer, instructor, or course staff?
-2. Have you developed or maintained an application at work, in study, or in a personal project? Describe your role without naming an employer or project.
-3. Have you personally started and stopped a Docker container? Is your Docker use occasional or regular, and have you used Compose?
-4. Have you used this Gateway or rehearsed its setup instructions before? Have you configured another API gateway, proxy, or plugin system?
-5. How often do you use AI tools for development? What do you normally ask them to do?
-6. What would you expect to do to get a first response from an unfamiliar gateway?
+## SEQ — after each task
 
-Confirm the answers match the [participant profile](README.md#participant-profile); record device and familiarity in the session sheet without personal identifiers.
+**Overall, how difficult or easy was the task to complete?**
 
-## After Each Task
+1 = very difficult, 7 = very easy.
 
-Overall, how difficult or easy was the task to complete?
+## SUS — after all tasks
 
-Use a seven-point scale from 1 (very difficult) to 7 (very easy). Ask after every task, including a task that ended at its time limit.
-
-## After All Tasks
-
-### System Usability Scale
-
-Use the same scale for all ten items. The anchors are 1 (strongly disagree) and 5 (strongly agree).
+Answer each item from strongly disagree (1) to strongly agree (5).
 
 1. I think that I would like to use this system frequently.
 2. I found the system unnecessarily complex.
@@ -36,11 +28,9 @@ Use the same scale for all ten items. The anchors are 1 (strongly disagree) and 
 9. I felt very confident using the system.
 10. I needed to learn a lot of things before I could get going with this system.
 
-Score each complete response as `SUS = 2.5 × (20 + sum(odd) - sum(even))`, using the recorded ratings for odd- and even-numbered items. Save the ten raw ratings and their computed score separately.
+**Score:** `SUS = 2.5 × (20 + sum(odd) - sum(even))`, computed from the responses as recorded; the even items are not reverse-coded before the formula.
 
-### Open-Ended Post-Test
+## Open-ended post-test
 
-1. Where did you hesitate or get stuck? What did you expect to happen there?
-2. What told you that your change had taken effect? What would make you more confident?
-3. What would you change about this workflow before using it in your work?
-4. If you used search or AI, where did it help or mislead you? What did you still have to work out yourself?
+1. What was the hardest part of the session?
+2. What would you change first?
