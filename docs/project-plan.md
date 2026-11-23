@@ -106,6 +106,7 @@ Released as [v0.3.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/
 #### REL-07
 
 <!-- markdownlint-disable MD033 -->
+<a id="sprint-08"></a>
 <a id="sprint-08-end-to-end-verification-provisional"></a>
 <a id="sprint-08--end-to-end-verification-provisional"></a>
 <!-- markdownlint-enable MD033 -->

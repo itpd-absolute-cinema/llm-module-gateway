@@ -135,7 +135,7 @@ The set of files, settings, and secrets that determine how the product is built,
 The practice of keeping the configuration accurate and current, in the same pull request as the change it records. Defined by [Configuration Plan](configuration-plan.md).
 
 ### Configuration review
-The goal-based evaluation of the configuration, recorded in [CM Evaluation](../reports/week-08/cm-evaluation.md).
+The goal-based evaluation of the configuration, recorded in [CM Evaluation](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-08/cm-evaluation.md).
 
 ### Configuration plan
 The maintained inventory at [Configuration Plan](configuration-plan.md).
@@ -144,7 +144,7 @@ The maintained inventory at [Configuration Plan](configuration-plan.md).
 One entry in the configuration plan, identified by `CFG-nn`.
 
 ### Configuration evaluation
-The review that judges each configuration item by the goal it serves, at [CM Evaluation](../reports/week-08/cm-evaluation.md).
+The review that judges each configuration item by the goal it serves, at [CM Evaluation](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-08/cm-evaluation.md).
 
 ### Baseline
 The tag or commit the configuration review judges.
@@ -165,4 +165,4 @@ A value that must not be committed, such as an API key or a password.
 The amount of text an agent can read at once; `AGENTS.md` keeps the context small and current.
 
 ### Agent instruction
-The file that tells an agent how the repository works, at [AGENTS.md](../AGENTS.md).
+The file that tells an agent how the repository works, at [AGENTS.md](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/AGENTS.md).

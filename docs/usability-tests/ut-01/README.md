@@ -14,7 +14,7 @@
 
 ## The Requirement
 
-This test serves [QR-07](../quality-requirements/qr/QR-07.md), Interaction Capability / Self-descriptiveness, with the median Task 1 SEQ as its measure and a bar of at least 5 of 7.
+This test serves [QR-07](../../quality-requirements/qr/QR-07.md), Interaction Capability / Self-descriptiveness, with the median Task 1 SEQ as its measure and a bar of at least 5 of 7.
 
 ## Participant Profile
 
@@ -96,7 +96,7 @@ See [`sessions/README.md`](sessions/README.md).
 - `usability_plugin_created_total` with `participant_code`, `source=usability-test`.
 - `usability_user_created_total` with `participant_code`, `source=usability-test`.
 
-All four are rows in [`docs/analytics.md#the-events`](../../analytics.md#the-events).
+All four are rows in [`docs/analytics.md#events`](../../analytics.md#events).
 
 **Environment:** staging deployment on the university network, seed reset to synthetic data before each session.
 
