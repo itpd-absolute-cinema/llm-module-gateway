@@ -1,6 +1,7 @@
 // Runs plugin code in the browser with Pyodide (Python compiled to WebAssembly) inside a Web Worker.
 // A worker can be terminated, so an infinite loop in a plugin cannot freeze the console.
-const PYODIDE = import.meta.env.VITE_PYODIDE_URL ?? 'https://cdn.jsdelivr.net/pyodide/v0.26.4/full'
+import { config } from './config'
+const PYODIDE = config.pyodideUrl
 
 // A stand-in for the Plugin Manager: provides the `plugin_api` module, finds the plugin class, calls apply(),
 // validates the result and collects metrics. Mirrors the contract described in PLUGINS.md.
@@ -159,7 +160,7 @@ export function runPlugin(a: { code: string; kind: string; request: string; resp
   const fail = (error: string): RunResult => ({ outcome: 'failed', error, problems: [], metrics: [], stdout: '', ms: 0 })
   return new Promise(resolve => {
     const stop = (msg: string) => { w.terminate(); if (worker === w) worker = null; resolve(fail(msg)) }
-    let timer = setTimeout(() => stop('Could not load the Python runtime. Check the internet connection (it is downloaded from ' + PYODIDE + ') or set VITE_PYODIDE_URL.'), 90000)
+    let timer = setTimeout(() => stop('Could not load the Python runtime. Check the internet connection (it is downloaded from ' + PYODIDE + ') or set PYODIDE_URL.'), 90000)
     w.onmessage = e => {
       if (e.data.id !== id) return
       if (e.data.phase === 'loading') onStatus('Loading the Python runtime (first run only)…')
