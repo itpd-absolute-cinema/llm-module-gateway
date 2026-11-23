@@ -6,7 +6,7 @@
 ## Per-participant table
 
 | Participant | Task 1 | Task 2 | Task 3 | Task 1 time | Task 2 time | Task 3 time | Total time |
-|---|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- | --- |
 | P-01 | Assisted | Unaided | Assisted | 4:37 | 0:30 | 0:34 | 5:41 |
 | P-02 | Unaided | Unaided | Unaided | 2:07 | 0:40 | 0:36 | 3:23 |
 | P-03 | Assisted | Unaided | Failed | 6:17 | 0:10 | 0:34 | 7:01 |
@@ -62,7 +62,7 @@ The telemetry export shows `source=usability-test` events for all three sessions
 **Tasks:** UT-01 Task 1, with UT-01 P-01 and UT-01 P-03.
 **Evidence:** [P-01](sessions/P-01.md), [P-03](sessions/P-03.md).
 **Recommendation:** Put the "New plugin" action in the plugin list header, next to the list title, not only in the top-right corner.
-**Task issue:** #<issue-number>
+**Task issue:** TBD
 
 ### Finding 2
 
@@ -70,4 +70,4 @@ The telemetry export shows `source=usability-test` events for all three sessions
 **Tasks:** UT-01 Task 1, with UT-01 P-01 and UT-01 P-03.
 **Evidence:** [P-01](sessions/P-01.md), [P-03](sessions/P-03.md).
 **Recommendation:** Add a one-line hint above the code editor: "The behavior goes here; no separate configuration field is needed."
-**Task issue:** #<issue-number>
+**Task issue:** TBD

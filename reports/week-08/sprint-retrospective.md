@@ -16,7 +16,7 @@
 ## Actions
 
 | Action | Owner | Impact | Reason | Carried |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | Add SEQ and SUS to the session template's observation flow, with a fixed pause after each task. | @FallenChromium | High | The ease and overall usability measures were not collected. | Yes |
 | Set a hard stop for each task and a total session time limit. | @b4lmor | High | Task 3 was not reached in one session. | Yes |
 | Write the sanitized notes on the same day, using a structured observation sheet. | @egozhuk | Medium | The write-up slipped to the next day. | No |

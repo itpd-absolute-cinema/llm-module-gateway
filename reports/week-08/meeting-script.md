@@ -12,7 +12,7 @@
 ## Agenda
 
 | Time | Item | Owner |
-|---|---|---|
+| --- | --- | --- |
 | 0:00–0:03 | Permission questions: may we record, may we publish the sanitized transcript, may we share it privately with instructors | @b4lmor |
 | 0:03–0:08 | Show the deployed production instance and the dashboards | @egozhuk |
 | 0:08–0:18 | Present the UT-01 results: counted sessions, completion, assistance, time, findings | @FallenChromium |

@@ -63,11 +63,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `docs/observability.md` with SLI-01 (Active) and SLI-02 (Planned).
 - `docs/deployment.md` now carries `## Analytics Pipeline` and `## Observability Pipeline`.
 
-## [Unreleased]
-
 ## [0.8.0] - 23.11.2026
 
 ### Added
+
 - UT-01 results with the three counted sessions, findings, and triage.
 - `docs/configuration-plan.md` with 9 Active `CFG-nn` items across five groups.
 - `reports/week-08/cm-evaluation.md` with four local goals and the first change.
@@ -75,6 +74,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Web admin UI - major update with all features for admins collected inside a gorgeous application!
 
 ### Changed
+
 - The testing plan records QR-07 QRT-01 as `Fails`.
 - `AGENTS.md` links the configuration plan.
 - `code/admin-ui` (NEW)

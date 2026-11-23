@@ -91,6 +91,7 @@ See [`sessions/README.md`](sessions/README.md).
 **Week 6 events reused:** `plugin_upload_requested_total`, `plugin_upload_completed_total`, `plugin_enabled_total`, `request_received_total`, `plugin_chain_completed_total`.
 
 **Events added:**
+
 - `usability_task_started_total` with `participant_code`, `task`, `source=usability-test`.
 - `usability_task_completed_total` with `participant_code`, `task`, `outcome`, `source=usability-test`.
 - `usability_plugin_created_total` with `participant_code`, `source=usability-test`.
@@ -111,6 +112,7 @@ All four are rows in [`docs/analytics.md#events`](../../analytics.md#events).
 **Per-participant table columns:** participant, Task 1/2/3 outcome, assistance, time, SEQ, SUS.
 
 **Aggregates:**
+
 - Task 1 completion rate and assistance count (the main task).
 - Median time per task.
 - Median SEQ per task.
@@ -149,7 +151,7 @@ Every counted session is preceded by the durable consent in [`consent.md`](conse
 ## Evidence Map
 
 | Evidence | Where | Public? |
-|---|---|---|
+| --- | --- | --- |
 | Sanitized session notes | `sessions/P-nn.md` | Yes |
 | Results and findings | `results.md` | Yes |
 | Consent template | `consent.md` | Yes |

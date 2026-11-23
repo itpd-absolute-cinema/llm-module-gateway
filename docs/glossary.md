@@ -129,40 +129,53 @@ The System Usability Scale: a ten-item questionnaire scored to a single number b
 The Single Ease Question: a one-item questionnaire scored from 1 to 7 after each task, used to record how easy the participant found that task.
 
 ### Configuration
+
 The set of files, settings, and secrets that determine how the product is built, checked, and deployed.
 
 ### Configuration management
+
 The practice of keeping the configuration accurate and current, in the same pull request as the change it records. Defined by [Configuration Plan](configuration-plan.md).
 
 ### Configuration review
+
 The goal-based evaluation of the configuration, recorded in [CM Evaluation](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-08/cm-evaluation.md).
 
 ### Configuration plan
+
 The maintained inventory at [Configuration Plan](configuration-plan.md).
 
 ### Configuration item
+
 One entry in the configuration plan, identified by `CFG-nn`.
 
 ### Configuration evaluation
+
 The review that judges each configuration item by the goal it serves, at [CM Evaluation](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-08/cm-evaluation.md).
 
 ### Baseline
+
 The tag or commit the configuration review judges.
 
 ### Upkeep
+
 The repository maintenance work that keeps the configuration current; a task that does this says `None: repository upkeep`.
 
 ### Reproducible build
+
 A build that produces the same result from the same commit; requires pinned dependencies.
 
 ### Dependency pinning
+
 Recording an exact version for each dependency, so a build does not pull a different version.
 
 ### Secret
+
 A value that must not be committed, such as an API key or a password.
 
 ### Context window
+
 The amount of text an agent can read at once; `AGENTS.md` keeps the context small and current.
 
 ### Agent instruction
+
 The file that tells an agent how the repository works, at [AGENTS.md](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/AGENTS.md).
