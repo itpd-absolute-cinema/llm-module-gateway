@@ -65,14 +65,19 @@ services:
   admin-ui:
     build:
       context: ./code/admin-ui
-      args:
-        VITE_KEYCLOAK_URL: http://localhost:8091
-        VITE_KEYCLOAK_REALM: gateway
-        VITE_KEYCLOAK_CLIENT: ac-gateway-admin
-        # VITE_GRAFANA_URL: "http://grafana.example.com/d/llm-gateway-plugins/llm-gateway-c2b7-plugins?from=now-6h&to=now&timezone=browser&var-plugin=$$__all&refresh=30s"  # $$ is compose escaping for $
     restart: unless-stopped
     depends_on:
       - gateway
+    environment:
+      # Keycloak as seen from the user's browser (required)
+      KEYCLOAK_PUBLIC_URL: ${KEYCLOAK_PUBLIC_URL:?set KEYCLOAK_PUBLIC_URL}
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM:-gateway}
+      KEYCLOAK_CLIENT: ${KEYCLOAK_CLIENT:-ac-gateway-admin}
+      # Optional: Grafana address, or a full dashboard URL (use $$ for a literal $ in compose files)
+      GRAFANA_PUBLIC_URL: ${GRAFANA_PUBLIC_URL:-}
+      # Optional: API address (default /api) and self-hosted Pyodide for the plugin Test tab
+      API_URL: ${ADMIN_UI_API_URL:-}
+      PYODIDE_URL: ${PYODIDE_URL:-}
     ports:
       - "${ADMIN_UI_PORT:-8092}:80"
   

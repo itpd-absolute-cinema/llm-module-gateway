@@ -1,9 +1,7 @@
+import { config } from './config'
 // Keycloak sign-in: Authorization Code + PKCE for a public client. No extra dependencies.
-const KC = {
-  url: import.meta.env.VITE_KEYCLOAK_URL ?? 'http://localhost:8091',
-  realm: import.meta.env.VITE_KEYCLOAK_REALM ?? 'gateway',
-  client: import.meta.env.VITE_KEYCLOAK_CLIENT ?? 'ac-gateway-admin',
-}
+// The address comes from the runtime config (/config.js), so one image works in every environment.
+const KC = { url: config.keycloakUrl, realm: config.keycloakRealm, client: config.keycloakClient }
 const base = `${KC.url}/realms/${KC.realm}/protocol/openid-connect`
 const redirect = () => location.origin + '/'
 interface Tok { access: string; refresh?: string; exp: number }
@@ -34,6 +32,7 @@ export function lose() {
   dispatchEvent(new Event('ac-auth-lost'))
 }
 export async function login() {
+  if (!KC.url) throw new Error('Keycloak address is not configured. Set KEYCLOAK_PUBLIC_URL for the admin-ui container.')
   const verifier = rnd(), state = rnd()
   sessionStorage.setItem('ac-pkce', JSON.stringify({ verifier, state }))
   const challenge = b64(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier)))

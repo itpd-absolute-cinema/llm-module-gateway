@@ -1,11 +1,12 @@
 import type { AdminModel, AuditEntry, Page, Plugin, PluginType, PriceItem, PricingTable, Status, Timeseries, UsageEvent, UsageSummary, UserView } from './types'
 import { getToken, lose } from './auth'
+import { config } from './config'
 
 export interface Cfg { url: string; token: string; demo: boolean }
 const KEY = 'gw-admin-cfg'
 
 export function getCfg(): Cfg {
-  const d: Cfg = { url: import.meta.env.VITE_API_URL ?? '/api', token: '', demo: false }
+  const d: Cfg = { url: config.apiUrl, token: '', demo: false }
   try { return { ...d, ...JSON.parse(localStorage.getItem(KEY) || '{}') } } catch { return d }
 }
 export function saveCfg(c: Cfg) { try { localStorage.setItem(KEY, JSON.stringify(c)) } catch { /* storage unavailable */ } }
