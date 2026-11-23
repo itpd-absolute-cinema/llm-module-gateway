@@ -33,7 +33,7 @@
     },
     {
       "clientId": "ac-gateway-admin",
-      "name": "AC-Gateway Admin Console",
+      "name": "AC Gateway Admin Console",
       "enabled": true,
       "protocol": "openid-connect",
       "publicClient": true,
@@ -42,16 +42,18 @@
       "implicitFlowEnabled": false,
       "serviceAccountsEnabled": false,
       "redirectUris": [
+        "${ADMIN_UI_PUBLIC_URL}/*",
         "http://localhost:8092/*",
         "http://localhost:5173/*"
       ],
       "webOrigins": [
+        "${ADMIN_UI_PUBLIC_URL}",
         "http://localhost:8092",
         "http://localhost:5173"
       ],
       "attributes": {
         "pkce.code.challenge.method": "S256",
-        "post.logout.redirect.uris": "http://localhost:8092/*##http://localhost:5173/*"
+        "post.logout.redirect.uris": "${ADMIN_UI_PUBLIC_URL}/*##http://localhost:8092/*##http://localhost:5173/*"
       }
     },
     {

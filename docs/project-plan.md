@@ -110,25 +110,25 @@ Released as [v0.3.0](https://github.com/itpd-absolute-cinema/llm-module-gateway/
 <a id="sprint-08--end-to-end-verification-provisional"></a>
 <!-- markdownlint-enable MD033 -->
 
-### SPRINT-08
+### SPRINT-08 – Usability Results And Configuration Review
 
-**Goal:** Provisional — run `UT-01` on staging, publish the sanitized findings, record the usability quality requirement verdict, and release `REL-08`.
+**Goal:** Run the UT-01 sessions, record the results and their triage, evaluate the project's configuration against the goals it serves, and cut REL-08 with the fix the sprint lands.
 
 **Due:** 2026-11-21
 
-**Sprint Backlog:** [SPRINT-08 milestone](https://github.com/itpd-absolute-cinema/llm-module-gateway/milestone/6)
+**Sprint Backlog:** SPRINT-08 milestone
 
-See the [Sprint 08 task drafts](sprint-07-planning.md#sprint-08-task-drafts) for verification, sessions, and results.
+**Planned Velocity:** 3
+
+**Actual Velocity:** 5
 
 #### REL-08
 
-### SPRINT-09 – MVP Completion and Acceptance Evidence (Provisional)
+### SPRINT-09 – Final State And Presentation
 
-**Goal:** Provisional – address remaining MVP gaps, verify the agreed Threshold of Success criteria, and prepare the final demonstration and documentation.
+**Goal:** Provisional – deliver the final repository state, the 7-minute deck, and the reflection; close the remaining backlog items the team commits to.
 
-**Due:** 28 November 2026
-
-#### REL-09
+**Due:** 2026-11-28
 
 ## Progress Monitoring
 
