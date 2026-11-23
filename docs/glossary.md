@@ -138,7 +138,7 @@ The practice of keeping the configuration accurate and current, in the same pull
 
 ### Configuration review
 
-The goal-based evaluation of the configuration, recorded in [CM Evaluation](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-08/cm-evaluation.md).
+The goal-based evaluation of the configuration, recorded in [CM Evaluation](../reports/week-08/cm-evaluation.md).
 
 ### Configuration plan
 
@@ -150,7 +150,7 @@ One entry in the configuration plan, identified by `CFG-nn`.
 
 ### Configuration evaluation
 
-The review that judges each configuration item by the goal it serves, at [CM Evaluation](https://github.com/itpd-absolute-cinema/llm-module-gateway/blob/main/reports/week-08/cm-evaluation.md).
+The review that judges each configuration item by the goal it serves, at [CM Evaluation](../reports/week-08/cm-evaluation.md).
 
 ### Baseline
 
