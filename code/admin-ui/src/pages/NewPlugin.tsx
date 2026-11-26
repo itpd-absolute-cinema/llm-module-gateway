@@ -7,6 +7,7 @@ import { useLoad, useToast } from '../components/ui'
 import Workbench from '../components/Workbench'
 import Markdown from '../components/Markdown'
 import { buildPrompt, fetchGuide } from '../guide'
+import { copyText } from '../clipboard'
 import { analyzePlugin } from '../plugincheck'
 import PluginIssues from '../components/PluginIssues'
 
@@ -18,8 +19,8 @@ function GuidePanel({ onClose }: { onClose: () => void }) {
   const [task, setTask] = useState('')
   async function copy() {
     if (!g.data) return
-    try { await navigator.clipboard.writeText(buildPrompt(g.data, task)); toast('Prompt copied. Paste it into your AI chat') }
-    catch { toast('Could not access the clipboard', true) }
+    try { await copyText(buildPrompt(g.data, task)); toast('Prompt copied. Paste it into your AI chat') }
+    catch { toast('Could not copy. Select the guide text and copy it manually', true) }
   }
   return (
     <motion.aside className="np-guide" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 30 }} transition={{ duration: .2 }}>
