@@ -1,4 +1,5 @@
 import { config } from './config'
+import { digestSha256 } from './sha256'
 // Keycloak sign-in: Authorization Code + PKCE for a public client. No extra dependencies.
 // The address comes from the runtime config (/config.js), so one image works in every environment.
 const KC = { url: config.keycloakUrl, realm: config.keycloakRealm, client: config.keycloakClient }
@@ -35,7 +36,7 @@ export async function login() {
   if (!KC.url) throw new Error('Keycloak address is not configured. Set KEYCLOAK_PUBLIC_URL for the admin-ui container.')
   const verifier = rnd(), state = rnd()
   sessionStorage.setItem('ac-pkce', JSON.stringify({ verifier, state }))
-  const challenge = b64(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier)))
+  const challenge = b64(await digestSha256(new TextEncoder().encode(verifier))) // works over plain http too
   location.href = `${base}/auth?` + new URLSearchParams({ client_id: KC.client, redirect_uri: redirect(), response_type: 'code', scope: 'openid profile email', code_challenge: challenge, code_challenge_method: 'S256', state })
 }
 /** Call once before rendering: finishes the redirect from Keycloak if we just came back. */

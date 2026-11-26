@@ -38,7 +38,7 @@ export const STEPS: Step[] = [
   { id: 'models', ch: 'Menu', title: 'Models', path: '/models', target: 'nav-models',
     body: <p>Models of the upstream LLM and their price per 1M input and output tokens. New prices apply only to future requests.</p> },
   { id: 'users', ch: 'Menu', title: 'Users', path: '/users', target: 'nav-users',
-    body: <p>Create users, check their 30-day usage, and block or unblock them. A block takes effect on the next request.</p> },
+    body: <p>Create users, check their 30-day usage, and block or unblock them. A block takes effect on the next request. The <b>Setup</b> tab generates the OpenCode config.</p> },
   { id: 'audit', ch: 'Menu', title: 'Audit log', path: '/audit', target: 'nav-audit',
     body: <p>Who changed plugins, users and prices. Click a row to see the state before and after.</p> },
   { id: 'grafana', ch: 'Menu', title: 'Grafana', target: 'nav-grafana',

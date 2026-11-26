@@ -27,6 +27,9 @@ KEYCLOAK_REALM="${KEYCLOAK_REALM:-gateway}"
 KEYCLOAK_CLIENT="${KEYCLOAK_CLIENT:-ac-gateway-admin}"
 GRAFANA_PUBLIC_URL="${GRAFANA_PUBLIC_URL:-}"
 [ -z "$GRAFANA_PUBLIC_URL" ] || http_url GRAFANA_PUBLIC_URL "$GRAFANA_PUBLIC_URL"
+GATEWAY_PUBLIC_URL="${GATEWAY_PUBLIC_URL:-}"
+[ -z "$GATEWAY_PUBLIC_URL" ] || http_url GATEWAY_PUBLIC_URL "$GATEWAY_PUBLIC_URL"
+OPENCODE_CLIENT_ID="${OPENCODE_CLIENT_ID:-gateway}"
 API_URL="${API_URL:-}"
 PYODIDE_URL="${PYODIDE_URL:-}"
 
@@ -35,6 +38,8 @@ J_URL=$(js_string KEYCLOAK_PUBLIC_URL "$KEYCLOAK_PUBLIC_URL") || exit 1
 J_REALM=$(js_string KEYCLOAK_REALM "$KEYCLOAK_REALM") || exit 1
 J_CLIENT=$(js_string KEYCLOAK_CLIENT "$KEYCLOAK_CLIENT") || exit 1
 J_GRAFANA=$(js_string GRAFANA_PUBLIC_URL "$GRAFANA_PUBLIC_URL") || exit 1
+J_GATEWAY=$(js_string GATEWAY_PUBLIC_URL "$GATEWAY_PUBLIC_URL") || exit 1
+J_OCCLIENT=$(js_string OPENCODE_CLIENT_ID "$OPENCODE_CLIENT_ID") || exit 1
 J_API=$(js_string API_URL "$API_URL") || exit 1
 J_PYODIDE=$(js_string PYODIDE_URL "$PYODIDE_URL") || exit 1
 
@@ -47,6 +52,8 @@ TMP="$OUT.tmp"
   printf '%s\n' "  keycloakRealm: $J_REALM,"
   printf '%s\n' "  keycloakClient: $J_CLIENT,"
   printf '%s\n' "  grafanaUrl: $J_GRAFANA,"
+  printf '%s\n' "  gatewayUrl: $J_GATEWAY,"
+  printf '%s\n' "  opencodeClientId: $J_OCCLIENT,"
   printf '%s\n' "  apiUrl: $J_API,"
   printf '%s\n' "  pyodideUrl: $J_PYODIDE"
   printf '%s\n' "});"
