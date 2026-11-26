@@ -3,6 +3,8 @@ import { blockUser, createUser, listUsers, unblockUser, usageSummary } from '../
 import type { UserView } from '../types'
 import { Drawer, Modal, Pager, useLoad, useToast } from '../components/ui'
 import { int, money, num, when } from '../fmt'
+import OpenCodeConfig from '../components/OpenCodeConfig'
+import OpenCodeGuide from '../components/OpenCodeGuide'
 
 function status(u: UserView) {
   if (u.blocked) return <span className="pill2 bad">Blocked</span>
@@ -16,6 +18,7 @@ export default function Users() {
   const [target, setTarget] = useState<UserView | null>(null), [reason, setReason] = useState(''), [busy, setBusy] = useState(false)
   const [open, setOpen] = useState<UserView | null>(null)
   const [create, setCreate] = useState(false)
+  const [tab, setTab] = useState<'users' | 'setup'>('users'), [ocOpen, setOcOpen] = useState(false), [guideOpen, setGuideOpen] = useState(false)
   const d = useLoad(() => listUsers({ search, page, size: 15 }), [search, page])
 
   async function block(e: FormEvent) {
@@ -32,7 +35,22 @@ export default function Users() {
   return (
     <>
       <div className="head"><div><h1>Users</h1><p className="lead">People and services calling the gateway. Blocking takes effect on their next request.</p></div>
-        <button className="btn pri" onClick={() => setCreate(true)}>Create user</button></div>
+        {tab === 'users' && <button className="btn pri" onClick={() => setCreate(true)}>Create user</button>}</div>
+      <div className="seg mb" data-tour="users-tabs" role="tablist" aria-label="Users sections">
+        <button type="button" role="tab" aria-selected={tab === 'users'} className={tab === 'users' ? 'on' : ''} onClick={() => setTab('users')}>Users</button>
+        <button type="button" role="tab" aria-selected={tab === 'setup'} className={tab === 'setup' ? 'on' : ''} onClick={() => setTab('setup')}>Setup</button>
+      </div>
+      {tab === 'setup' && (
+        <div className="card">
+          <h2>Connect OpenCode</h2>
+          <p className="muted">Generate the OpenCode configuration for signing in through Keycloak and using the gateway models.</p>
+          <div className="acts">
+            <button className="btn pri" onClick={() => setOcOpen(true)}>OpenCode config</button>
+            <button className="btn" onClick={() => setGuideOpen(true)}>Setup instructions</button>
+          </div>
+        </div>
+      )}
+      {tab === 'users' && (<>
       <form className="filters" onSubmit={e => { e.preventDefault(); setPage(0); setSearch(q.trim()) }}>
         <div><label htmlFor="s">Search</label><input id="s" value={q} onChange={e => setQ(e.target.value)} placeholder="Username or email" /></div>
         <button className="btn pri">Search</button>
@@ -52,7 +70,10 @@ export default function Users() {
         {d.data && !d.data.items.length && <div className="state">No users found</div>}
         {d.data && <Pager page={d.data.page} size={d.data.size} total={d.data.total} onPage={setPage} />}
       </div>
+      </>)}
 
+      <OpenCodeConfig open={ocOpen} onClose={() => setOcOpen(false)} />
+      <OpenCodeGuide open={guideOpen} onClose={() => setGuideOpen(false)} />
       <CreateUserModal open={create} onClose={() => setCreate(false)} onDone={() => { setCreate(false); toast('User created with the chat role'); d.reload() }} />
       <Modal open={!!target} onClose={() => setTarget(null)}>
         <form onSubmit={block}>

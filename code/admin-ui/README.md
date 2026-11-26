@@ -35,6 +35,8 @@ Change `.env` and recreate the container (`docker compose up -d --force-recreate
 | `KEYCLOAK_REALM` | `gateway` | Realm |
 | `KEYCLOAK_CLIENT` | `ac-gateway-admin` | Public client id |
 | `GRAFANA_PUBLIC_URL` | empty | Grafana address, or a full dashboard URL. Empty: the host the console is opened on, port 3000 |
+| `GATEWAY_PUBLIC_URL` | `http(s)://<console host>:8080` | Gateway address for users' tools; used as `baseURL` in the OpenCode config (Users → Setup) |
+| `OPENCODE_CLIENT_ID` | `gateway` | Public Keycloak client for OpenCode logins |
 | `API_URL` | `/api` | Gateway API address (compose passes it from `ADMIN_UI_API_URL`) |
 | `PYODIDE_URL` | jsDelivr | Self-hosted Pyodide for the Test tab |
 
