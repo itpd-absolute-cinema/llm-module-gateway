@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Modal, useLoad, useToast } from './ui'
 import { listModels } from '../api'
 import { config } from '../config'
+import { copyText } from '../clipboard'
 
 const ACRONYMS = new Set(['gpt', 'llm', 'ai', 'api'])
 /** "stub-model" -> "Stub Model", "gpt-test" -> "GPT Test" */
@@ -23,16 +24,6 @@ export function buildOpenCodeConfig(o: { issuer: string; clientId: string; baseU
       },
     },
   }
-}
-
-/** Clipboard API needs HTTPS; on plain http (e.g. a VM address) fall back to a hidden textarea. */
-async function copyText(text: string) {
-  try { await navigator.clipboard.writeText(text); return } catch { /* try the fallback */ }
-  const t = document.createElement('textarea')
-  t.value = text; t.style.position = 'fixed'; t.style.opacity = '0'
-  document.body.appendChild(t); t.select()
-  const ok = document.execCommand('copy'); t.remove()
-  if (!ok) throw new Error('copy failed')
 }
 
 function Body({ onClose }: { onClose: () => void }) {
