@@ -1,3 +1,4 @@
+import { copyText } from './clipboard'
 /** The plugin guide is a plain markdown file served next to the app, so it can be replaced without a rebuild. */
 export async function fetchGuide(): Promise<string> {
   const r = await fetch(import.meta.env.BASE_URL + 'PLUGINS.md', { cache: 'no-store' })
@@ -7,5 +8,5 @@ export async function fetchGuide(): Promise<string> {
 }
 export const buildPrompt = (md: string, task: string) => task.trim() ? `${md.trimEnd()}\n\n## Task\n${task.trim()}\n` : md
 export async function copyPrompt(task = ''): Promise<void> {
-  await navigator.clipboard.writeText(buildPrompt(await fetchGuide(), task))
+  await copyText(buildPrompt(await fetchGuide(), task))
 }
