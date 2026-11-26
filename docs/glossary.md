@@ -136,10 +136,6 @@ The set of files, settings, and secrets that determine how the product is built,
 
 The practice of keeping the configuration accurate and current, in the same pull request as the change it records. Defined by [Configuration Plan](configuration-plan.md).
 
-### Configuration review
-
-The goal-based evaluation of the configuration, recorded in [CM Evaluation](../reports/week-08/cm-evaluation.md).
-
 ### Configuration plan
 
 The maintained inventory at [Configuration Plan](configuration-plan.md).
