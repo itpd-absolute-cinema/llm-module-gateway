@@ -148,10 +148,6 @@ The maintained inventory at [Configuration Plan](configuration-plan.md).
 
 One entry in the configuration plan, identified by `CFG-nn`.
 
-### Configuration evaluation
-
-The review that judges each configuration item by the goal it serves, at [CM Evaluation](../reports/week-08/cm-evaluation.md).
-
 ### Baseline
 
 The tag or commit the configuration review judges.
