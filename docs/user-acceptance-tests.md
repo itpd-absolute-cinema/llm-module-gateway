@@ -5,7 +5,7 @@ Index of the customer's acceptance tests. Each test is a customer journey that t
 ## The Tests
 
 | ID | Journey | Status |
-|---|---|---|
+| --- | --- | --- |
 | [UAT-01](#uat-01) | A DevOps engineer creates a plugin and configures it in the plugin chain | Planned |
 | [UAT-02](#uat-02) | A DevOps engineer creates a user | Planned |
 | [UAT-03](#uat-03) | A coder connects the AC Gateway to OpenCode | Planned |
@@ -60,7 +60,7 @@ Index of the customer's acceptance tests. Each test is a customer journey that t
 ## The Runs
 
 | UAT | Sprint | Date | Runner | Reviewed build | Result | Evidence | Decision |
-|---|---|---|---|---|---|---|---|
-| UAT-01 | SPRINT-09 | 27.11.2026 | Customer | <build> | <Pass / Fail / Not run> | [meeting report](../reports/week-09/meeting-report.md#user-acceptance-tests) | DEC-13 |
-| UAT-02 | SPRINT-09 | 27.11.2026 | Customer | <build> | <Pass / Fail / Not run> | [meeting report](../reports/week-09/meeting-report.md#user-acceptance-tests) | DEC-14 |
-| UAT-03 | SPRINT-09 | 27.11.2026 | Customer | <build> | <Pass / Fail / Not run> | [meeting report](../reports/week-09/meeting-report.md#user-acceptance-tests) | DEC-15 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| UAT-01 | SPRINT-09 | 27.11.2026 | Customer | `<build>` | `<Pass / Fail / Not run>` | [meeting report](../reports/week-09/meeting-report.md#user-acceptance-tests) | DEC-13 |
+| UAT-02 | SPRINT-09 | 27.11.2026 | Customer | `<build>` | `<Pass / Fail / Not run>` | [meeting report](../reports/week-09/meeting-report.md#user-acceptance-tests) | DEC-14 |
+| UAT-03 | SPRINT-09 | 27.11.2026 | Customer | `<build>` | `<Pass / Fail / Not run>` | [meeting report](../reports/week-09/meeting-report.md#user-acceptance-tests) | DEC-15 |
