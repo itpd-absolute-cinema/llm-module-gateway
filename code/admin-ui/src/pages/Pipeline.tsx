@@ -164,8 +164,6 @@ export default function Pipeline() {
             initial={{ opacity: 0, scale: .92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .96 }} transition={{ duration: .12 }}
             onClick={e => e.stopPropagation()}>
             <button onClick={() => { setMenu(null); toggle(mp) }}>{mp.enabled ? 'Disable (bypass)' : 'Enable'}</button>
-            <button onClick={() => { setMenu(null); setOpen(mp.name) }}>Settings</button>
-            <button onClick={() => { setMenu(null); setCodeFor(mp.name) }}>Edit code</button>
             <button onClick={() => { setMenu(null); window.open(grafanaUrl(mp.name), '_blank', 'noopener') }}>Metrics in Grafana ↗</button>
             <button disabled={mArr[0] === mp} onClick={() => { setMenu(null); move(mp, mArr[0].name) }}>Move to top of group</button>
             <button disabled={mArr[mArr.length - 1] === mp} onClick={() => { setMenu(null); move(mp, undefined, mArr[mArr.length - 1].name) }}>Move to bottom of group</button>

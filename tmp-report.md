@@ -10,6 +10,6 @@
 | m1staken | Albina Khismatova | <a.khismatova@innopolis.university> |
 | FallenChromium | Pavel Nasevich | <p.nasevich@innopolis.university> |
 
-**Week 8 report:** [reports/week-08/README.md](reports/week-08/README.md)
+**Week 9 report:** [reports/week-09/README.md](reports/week-09/README.md)
 
-**Submission commit:** `2c7b4352fd03ecc749097592a469bbedc15266c3`
+**Submission commit:** `TODO`
